@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 public class PauseGame : MonoBehaviour
 {
 
-    public GameObject Escape_Button;
-    public GameObject Scroll_UI;
+    public GameObject escape_Button;
+    public GameObject pause_UI;
+    public GameObject transparentBackground;
     private PlayerNavigationManager _playerNavigationManager;
 
     private void Awake()
@@ -17,7 +18,8 @@ public class PauseGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Scroll_UI.SetActive(false);
+        pause_UI.SetActive(false);
+        transparentBackground.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,14 +30,16 @@ public class PauseGame : MonoBehaviour
 
     public void ResumeLevel()
     {
-        Scroll_UI.SetActive(false);
+        pause_UI.SetActive(false);
+        transparentBackground.SetActive(false);
         _playerNavigationManager.isControllerActive = true;
 
     }
 
     public void PauseLevel()
     {
-        Scroll_UI.SetActive(true);
+        pause_UI.SetActive(true);
+        transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
 
 
