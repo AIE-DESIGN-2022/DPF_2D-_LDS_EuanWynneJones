@@ -23,4 +23,9 @@ public class QuitGame : MonoBehaviour
             print("QUITTING");
             Application.Quit(); 
         }
+    public void QuitToMenuFunction()
+    {
+        print("QUITTING TO MENU");
+        SceneManager.LoadScene("TitleScene");
+    }
 }
