@@ -25,7 +25,18 @@ public class PauseGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pause_UI.activeInHierarchy)
+            {
+                ResumeLevel();
+            }
+            else
+            {
+                PauseLevel();
+            }
+        }
+        
     }
 
     public void ResumeLevel()
@@ -41,8 +52,6 @@ public class PauseGame : MonoBehaviour
         pause_UI.SetActive(true);
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
-
-
 
     }
 
