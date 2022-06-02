@@ -3434,7 +3434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586023006849512606, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1561029929570031595, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: m_Constraints
@@ -3443,6 +3443,10 @@ PrefabInstance:
     - target: {fileID: 1561029929570031595, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561029929570031595, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3777380277521505967, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: m_Name
@@ -3500,5 +3504,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7165884959143401366, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3866394893613834405}
   - component: {fileID: 586023006849512606}
   - component: {fileID: 1561029929570031595}
+  - component: {fileID: 2121152811086365960}
+  - component: {fileID: 3974968376644594602}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: EnemyMelee
@@ -115,6 +117,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2121152811086365960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777380277521505967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb193863816ec0c46b8e55ad7e871f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAttack: 1
+  damage: 10
+  attackTime: 0.3
+--- !u!114 &3974968376644594602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777380277521505967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7331daabbf156a348bebf3aa3290c7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: 0
+  enemyMaxHealth: 100
+  enemyHealthBar: {fileID: 0}
 --- !u!1 &3841559538268665315
 GameObject:
   m_ObjectHideFlags: 0

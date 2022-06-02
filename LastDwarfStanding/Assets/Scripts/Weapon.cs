@@ -6,11 +6,12 @@ public class Weapon : MonoBehaviour
 {
     public float damage;
     public float lifeTime;
-
+    bool canHit;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine("SwingTimer");
+        canHit = true;
     }
 
     // Update is called once per frame
@@ -24,15 +25,20 @@ public class Weapon : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionStay(Collision other)
+    public void OnCollisionEnter(Collision other)
     {
+        Debug.Log("Collided");
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
         {
             if (other.gameObject.tag == "EnemyMelee")
             {
-                //other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
+                if (canHit)
+                {
+                    other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
+                    canHit=false;
+                }
             }
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 }
