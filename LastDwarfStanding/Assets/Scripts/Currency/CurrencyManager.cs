@@ -10,16 +10,21 @@ public class CurrencyManager : MonoBehaviour
     public Text currencyAmountText;
 
 
+    private PlayerSoundManager _playerSoundManager;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         UpdateCurrencyText();
+        _playerSoundManager = GetComponent<PlayerSoundManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
     private void UpdateCurrencyText()
     {
@@ -28,6 +33,8 @@ public class CurrencyManager : MonoBehaviour
     public void AddCurrency(int _currencyToAdd)
     {
         //add currency amount from pickup item to total currencycount
+
+        _playerSoundManager.PlayAudioClip("Coin");
         currentCurrencyAmount += _currencyToAdd;
         //call the function to update the text to match current currency amount
         UpdateCurrencyText();

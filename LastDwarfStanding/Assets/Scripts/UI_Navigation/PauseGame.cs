@@ -19,8 +19,7 @@ public class PauseGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (scrollUIAudio != null) scrollUIAudio.Play();
-        else Debug.LogError("ScrollUIAudio not found");
+
         pause_UI.SetActive(false);
         transparentBackground.SetActive(false);
     }
@@ -30,14 +29,7 @@ public class PauseGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (pause_UI.activeInHierarchy)
-            {
-                ResumeLevel();
-            }
-            else
-            {
-                PauseLevel();
-            }
+            PauseMenuToggle();
         }
         
     }
@@ -55,8 +47,27 @@ public class PauseGame : MonoBehaviour
         pause_UI.SetActive(true);
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
-        if(scrollUIAudio != null) scrollUIAudio.Play();
 
     }
 
+    public void PauseMenuToggle()
+    {
+        if (pause_UI.activeInHierarchy)
+        {
+            ResumeLevel();
+        }
+        else
+        {
+            PauseLevel();
+        }
+        if (scrollUIAudio != null) scrollUIAudio.Play();
+        else Debug.LogError("ScrollUIAudio not found");
+
+    }
+
+    public bool PauseMenuActive()
+    {
+        return pause_UI.activeInHierarchy;
+
+    }
 }

@@ -10,14 +10,18 @@ public class WeaponManager : MonoBehaviour
     public GameObject weapon;
     public float swingDelay;
     private PlayerNavigationManager _playerNavigationManager;
-    public AudioSource weaponAudio;
+    private PauseGame _pauseGame;
+
+    private PlayerSoundManager _playerSoundManager;
 
     private float _spawnTimer;
 
     private void Awake()
     {
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
-        weaponAudio = GetComponent<AudioSource>(); 
+        _playerSoundManager = GetComponent<PlayerSoundManager>();
+        _pauseGame = FindObjectOfType<PauseGame>();
+
     }
     // Start is called before the first frame update
     void Start()
@@ -33,17 +37,16 @@ public class WeaponManager : MonoBehaviour
         _spawnTimer += Time.deltaTime;
         if (_spawnTimer >= swingDelay)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && UnityEngine.EventSystems.EventSystem.current != null &&
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
+
                 GameObject weaponClone = Instantiate(weapon, weaponPosition.position, weaponPosition.rotation);
                 weaponClone.transform.parent = weaponPosition.transform;
                 _spawnTimer = 0;
-                if(weaponAudio != null)
-                {
-                weaponAudio.Play();
-                    print("Weapon sound played");
+                _playerSoundManager.PlayAudioClip("Swoosh");
 
-                }
+
             }
 
         }

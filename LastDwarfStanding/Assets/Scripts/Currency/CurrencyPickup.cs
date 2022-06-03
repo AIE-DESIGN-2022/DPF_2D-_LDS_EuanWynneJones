@@ -12,6 +12,8 @@ public class CurrencyPickup : MonoBehaviour
     void Start()
     {
         _currencyManager = FindObjectOfType<CurrencyManager>();
+
+
     }
 
     // Update is called once per frame
@@ -19,8 +21,10 @@ public class CurrencyPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+
             //adding the value of the picked up currency to the currency value
             _currencyManager.AddCurrency(currencyValue);
+
             //destroys the currency object once it has been picked up and added to currencyAmount 
             Destroy(gameObject);
         }
