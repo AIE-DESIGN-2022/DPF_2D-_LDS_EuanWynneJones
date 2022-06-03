@@ -7,6 +7,7 @@ TagManager:
   - EnemyMelee
   - Weapon
   - Environment
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX

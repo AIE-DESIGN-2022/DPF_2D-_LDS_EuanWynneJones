@@ -14,7 +14,7 @@ public enum EnemyState
 
 
 
-public class EnemyNavigation : MonoBehaviour
+public class EnemyNavigationManager : MonoBehaviour
 {
     public float distanceReachedThreashold;
     public float playerChaseThreashold;
@@ -28,7 +28,7 @@ public class EnemyNavigation : MonoBehaviour
     private GameObject _target;
 
 
-    public Transform[] patrolPoints;
+    public Transform[] TargetDirection;
     private NavMeshAgent _agent;
 
 
@@ -61,7 +61,7 @@ public class EnemyNavigation : MonoBehaviour
     {
 
         
-        float distanceToTarget = Vector3.Distance(transform.position, patrolPoints[_currentDestination].position);
+        float distanceToTarget = Vector3.Distance(transform.position, TargetDirection[_currentDestination].position);
         float distanceToPlayer = Vector3.Distance(transform.position, _target.transform.position);
 
         if (enemyState == EnemyState.MoveTowardsBase)
@@ -106,7 +106,7 @@ public class EnemyNavigation : MonoBehaviour
                 enemyState = EnemyState.MoveTowardsBase;
 
                 //manually assigning the current patrol point to the enemies next location
-                _agent.SetDestination(patrolPoints[_currentDestination].position);
+                _agent.SetDestination(TargetDirection[_currentDestination].position);
             }
         }
 
@@ -144,10 +144,10 @@ public class EnemyNavigation : MonoBehaviour
     void SetAgentPatrolDesination()
     {
         //checking to make sure we have a patrol point to move to, that the array has not run out
-        if (patrolPoints.Length > _nextLocation)
+        if (TargetDirection.Length > _nextLocation)
         {
             //if we do have the next position avalible in the array, set the desination to this next point 
-            _agent.SetDestination(patrolPoints[_nextLocation].position);
+            _agent.SetDestination(TargetDirection[_nextLocation].position);
 
             //adding 1 to the next location so that next time the function is called we are moving to the next point properly 
             _currentDestination = _nextLocation;

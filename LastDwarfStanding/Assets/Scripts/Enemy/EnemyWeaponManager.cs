@@ -33,17 +33,19 @@ public class EnemyWeaponManager : MonoBehaviour
         if (!isRangedClass)
         {
             canAttack = true;
+            
             GameObject weaponClone = Instantiate(enemyWeapon, weaponPosition.position, weaponPosition.rotation);
+            Debug.Log("Weapon instantiated");
             weaponClone.transform.parent = weaponPosition.transform;
             yield return new WaitForSeconds(attackTime);
         }
-        /*else
+        else
         {
-            _player.GetComponent<HealthManager>().TakeDamage(damage);
+            _player.GetComponent<PlayerHealthManager>().TakeDamage(damage);
         }
         yield return new WaitForSeconds(attackTime);
         canAttack = true;
-        */
+        
 
     }
 }

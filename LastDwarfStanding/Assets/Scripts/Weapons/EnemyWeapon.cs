@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class EnemyWeapon : MonoBehaviour
 {
     public float damage;
     public float lifeTime;
@@ -28,18 +28,18 @@ public class Weapon : MonoBehaviour
     public void OnCollisionEnter(Collision other)
     {
         Debug.Log("Collided");
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
-        {
-            if (other.gameObject.tag == "EnemyMelee")
+        if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
+            if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
             {
-                if (canHit)
+                if (other.gameObject.tag == "Player")
                 {
-                    other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
-                    canHit=false;
+                    if (canHit)
+                    {
+                        other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
+                        canHit = false;
+                    }
                 }
+                Destroy(transform.parent.gameObject);
             }
-            Destroy(transform.parent.gameObject);
-        }
     }
 }

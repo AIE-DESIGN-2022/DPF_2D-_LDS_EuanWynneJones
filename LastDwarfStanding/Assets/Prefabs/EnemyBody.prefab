@@ -101,9 +101,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416928327982873774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -114.816025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5990391791507030090}
   m_Father: {fileID: 5790485800663988248}
@@ -111,9 +111,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 841.3806, y: 295.18283}
+  m_SizeDelta: {x: 1774, y: 998}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7109292218440038764
 Canvas:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ Canvas:
   m_GameObject: {fileID: 1416928327982873774}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4284674334238256320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 1561029929570031595}
   - component: {fileID: 2121152811086365960}
   - component: {fileID: 3974968376644594602}
+  - component: {fileID: 7928292059974253364}
   m_Layer: 0
   m_Name: EnemyBody
   m_TagString: EnemyMelee
@@ -411,8 +412,8 @@ MonoBehaviour:
   canAttack: 1
   damage: 10
   attackTime: 0.3
-  weaponPosition: {fileID: 0}
-  enemyWeapon: {fileID: 0}
+  weaponPosition: {fileID: 6502802064843325733}
+  enemyWeapon: {fileID: 6303732872406487524, guid: 687b7003e55e5d340947619b7f596027, type: 3}
   isRangedClass: 0
 --- !u!114 &3974968376644594602
 MonoBehaviour:
@@ -429,6 +430,24 @@ MonoBehaviour:
   enemyHealth: 0
   enemyMaxHealth: 100
   enemyHealthBar: {fileID: 6387930008308253863}
+--- !u!114 &7928292059974253364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777380277521505967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9fb3065194889449cdfd2b8297a374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceReachedThreashold: 1
+  playerChaseThreashold: 3
+  attackRange: 1
+  enemyState: 0
+  TargetDirection: []
+  enemyCombat: {fileID: 0}
 --- !u!1 &3841559538268665315
 GameObject:
   m_ObjectHideFlags: 0
