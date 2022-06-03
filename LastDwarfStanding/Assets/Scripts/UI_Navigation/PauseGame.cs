@@ -9,6 +9,7 @@ public class PauseGame : MonoBehaviour
     public GameObject pause_UI;
     public GameObject transparentBackground;
     private PlayerNavigationManager _playerNavigationManager;
+    public AudioSource scrollUIAudio;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class PauseGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (scrollUIAudio != null) scrollUIAudio.Play();
+        else Debug.LogError("ScrollUIAudio not found");
         pause_UI.SetActive(false);
         transparentBackground.SetActive(false);
     }
@@ -52,6 +55,7 @@ public class PauseGame : MonoBehaviour
         pause_UI.SetActive(true);
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
+        if(scrollUIAudio != null) scrollUIAudio.Play();
 
     }
 
