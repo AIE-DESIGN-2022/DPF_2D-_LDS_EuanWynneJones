@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
-public class WeaponManager : MonoBehaviour
+public class PlayerWeaponManager : MonoBehaviour
 {
 
     public Transform weaponPosition;
@@ -46,7 +46,7 @@ public class WeaponManager : MonoBehaviour
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 Debug.Log("Left Mouse Pressed weapon Swing");
                 _spawnTimer = 0;
-               // _playerSoundManager.PlayAudioClip("Swoosh");
+                _playerSoundManager.PlayAudioClip("Swoosh");
 
 
             }

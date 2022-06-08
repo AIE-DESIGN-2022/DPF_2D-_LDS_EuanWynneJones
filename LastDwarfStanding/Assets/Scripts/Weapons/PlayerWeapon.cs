@@ -5,9 +5,6 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     public float damage;
-    public float lifeTime;
-    private PlayerHealthManager owner;
-    private EnemyHealthManager enemyOwner;
 
 
 

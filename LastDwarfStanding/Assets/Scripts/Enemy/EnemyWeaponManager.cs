@@ -6,47 +6,45 @@ public class EnemyWeaponManager : MonoBehaviour
 {
     //public bool canAttack = true;
 
-    public float damage;
-    public float attackTime;
     public Transform weaponPosition;
-    public GameObject enemyWeapon;
-    public bool isRangedClass;
+    
 
-    private GameObject _player;
+    public float damage;
 
+
+    public float attackTime;
+    public bool canEnemeyAttack;
+    private float _timeSinceLastAttack;
+
+
+    private GameObject _enemy;
+    private EnemyNavigationManager _enemyNavigationManager;
+    private PauseGame _pauseGame;
+
+
+
+    private void Awake()
+    {
+        _enemyNavigationManager = FindObjectOfType<EnemyNavigationManager>();
+  
+        _pauseGame = FindObjectOfType<PauseGame>();
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
+
+        _enemy = GameObject.FindGameObjectWithTag("EnemyMelee");
     }
 
     // Update is called once per frame
     void Update()
     {
+  
 
     }
 
-  /*  public IEnumerator Attack()
-    {
-        canAttack = false;
-        if (!isRangedClass)
-        {
-            canAttack = true;
-            
-
-            yield return new WaitForSeconds(attackTime);
-        }
-        else
-        {
-            _player.GetComponent<PlayerHealthManager>().TakeDamage(damage);
-        }
-        yield return new WaitForSeconds(attackTime);
-        canAttack = true;
-        
-
-    }
-    */
 }
 
 

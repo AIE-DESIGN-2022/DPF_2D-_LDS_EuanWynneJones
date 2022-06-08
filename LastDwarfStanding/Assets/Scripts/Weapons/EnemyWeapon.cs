@@ -5,20 +5,10 @@ using UnityEngine;
 public class EnemyWeapon : MonoBehaviour
 {
     public float damage;
-    public float lifeTime;
-    bool canHit;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public GameObject Weapon;
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
- 
 
     public void OnCollisionEnter(Collision other)
     {
@@ -28,10 +18,12 @@ public class EnemyWeapon : MonoBehaviour
                 if (other.gameObject.tag == "Player")
                 {
                     
-                    Debug.Log("Damageing Player"); 
-                        other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                    Debug.Log("Damageing Player");
+                Weapon.GetComponent<Animator>().SetTrigger("Swing");
+                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                     
                 }
             }
     }
 }
+
