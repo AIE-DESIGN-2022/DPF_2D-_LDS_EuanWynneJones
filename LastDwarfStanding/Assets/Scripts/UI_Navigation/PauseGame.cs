@@ -9,11 +9,13 @@ public class PauseGame : MonoBehaviour
     public GameObject pause_UI;
     public GameObject transparentBackground;
     private PlayerNavigationManager _playerNavigationManager;
+    private EnemyNavigationManager _enemyNavigationManager;
     public AudioSource scrollUIAudio;
 
     private void Awake()
     {
         _playerNavigationManager =FindObjectOfType<PlayerNavigationManager>();
+        _enemyNavigationManager =FindObjectOfType<EnemyNavigationManager>();
     }
 
     // Start is called before the first frame update
@@ -39,6 +41,8 @@ public class PauseGame : MonoBehaviour
         pause_UI.SetActive(false);
         transparentBackground.SetActive(false);
         _playerNavigationManager.isControllerActive = true;
+        _enemyNavigationManager.isEnemyActive = true;
+
 
     }
 
@@ -47,6 +51,7 @@ public class PauseGame : MonoBehaviour
         pause_UI.SetActive(true);
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
+        _enemyNavigationManager.isEnemyActive = false;
 
     }
 

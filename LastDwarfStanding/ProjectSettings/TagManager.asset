@@ -8,6 +8,9 @@ TagManager:
   - Weapon
   - Environment
   - EnemyWeapon
+  - Shield
+  - UI
+  - Base
   layers:
   - Default
   - TransparentFX

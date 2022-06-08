@@ -10,8 +10,7 @@ public class EnemyWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("SwingTimer");
-        canHit = true;
+
     }
 
     // Update is called once per frame
@@ -19,11 +18,7 @@ public class EnemyWeapon : MonoBehaviour
     {
 
     }
-    IEnumerator SwingTimer()
-    {
-        yield return new WaitForSeconds(lifeTime);
-        Destroy(gameObject);
-    }
+ 
 
     public void OnCollisionEnter(Collision other)
     {
@@ -32,14 +27,11 @@ public class EnemyWeapon : MonoBehaviour
             {
                 if (other.gameObject.tag == "Player")
                 {
-                    if (canHit)
-                    {
+                    
                     Debug.Log("Damageing Player"); 
                         other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
-                        canHit = false;
-                    }
+                    
                 }
-                Destroy(transform.parent.gameObject);
             }
     }
 }

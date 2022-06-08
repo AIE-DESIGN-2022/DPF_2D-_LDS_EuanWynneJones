@@ -30,7 +30,8 @@ public class PlayerHealthManager : MonoBehaviour
     public void TakeDamage(float damageToTake)
     {
         currentHealth -= damageToTake;
-        if(currentHealth <= 0)
+        _UpdateHealthBar();
+        if (currentHealth <= 0)
         {
             SceneManager.LoadScene("DeathScene");
         }

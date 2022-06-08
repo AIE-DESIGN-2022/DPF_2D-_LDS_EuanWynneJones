@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -41,14 +42,16 @@ public class WeaponManager : MonoBehaviour
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
 
-                GameObject weaponClone = Instantiate(weapon, weaponPosition.position, weaponPosition.rotation);
-                weaponClone.transform.parent = weaponPosition.transform;
+
+                weapon.GetComponent<Animator>().SetTrigger("Swing");
+                Debug.Log("Left Mouse Pressed weapon Swing");
                 _spawnTimer = 0;
-                _playerSoundManager.PlayAudioClip("Swoosh");
+               // _playerSoundManager.PlayAudioClip("Swoosh");
 
 
             }
 
         }
     }
+
 }

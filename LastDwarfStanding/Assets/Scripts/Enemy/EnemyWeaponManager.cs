@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyWeaponManager : MonoBehaviour
 {
-    public bool canAttack = true;
+    //public bool canAttack = true;
 
     public float damage;
     public float attackTime;
@@ -27,16 +27,14 @@ public class EnemyWeaponManager : MonoBehaviour
 
     }
 
-    public IEnumerator Attack()
+  /*  public IEnumerator Attack()
     {
         canAttack = false;
         if (!isRangedClass)
         {
             canAttack = true;
             
-            GameObject weaponClone = Instantiate(enemyWeapon, weaponPosition.position, weaponPosition.rotation);
-            Debug.Log("Weapon instantiated");
-            weaponClone.transform.parent = weaponPosition.transform;
+
             yield return new WaitForSeconds(attackTime);
         }
         else
@@ -48,5 +46,7 @@ public class EnemyWeaponManager : MonoBehaviour
         
 
     }
+    */
 }
+
 

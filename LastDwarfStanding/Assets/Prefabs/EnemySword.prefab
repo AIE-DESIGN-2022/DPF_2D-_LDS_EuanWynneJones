@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8038026060901296516}
   - component: {fileID: 9062740998207818304}
   - component: {fileID: 7736099075380467786}
-  - component: {fileID: 8366726829025863781}
+  - component: {fileID: 2378729998784519317}
   m_Layer: 0
   m_Name: PlayerWeapon
   m_TagString: EnemyWeapon
@@ -145,7 +145,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
---- !u!114 &8366726829025863781
+--- !u!114 &2378729998784519317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,11 +154,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 816373240401832644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12d4976fa22a38469c56dbb4416156c, type: 3}
+  m_Script: {fileID: 11500000, guid: b06bca6b16c25da429c1250b7f9ae9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  lifeTime: 0.1
+  damage: 5
+  lifeTime: 3
 --- !u!1 &3806130892288689333
 GameObject:
   m_ObjectHideFlags: 0

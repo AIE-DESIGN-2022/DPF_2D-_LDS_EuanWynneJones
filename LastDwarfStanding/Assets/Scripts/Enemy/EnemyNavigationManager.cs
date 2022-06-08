@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-public enum EnemyState
+public enum eEnemyState
 {
     MoveTowardsBase,
     MoveTowardsTarget,
@@ -15,148 +16,113 @@ public enum EnemyState
 
 
 public class EnemyNavigationManager : MonoBehaviour
+
+
 {
+    public bool isEnemyActive = true;
     public float distanceReachedThreashold;
     public float playerChaseThreashold;
     public float attackRange;
 
 
 
-    public EnemyState enemyState;
+    public eEnemyState enemyState;
     private Vector3 _targetSightedPosition;
 
     private GameObject _target;
+    private GameObject _player;
+    private GameObject _base;
 
 
     public Transform[] TargetDirection;
     private NavMeshAgent _agent;
 
 
-    private int _currentDestination;
-    private int _nextLocation;
-
-    public EnemyWeaponManager enemyCombat;
-
+    private void Awake()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _base = GameObject.FindGameObjectWithTag("Base");
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyCombat = GetComponent<EnemyWeaponManager>();
-
-        enemyState = EnemyState.MoveTowardsBase;
-        _target = GameObject.FindGameObjectWithTag("Player");
-        _agent = GetComponent<NavMeshAgent>();
-        _currentDestination = -1;
-        _nextLocation = 0;
-
-
-        SetAgentPatrolDesination();
-
-
+        SetEnemyState(eEnemyState.MoveTowardsBase);
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (!isEnemyActive) return;
 
-        
-        float distanceToTarget = Vector3.Distance(transform.position, TargetDirection[_currentDestination].position);
-        float distanceToPlayer = Vector3.Distance(transform.position, _target.transform.position);
-
-        if (enemyState == EnemyState.MoveTowardsBase)
-        {
-
-            if (distanceToTarget <= distanceReachedThreashold)
-            {
-                SetAgentPatrolDesination();
-            }
-
-            if (distanceToPlayer <= playerChaseThreashold)
-            {
-                enemyState = EnemyState.MoveTowardsTarget;
-                _targetSightedPosition = _target.transform.position;
-            }
-
-        }
-
-        //checked if player is close enough to be spotted 
-        if (enemyState == EnemyState.MoveTowardsTarget)
-        {
-            //setting the enemy destination to the players most recently sighted location
-            SetPlayerSightedDestination();
-
-            //attack range should not be breached before player is sighted so statements are nested
-
-            //if player is within attack range set the state to attack the player 
-            if (Vector3.Distance(transform.position, _target.transform.position) <= attackRange)
-            {
-                enemyState = EnemyState.AttackTarget;
-            }
-
-            //if the player outruns the enemies sight range the enemy will return to patrol mode 
-            if (Vector3.Distance(transform.position, _targetSightedPosition) <= distanceReachedThreashold)
-            {
-                enemyState = EnemyState.MoveTowardsBase;
-
-                //manually assigning the current patrol point to the enemies next location
-                _agent.SetDestination(TargetDirection[_currentDestination].position);
-            }
-        }
-
-
-
-        //checking if the enemies state is to attack
-        if (enemyState == EnemyState.AttackTarget)
-        {
-
-            //check to see if player is outstide attack range, if it is we set state to player sighted (enemy chases player)
-            if (Vector3.Distance(transform.position, _target.transform.position) > attackRange)
-            {
-                enemyState = EnemyState.MoveTowardsTarget;
-            }
-
-            //otherwise the player is in range, and the enemy can attack. sets the enemies location its own position to make it stop
-            else
-            {
-                _agent.SetDestination(transform.position);
-                _agent.transform.LookAt(_target.transform.position);
-
-                //innitialise the enemy attack coroutine 
-                if (enemyCombat.canAttack)
-                {
-                    StartCoroutine(enemyCombat.Attack());
-                }
-            }
-        }
+        EnemyNavLogic();
 
     }
 
-
-
-
-    void SetAgentPatrolDesination()
+    private void EnemyNavLogic()
     {
-        //checking to make sure we have a patrol point to move to, that the array has not run out
-        if (TargetDirection.Length > _nextLocation)
-        {
-            //if we do have the next position avalible in the array, set the desination to this next point 
-            _agent.SetDestination(TargetDirection[_nextLocation].position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+        float distanceToBase = Vector3.Distance(transform.position, _base.transform.position); ;
+        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
 
-            //adding 1 to the next location so that next time the function is called we are moving to the next point properly 
-            _currentDestination = _nextLocation;
-            _nextLocation++;
+        
+
+        if (distanceToTarget < attackRange)
+        {
+            SetEnemyState(eEnemyState.AttackTarget);
         }
         else
         {
-            _nextLocation = 0;
-            _currentDestination = -1;
-            SetAgentPatrolDesination();
+            if (distanceToPlayer < distanceToBase)
+            {
+                SetEnemyState(eEnemyState.MoveTowardsTarget);
+            }
+            else if (distanceToPlayer > distanceToBase)
+            {
+                SetEnemyState(eEnemyState.MoveTowardsBase);
+            }
         }
+
     }
 
-    void SetPlayerSightedDestination()
+    private void Attack()
     {
-        _agent.SetDestination(_targetSightedPosition);
+        Debug.Log("attacking");
+    }
+
+    public void SetTarget(GameObject newTarget)
+    {
+        _target = newTarget;
+    }
+
+
+    private void SetEnemyState(eEnemyState newState)
+    {
+        enemyState = newState;
+
+        switch (enemyState)
+        {
+            case eEnemyState.MoveTowardsBase:
+                _agent.isStopped = false;
+                _target = _base;
+                break;
+
+            case eEnemyState.MoveTowardsTarget:
+                _agent.isStopped = false;
+                _target = _player;
+                break;
+
+            case eEnemyState.AttackTarget:
+                _agent.isStopped = true;
+                Attack();
+                break;
+        }
+
+        if (enemyState != eEnemyState.AttackTarget)
+        {
+            _agent.destination = _target.transform.position;
+        }
     }
 }
