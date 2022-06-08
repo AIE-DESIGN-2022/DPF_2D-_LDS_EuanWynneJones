@@ -32,7 +32,7 @@ public class PlayerHealthManager : MonoBehaviour
         currentHealth -= damageToTake;
         if(currentHealth <= 0)
         {
-            SceneManager.LoadScene("TitleScene");
+            SceneManager.LoadScene("DeathScene");
         }
     }
     public void RecieveHealth(float healthToRecieve)

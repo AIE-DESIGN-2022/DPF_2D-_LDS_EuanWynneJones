@@ -69,25 +69,19 @@ public class EnemyNavigationManager : MonoBehaviour
 
             if (distanceToTarget <= distanceReachedThreashold)
             {
-
                 SetAgentPatrolDesination();
             }
 
-            //checking if the player has reached the enemies sighted threashold
             if (distanceToPlayer <= playerChaseThreashold)
             {
-
-                //changes the enemys state to playerSighted
                 enemyState = EnemyState.MoveTowardsTarget;
-
-                //stores this data in to the player sighted position
                 _targetSightedPosition = _target.transform.position;
             }
 
         }
 
         //checked if player is close enough to be spotted 
-        else if (enemyState == EnemyState.MoveTowardsTarget)
+        if (enemyState == EnemyState.MoveTowardsTarget)
         {
             //setting the enemy destination to the players most recently sighted location
             SetPlayerSightedDestination();

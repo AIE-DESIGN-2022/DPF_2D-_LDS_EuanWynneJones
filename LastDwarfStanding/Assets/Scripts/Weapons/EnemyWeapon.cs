@@ -28,14 +28,14 @@ public class EnemyWeapon : MonoBehaviour
     public void OnCollisionEnter(Collision other)
     {
         Debug.Log("Collided");
-        if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
             if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
             {
                 if (other.gameObject.tag == "Player")
                 {
                     if (canHit)
                     {
-                        other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
+                    Debug.Log("Damageing Player"); 
+                        other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                         canHit = false;
                     }
                 }

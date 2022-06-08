@@ -29,7 +29,6 @@ public class Weapon : MonoBehaviour
     {
         Debug.Log("Collided");
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
         {
             if (other.gameObject.tag == "EnemyMelee")
             {
