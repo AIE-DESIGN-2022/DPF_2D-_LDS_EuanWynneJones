@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnemyWeapon : MonoBehaviour
 {
     public float damage;
-
-
+    public bool didDamage;
 
 
 
@@ -14,12 +13,12 @@ public class EnemyWeapon : MonoBehaviour
     {
             if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
             {
-                if (other.gameObject.tag == "Player")
+                if (other.gameObject.tag == "Player" && !didDamage)
                 {
-                    
+                    didDamage = true;
                     Debug.Log("Damageing Player");
                
-                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                    other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                     
                 }
             }

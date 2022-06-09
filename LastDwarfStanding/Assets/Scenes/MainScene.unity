@@ -3402,7 +3402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12d4976fa22a38469c56dbb4416156c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
 --- !u!1001 &1777470029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4383,10 +4383,6 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 2121152811086365960, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
-      propertyPath: enemyWeapon
-      value: 
-      objectReference: {fileID: 37786832}
     - target: {fileID: 3777380277521505967, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -4469,7 +4465,11 @@ PrefabInstance:
       objectReference: {fileID: 37786832}
     - target: {fileID: 7928292059974253364, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: attackRange
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928292059974253364, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
+      propertyPath: enemySwingDelay
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7928292059974253364, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: playerChaseThreashold
@@ -4479,8 +4479,7 @@ PrefabInstance:
       propertyPath: distanceReachedThreashold
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2121152811086365960, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
 --- !u!1001 &8085659781206654048
 PrefabInstance:
@@ -4578,8 +4577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPosition: {fileID: 120245113}
   damage: 10
-  attackTime: 3
-  canEnemeyAttack: 0
 --- !u!195 &8430523084401104604
 NavMeshAgent:
   m_ObjectHideFlags: 0

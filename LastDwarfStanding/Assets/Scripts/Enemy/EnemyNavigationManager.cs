@@ -9,7 +9,8 @@ public enum eEnemyState
 {
     MoveTowardsBase,
     MoveTowardsTarget,
-    AttackTarget
+    AttackTarget,
+    StepBack
 }
 
 
@@ -30,9 +31,10 @@ public class EnemyNavigationManager : MonoBehaviour
 
     public eEnemyState enemyState;
 
-    private GameObject _target;
+    public GameObject _target;
     private GameObject _player;
     private GameObject _base;
+    public GameObject _stepBack;
 
     private NavMeshAgent _agent;
 
@@ -64,15 +66,21 @@ public class EnemyNavigationManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
         float distanceToBase = Vector3.Distance(transform.position, _base.transform.position); ;
-        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
+        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position); 
+        float distanceToStepBack = Vector3.Distance(transform.position, _stepBack.transform.position);
 
-        
-
-        if (distanceToTarget < attackRange)
+        if (distanceToTarget < attackRange && enemyState != eEnemyState.StepBack)
         {
+            if(distanceToTarget < attackRange - 0.5f)
+            {
+                SetEnemyState(eEnemyState.StepBack);
+            }
+            else
+            {
             SetEnemyState(eEnemyState.AttackTarget);
+            }
         }
-        else
+        else if(distanceToPlayer > attackRange)
         {
             if (distanceToPlayer < distanceToBase)
             {
@@ -91,22 +99,14 @@ public class EnemyNavigationManager : MonoBehaviour
         _swingTimer += Time.deltaTime;
         if (_swingTimer >= enemySwingDelay)
         {
-            canEnemyAttack = true;
+            GetComponentInChildren<EnemyWeapon>().didDamage = false;
             weapon.GetComponent<Animator>().SetTrigger("Swing");
             Debug.Log("attacking");
             _swingTimer = 0;
+        }
 
-        }
-        else
-        {
-            canEnemyAttack = false;
-        }
     }
 
-    public void SetTarget(GameObject newTarget)
-    {
-        _target = newTarget;
-    }
 
 
     private void SetEnemyState(eEnemyState newState)
@@ -128,6 +128,24 @@ public class EnemyNavigationManager : MonoBehaviour
             case eEnemyState.AttackTarget:
                 _agent.isStopped = true;
                 Attack();
+                break;
+
+            case eEnemyState.StepBack:
+                
+                float stepBackDistance = Vector3.Distance(transform.position, _stepBack.transform.position);
+                _stepBack.transform.position = transform.position + new Vector3(1.5f, 0, 0);
+                
+                if (stepBackDistance > 0.1f)
+                {
+                    _agent.isStopped = false;
+                    _target = _stepBack;
+                    _agent.destination = _target.transform.position;
+                }
+                else
+                {
+                    //enemyState = eEnemyState.AttackTarget;
+                    _target = _player;
+                }
                 break;
         }
 
