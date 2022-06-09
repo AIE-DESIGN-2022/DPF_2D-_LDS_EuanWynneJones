@@ -20,21 +20,20 @@ public class EnemyNavigationManager : MonoBehaviour
 
 {
     public bool isEnemyActive = true;
-    public float distanceReachedThreashold;
-    public float playerChaseThreashold;
+    public bool canEnemyAttack = true;
     public float attackRange;
+    
+    public float enemySwingDelay;
+    private float _swingTimer;
 
-
+    public GameObject weapon;
 
     public eEnemyState enemyState;
-    private Vector3 _targetSightedPosition;
 
     private GameObject _target;
     private GameObject _player;
     private GameObject _base;
 
-
-    public Transform[] TargetDirection;
     private NavMeshAgent _agent;
 
 
@@ -89,7 +88,19 @@ public class EnemyNavigationManager : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("attacking");
+        _swingTimer += Time.deltaTime;
+        if (_swingTimer >= enemySwingDelay)
+        {
+            canEnemyAttack = true;
+            weapon.GetComponent<Animator>().SetTrigger("Swing");
+            Debug.Log("attacking");
+            _swingTimer = 0;
+
+        }
+        else
+        {
+            canEnemyAttack = false;
+        }
     }
 
     public void SetTarget(GameObject newTarget)

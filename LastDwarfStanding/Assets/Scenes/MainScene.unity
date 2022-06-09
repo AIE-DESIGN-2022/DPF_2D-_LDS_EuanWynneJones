@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &22351394
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 22351395}
-  m_Layer: 0
-  m_Name: Enemy Goal Points
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &22351395
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22351394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 171329164}
-  m_Father: {fileID: 802427844}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &37786832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6303732872406487524, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
@@ -266,36 +235,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &171329163
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 171329164}
-  m_Layer: 0
-  m_Name: Playerbase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &171329164
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171329163}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.19, y: -2.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 22351395}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &210123931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1569,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1462711812334448085}
-  - {fileID: 22351395}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3310,6 +3248,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 120245113}
     m_Modifications:
+    - target: {fileID: 816373240401832644, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
+      propertyPath: m_TagString
+      value: EnemyWeapon
+      objectReference: {fileID: 0}
     - target: {fileID: 2140050306029092639, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3357,6 +3299,10 @@ PrefabInstance:
     - target: {fileID: 6303732872406487524, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
       propertyPath: m_Name
       value: PlayerSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303732872406487524, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
+      propertyPath: m_TagString
+      value: EnemyWeapon
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4746371582678967871, guid: 75d069b70a4aa8b43851449ab2fd8c2c, type: 3}
@@ -3457,7 +3403,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  lifeTime: 0
 --- !u!1001 &1777470029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4519,6 +4464,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7928292059974253364, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 37786832}
+    - target: {fileID: 7928292059974253364, guid: ceb2ddbd1b10f5546a58298bb313266c, type: 3}
       propertyPath: attackRange
       value: 3
       objectReference: {fileID: 0}
@@ -4588,6 +4537,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8085659781719187985, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Center.x
+      value: 0.83
+      objectReference: {fileID: 0}
     - target: {fileID: 8085659781719187990, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
       propertyPath: healthSlider
       value: 
@@ -4600,6 +4553,10 @@ PrefabInstance:
       propertyPath: weapon
       value: 
       objectReference: {fileID: 866646726}
+    - target: {fileID: 8085659781719187992, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: swingDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
 --- !u!1 &8430523084401104596 stripped
@@ -4619,13 +4576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb193863816ec0c46b8e55ad7e871f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponPosition: {fileID: 120245113}
   damage: 10
   attackTime: 3
-  weaponPosition: {fileID: 120245113}
-  enemyWeapon: {fileID: 37786832}
-  isRangedClass: 0
   canEnemeyAttack: 0
-  timeSinceLastAttack: 0
 --- !u!195 &8430523084401104604
 NavMeshAgent:
   m_ObjectHideFlags: 0

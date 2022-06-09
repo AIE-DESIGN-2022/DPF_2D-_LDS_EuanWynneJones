@@ -11,12 +11,6 @@ public class EnemyWeaponManager : MonoBehaviour
 
     public float damage;
 
-
-    public float attackTime;
-    public bool canEnemeyAttack;
-    private float _timeSinceLastAttack;
-
-
     private GameObject _enemy;
     private EnemyNavigationManager _enemyNavigationManager;
     private PauseGame _pauseGame;

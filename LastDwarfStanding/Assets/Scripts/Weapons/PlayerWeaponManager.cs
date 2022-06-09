@@ -15,7 +15,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private PlayerSoundManager _playerSoundManager;
 
-    private float _spawnTimer;
+    private float _swingTimer;
 
     private void Awake()
     {
@@ -35,8 +35,8 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (!_playerNavigationManager.isControllerActive) return;
 
-        _spawnTimer += Time.deltaTime;
-        if (_spawnTimer >= swingDelay)
+        _swingTimer += Time.deltaTime;
+        if (_swingTimer >= swingDelay)
         {
             if (Input.GetButtonDown("Fire1") && UnityEngine.EventSystems.EventSystem.current != null &&
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
@@ -45,7 +45,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 Debug.Log("Left Mouse Pressed weapon Swing");
-                _spawnTimer = 0;
+                _swingTimer = 0;
                 _playerSoundManager.PlayAudioClip("Swoosh");
 
 

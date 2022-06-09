@@ -306,7 +306,6 @@ GameObject:
   - component: {fileID: 3866394893613834405}
   - component: {fileID: 586023006849512606}
   - component: {fileID: 1561029929570031595}
-  - component: {fileID: 2121152811086365960}
   - component: {fileID: 3974968376644594602}
   - component: {fileID: 7928292059974253364}
   m_Layer: 0
@@ -410,24 +409,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 1
---- !u!114 &2121152811086365960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3777380277521505967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb193863816ec0c46b8e55ad7e871f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canAttack: 1
-  damage: 10
-  attackTime: 0.3
-  weaponPosition: {fileID: 6502802064843325733}
-  enemyWeapon: {fileID: 6303732872406487524, guid: 687b7003e55e5d340947619b7f596027, type: 3}
-  isRangedClass: 0
 --- !u!114 &3974968376644594602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,13 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9fb3065194889449cdfd2b8297a374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGameActive: 1
-  distanceReachedThreashold: 1
-  playerChaseThreashold: 3
+  isEnemyActive: 1
+  canEnemyAttack: 1
   attackRange: 1
+  weapon: {fileID: 0}
+  enemySwingDelay: 0
   enemyState: 0
-  TargetDirection: []
-  enemyCombat: {fileID: 0}
 --- !u!1 &3841559538268665315
 GameObject:
   m_ObjectHideFlags: 0
