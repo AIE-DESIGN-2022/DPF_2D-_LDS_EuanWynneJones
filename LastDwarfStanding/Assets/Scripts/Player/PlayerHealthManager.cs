@@ -21,13 +21,13 @@ public class PlayerHealthManager : MonoBehaviour
  
     void Start()
     {
+
         currentHealth = maxHealth;
         healthSlider.maxValue = currentHealth;
         _UpdateHealthBar();
 
         _Shield = FindObjectOfType<Shield>();   
-
-        _shieldManager = GetComponent<ShieldManager>();
+        _shieldManager = FindObjectOfType<ShieldManager>();
     }
 
     void Update()
@@ -51,11 +51,12 @@ public class PlayerHealthManager : MonoBehaviour
         {
             _shieldManager.shield.ShieldDamage(damageToTake);
             _shieldManager.UpdateShieldBar();
-                if((_shieldManager.shieldActive) && _Shield.currentShield <= 0)
-                {
-                    _shieldManager.shieldActive = false;
-                    _Shield.gameObject.SetActive(false);    
-                }
+            if((_shieldManager.shieldActive) && _Shield.currentShield <= 0)
+            {
+            Debug.Log("Shield Broken making inactive");
+                _shieldManager.shieldActive = false;
+                _Shield.gameObject.SetActive(false);    
+            }
         }
 
     }

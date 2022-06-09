@@ -38,6 +38,7 @@ public class Shield : MonoBehaviour
 
                 if(currentShield <= 0)
                 {
+                    canBlock=false;
                     Debug.Log("Shield Broken");
                     
                 }

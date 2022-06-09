@@ -35,7 +35,8 @@ public class ShieldManager : MonoBehaviour
             
     void Start()
     {
-     _playerNavigationManager.isControllerActive = true;
+
+        _playerNavigationManager.isControllerActive = true;
 
         if (shield == null) Debug.LogError(name + " has no shield variable");
     }
@@ -53,7 +54,7 @@ public class ShieldManager : MonoBehaviour
         if (!_playerNavigationManager.isControllerActive) return;
 
         if (Input.GetButtonDown("Fire2") && UnityEngine.EventSystems.EventSystem.current != null &&
-            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && shield.currentShield > 0)
         {
             shield.gameObject.SetActive(true);
             shieldActive = true;
