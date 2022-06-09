@@ -21,10 +21,7 @@ public class EnemyHealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // _parent.transform.LookAt(new Vector3(Camera.main.transform.position.x, _parent.transform.position.y, Camera.main.transform.position.z));
-        
         _parent = enemyHealthBar.transform.parent;
-        //Debug.Log("Moving Health Bar");
     }
     public void TakeDamage(float damageToTake)
     {

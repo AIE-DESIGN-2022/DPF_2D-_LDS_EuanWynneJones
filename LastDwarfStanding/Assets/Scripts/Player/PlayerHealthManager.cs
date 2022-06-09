@@ -12,16 +12,24 @@ public class PlayerHealthManager : MonoBehaviour
     public float currentHealth;
 
     private float _timeSinceDamage;
+    private float _timeToRecharge;
 
-    // Start is called before the first frame update
+    private ShieldManager _shieldManager;
+    private Shield _Shield;
+    
+
+ 
     void Start()
     {
         currentHealth = maxHealth;
         healthSlider.maxValue = currentHealth;
         _UpdateHealthBar();
+
+        _Shield = FindObjectOfType<Shield>();   
+
+        _shieldManager = GetComponent<ShieldManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         _timeSinceDamage += Time.deltaTime;
@@ -29,12 +37,27 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void TakeDamage(float damageToTake)
     {
-        currentHealth -= damageToTake;
-        _UpdateHealthBar();
-        if (currentHealth <= 0)
+        if (!_shieldManager.shieldActive)
         {
-            SceneManager.LoadScene("DeathScene");
+            currentHealth -= damageToTake;
+            _UpdateHealthBar();
+            if (currentHealth <= 0)
+            {
+                SceneManager.LoadScene("DeathScene");
+            }
+
         }
+        else
+        {
+            _shieldManager.shield.ShieldDamage(damageToTake);
+            _shieldManager.UpdateShieldBar();
+                if((_shieldManager.shieldActive) && _Shield.currentShield <= 0)
+                {
+                    _shieldManager.shieldActive = false;
+                    _Shield.gameObject.SetActive(false);    
+                }
+        }
+
     }
     public void RecieveHealth(float healthToRecieve)
     {

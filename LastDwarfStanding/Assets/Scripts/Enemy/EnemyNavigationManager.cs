@@ -21,7 +21,6 @@ public class EnemyNavigationManager : MonoBehaviour
 
 {
     public bool isEnemyActive = true;
-    public bool canEnemyAttack = true;
     public float attackRange;
     
     public float enemySwingDelay;
@@ -38,12 +37,17 @@ public class EnemyNavigationManager : MonoBehaviour
 
     private NavMeshAgent _agent;
 
+    private PauseGame _pauseGame;
+
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
+
+
+        _pauseGame = FindObjectOfType<PauseGame>();
     }
 
     // Start is called before the first frame update

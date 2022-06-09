@@ -2,22 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 public class ShieldManager : MonoBehaviour
 {
-
+    public bool shieldActive = false;
     public Transform shieldPosition;
-    public GameObject shield;
     private PlayerNavigationManager _playerNavigationManager;
     private PauseGame _pauseGame;
+
+
+    public Shield shield;
+
+
+    public Slider shieldSlider;
+
 
     private PlayerSoundManager _playerSoundManager;
 
 
     private void Awake()
     {
+        shieldSlider.maxValue = shield.maxShield;
+        UpdateShieldBar();
+
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerSoundManager = GetComponent<PlayerSoundManager>();
         _pauseGame = FindObjectOfType<PauseGame>();
+        if (shield == null) shield = GetComponentInChildren<Shield>();
     }
     
         
@@ -25,6 +36,8 @@ public class ShieldManager : MonoBehaviour
     void Start()
     {
      _playerNavigationManager.isControllerActive = true;
+
+        if (shield == null) Debug.LogError(name + " has no shield variable");
     }
         
     
@@ -32,20 +45,34 @@ public class ShieldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShieldAction();
+    }
 
+    public void ShieldAction()
+    {
         if (!_playerNavigationManager.isControllerActive) return;
 
         if (Input.GetButtonDown("Fire2") && UnityEngine.EventSystems.EventSystem.current != null &&
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            shield.SetActive(true);
+            shield.gameObject.SetActive(true);
+            shieldActive = true;
+            UpdateShieldBar();
             Debug.Log("Right Mouse Pressed Shield UP");
         }
         if (Input.GetButtonUp("Fire2") && UnityEngine.EventSystems.EventSystem.current != null &&
         !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            shield.SetActive(false);
+            shield.gameObject.SetActive(false);
+            shieldActive = false;
             Debug.Log("Right Mouse let go Shield Down");
         }
     }
+    public void UpdateShieldBar()
+    {
+        shieldSlider.value = shield.currentShield;
+    }
 }
+
+
+

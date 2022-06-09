@@ -15,6 +15,9 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private PlayerSoundManager _playerSoundManager;
 
+    private ShieldManager _shieldManager;
+    private Shield _shield;
+
     private float _swingTimer;
 
     private void Awake()
@@ -22,6 +25,7 @@ public class PlayerWeaponManager : MonoBehaviour
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerSoundManager = GetComponent<PlayerSoundManager>();
         _pauseGame = FindObjectOfType<PauseGame>();
+        _shieldManager = GetComponent<ShieldManager>();
 
     }
     // Start is called before the first frame update
@@ -36,13 +40,14 @@ public class PlayerWeaponManager : MonoBehaviour
         if (!_playerNavigationManager.isControllerActive) return;
 
         _swingTimer += Time.deltaTime;
+
         if (_swingTimer >= swingDelay)
         {
-            if (Input.GetButtonDown("Fire1") && UnityEngine.EventSystems.EventSystem.current != null &&
+            if (Input.GetButtonDown("Fire1") && !_shieldManager.shieldActive && UnityEngine.EventSystems.EventSystem.current != null &&
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
 
-
+                GetComponentInChildren<PlayerWeapon>().didDamage = false;
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 Debug.Log("Left Mouse Pressed weapon Swing");
                 _swingTimer = 0;
@@ -52,6 +57,9 @@ public class PlayerWeaponManager : MonoBehaviour
             }
 
         }
+
+        }
     }
 
-}
+
+
