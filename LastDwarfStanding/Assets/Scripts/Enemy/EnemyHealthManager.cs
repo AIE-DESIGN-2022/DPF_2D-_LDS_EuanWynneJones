@@ -11,9 +11,14 @@ public class EnemyHealthManager : MonoBehaviour
     public Image enemyHealthBar;
     private Transform _parent;
 
+    public GameObject Loot;
+    public Transform spawnPosition;
+  
+
     // Start is called before the first frame update
     void Start()
     {
+
         enemyHealth = enemyMaxHealth;
         _parent = enemyHealthBar.transform.parent;
     }
@@ -35,8 +40,14 @@ public class EnemyHealthManager : MonoBehaviour
     }
     private void OnDeath()
     {
+        SpawnLoot();
 
         Destroy(gameObject);
     }
 
+    private void SpawnLoot()
+    {
+        Debug.Log("Dropping Coin");
+       GameObject LootClone = Instantiate(Loot, spawnPosition.position, spawnPosition.rotation);
+    }
 }

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  lifeTime: 0.1
+  didDamage: 0
 --- !u!65 &9062740998207818304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -141,8 +141,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.32, y: 0.59, z: 0.25}
-  m_Center: {x: 1.11, y: 0, z: -0.5}
+  m_Size: {x: 1.4668773, y: 0.59, z: 0.662399}
+  m_Center: {x: 1.1834457, y: 0.0000038017886, z: -0.58945805}
 --- !u!54 &7736099075380467786
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,7 +6,12 @@ public class EnemyWeapon : MonoBehaviour
 {
     public float damage;
     public bool didDamage;
+    public EnemySoundManager enemySoundManager;
 
+    private void Start()
+    {
+        enemySoundManager = GetComponentInParent<EnemySoundManager>();
+    }
 
 
     public void OnCollisionEnter(Collision other)
@@ -16,9 +21,9 @@ public class EnemyWeapon : MonoBehaviour
                 if (other.gameObject.tag == "Player" && !didDamage)
                 {
                     didDamage = true;
-                    //Debug.Log("Damageing Player");
-               
-                    other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                //Debug.Log("Damageing Player");
+                other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                enemySoundManager.PlayAudioClip("TakeDamage");
                     
                 }
             }

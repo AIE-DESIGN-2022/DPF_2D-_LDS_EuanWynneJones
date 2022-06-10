@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSoundManager : MonoBehaviour
+public class EnemySoundManager : MonoBehaviour
 {
     private AudioSource _audioSource;
     public List<AudioClip> audioClips = new List<AudioClip>();
@@ -11,36 +11,36 @@ public class PlayerSoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _audioSource = GetComponentInParent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private AudioClip GetAudioClip(string audioClipName)
     {
-        if(audioClips.Count > 0)
+        if (audioClips.Count > 0)
         {
-            foreach(AudioClip clip in audioClips)
+            foreach (AudioClip clip in audioClips)
             {
                 if (clip.name == audioClipName) return clip;
-                
+
             }
-        } 
-        return null;    
+        }
+        return null;
     }
     public void PlayAudioClip(string audioClipName)
     {
 
         AudioClip clip = GetAudioClip(audioClipName);
-        if(clip != null)
+        if (clip != null)
         {
-        _audioSource.clip = clip;
-        _audioSource.Play();
+            _audioSource.clip = clip;
+            _audioSource.Play();
         }
         else
         {

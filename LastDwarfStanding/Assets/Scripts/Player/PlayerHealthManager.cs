@@ -11,6 +11,8 @@ public class PlayerHealthManager : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
 
+    private PlayerSoundManager _playerSoundManager;
+
     private float _timeSinceDamage;
     public float timeToRecharge; 
     public float timeToStartRecharge; // how long befor it starts recharing
@@ -26,6 +28,7 @@ public class PlayerHealthManager : MonoBehaviour
     {
         _shield = FindObjectOfType<Shield>();
         _shieldManager = FindObjectOfType<ShieldManager>();
+        _playerSoundManager = GetComponent<PlayerSoundManager>();
     }
     void Start()
     {
@@ -90,6 +93,7 @@ public class PlayerHealthManager : MonoBehaviour
         if (!_shieldManager.shieldActive || _shield.currentShield <= 0)
         {
             currentHealth -= damageToTake;
+            
             _UpdateHealthBar();
             if (currentHealth <= 0)
             {
@@ -100,6 +104,7 @@ public class PlayerHealthManager : MonoBehaviour
         else
         {
             _shieldManager.shield.ShieldDamage(damageToTake);
+            _playerSoundManager.PlayAudioClip("ShieldDamage");
             _shieldManager.UpdateShieldBar();
 
         }
@@ -114,6 +119,7 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth = maxHealth;
         }
         _timeSinceDamage = 0;
+        
         _UpdateHealthBar();
     }
     private void _UpdateHealthBar()
