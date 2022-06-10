@@ -231,8 +231,10 @@ MonoBehaviour:
   enemyHealth: 0
   enemyMaxHealth: 100
   enemyHealthBar: {fileID: 7237970912219611761}
-  Loot: {fileID: 7155843684787612373, guid: b8223706a79b827459692c3439262ae3, type: 3}
+  LootDropped: 0
+  loot: {fileID: 7155843684787612373, guid: b8223706a79b827459692c3439262ae3, type: 3}
   spawnPosition: {fileID: 5228308590056328487}
+  enemySoundManager: {fileID: 0}
 --- !u!114 &5968113734304988642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +253,7 @@ MonoBehaviour:
   weapon: {fileID: 7879058959148259680}
   enemyState: 0
   _target: {fileID: 0}
-  _stepBack: {fileID: 0}
+  _stepBack: {fileID: 5135427955216665891, guid: 6e6f7c84d71acd74caa2717d187c429b, type: 3}
   stoppingRange: 1.2
 --- !u!114 &630502934639810680
 MonoBehaviour:
@@ -281,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: 249cbd4673c016d4f90306c20868438f, type: 3}
+  - {fileID: 8300000, guid: e93e954d72fd6ce42a407468c882a103, type: 3}
 --- !u!82 &4000024982954084720
 AudioSource:
   m_ObjectHideFlags: 0

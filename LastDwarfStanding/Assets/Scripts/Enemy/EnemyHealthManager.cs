@@ -11,14 +11,18 @@ public class EnemyHealthManager : MonoBehaviour
     public Image enemyHealthBar;
     private Transform _parent;
 
-    public GameObject Loot;
+    public bool LootDropped = false;
+
+    public GameObject loot;
     public Transform spawnPosition;
-  
+
+    public EnemySoundManager enemySoundManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        enemySoundManager = GetComponent<EnemySoundManager>();
         enemyHealth = enemyMaxHealth;
         _parent = enemyHealthBar.transform.parent;
     }
@@ -35,19 +39,29 @@ public class EnemyHealthManager : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            LootDropped = false;
             OnDeath();
         }
     }
     private void OnDeath()
     {
-        SpawnLoot();
 
-        Destroy(gameObject);
+        gameObject.tag = "DeadEnemy";
+        if (!LootDropped)
+        {
+        SpawnLoot();
+        enemySoundManager.PlayAudioClip("EnemyDeath");
+
+        }
+        Destroy(gameObject,0.7f);
+        LootDropped = false;
     }
 
     private void SpawnLoot()
     {
         Debug.Log("Dropping Coin");
-       GameObject LootClone = Instantiate(Loot, spawnPosition.position, spawnPosition.rotation);
+        GameObject LootClone = Instantiate(loot, spawnPosition.position, spawnPosition.rotation);
+        LootDropped = true;
+
     }
 }

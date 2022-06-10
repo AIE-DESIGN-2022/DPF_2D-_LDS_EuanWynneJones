@@ -39,6 +39,7 @@ public class PauseGame : MonoBehaviour
     public void ResumeLevel()
     {
         pause_UI.SetActive(false);
+
         transparentBackground.SetActive(false);
         _playerNavigationManager.isControllerActive = true;
         _enemyNavigationManager.isEnemyActive = true;
@@ -49,6 +50,7 @@ public class PauseGame : MonoBehaviour
     public void PauseLevel()
     {
         pause_UI.SetActive(true);
+
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
         _enemyNavigationManager.isEnemyActive = false;

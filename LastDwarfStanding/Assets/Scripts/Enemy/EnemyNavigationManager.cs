@@ -49,7 +49,7 @@ public class EnemyNavigationManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
 
-
+        _stepBack = GameObject.Find("StepBack");
         _pauseGame = FindObjectOfType<PauseGame>();
     }
 
