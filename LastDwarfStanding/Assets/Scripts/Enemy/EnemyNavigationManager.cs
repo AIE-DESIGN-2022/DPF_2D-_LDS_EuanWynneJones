@@ -21,6 +21,7 @@ public class EnemyNavigationManager : MonoBehaviour
 
 {
     public bool isEnemyActive = true;
+
     public float attackRange;
     
     public float enemySwingDelay;
@@ -38,6 +39,8 @@ public class EnemyNavigationManager : MonoBehaviour
     private NavMeshAgent _agent;
 
     private PauseGame _pauseGame;
+
+    public float stoppingRange;
 
 
     private void Awake()
@@ -60,42 +63,95 @@ public class EnemyNavigationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+
         if (!isEnemyActive) return;
 
-        EnemyNavLogic();
+        MovementLogic();
 
+        EnemyNavLogic();
+    }
+
+    private void MovementLogic()
+    {
+        if (enemyState == eEnemyState.AttackTarget) return;
+
+        if (PathisClear())
+        {
+            //print(name + " path is clear");
+            _agent.isStopped = false;
+            _agent.destination = _target.transform.position;
+        }
+        
+        else
+        {
+            print(name + " path is not clear");
+            _agent.destination = transform.position;
+            _agent.isStopped = true;
+        }
     }
 
     private void EnemyNavLogic()
     {
+        if (!PathisClear()) return;
+
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
         float distanceToBase = Vector3.Distance(transform.position, _base.transform.position); ;
-        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position); 
+        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
         float distanceToStepBack = Vector3.Distance(transform.position, _stepBack.transform.position);
 
         if (distanceToTarget < attackRange && enemyState != eEnemyState.StepBack)
         {
-            if(distanceToTarget < attackRange - 0.5f)
+            if (distanceToTarget < attackRange - 0.5f)
             {
+                if (!isEnemyActive) return;
                 SetEnemyState(eEnemyState.StepBack);
             }
             else
             {
-            SetEnemyState(eEnemyState.AttackTarget);
+                if (!isEnemyActive) return;
+                SetEnemyState(eEnemyState.AttackTarget);
             }
         }
-        else if(distanceToPlayer > attackRange)
+        else if (distanceToPlayer > attackRange)
         {
             if (distanceToPlayer < distanceToBase)
             {
+                if (!isEnemyActive) return;
                 SetEnemyState(eEnemyState.MoveTowardsTarget);
             }
             else if (distanceToPlayer > distanceToBase)
             {
+                if (!isEnemyActive) return;
                 SetEnemyState(eEnemyState.MoveTowardsBase);
             }
         }
 
+    }
+
+    private bool PathisClear()
+    {
+        Vector3 direction = new Vector3(-1, 0 ,0);
+        Debug.DrawRay(this.transform.position, direction * stoppingRange, Color.yellow);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, stoppingRange);
+        if (hits.Length>0)
+        {
+            foreach (RaycastHit hit in hits)
+            {
+                EnemyNavigationManager enemy = hit.transform.gameObject.GetComponent<EnemyNavigationManager>();
+
+                if (enemy != null && enemy != this)
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            print(name + "not getting any hits");
+        }
+
+        return true;
     }
 
     private void Attack()
@@ -105,7 +161,7 @@ public class EnemyNavigationManager : MonoBehaviour
         {
             GetComponentInChildren<EnemyWeapon>().didDamage = false;
             weapon.GetComponent<Animator>().SetTrigger("Swing");
-            Debug.Log("attacking");
+            //Debug.Log("attacking");
             _swingTimer = 0;
         }
 

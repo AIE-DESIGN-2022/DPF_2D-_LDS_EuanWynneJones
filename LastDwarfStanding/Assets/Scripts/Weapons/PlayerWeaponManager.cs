@@ -49,7 +49,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
                 GetComponentInChildren<PlayerWeapon>().didDamage = false;
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
-                Debug.Log("Left Mouse Pressed weapon Swing");
+                //Debug.Log("Left Mouse Pressed weapon Swing");
                 _swingTimer = 0;
                 _playerSoundManager.PlayAudioClip("Swoosh");
 

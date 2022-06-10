@@ -16,7 +16,7 @@ public class EnemyWeapon : MonoBehaviour
                 if (other.gameObject.tag == "Player" && !didDamage)
                 {
                     didDamage = true;
-                    Debug.Log("Damageing Player");
+                    //Debug.Log("Damageing Player");
                
                     other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                     

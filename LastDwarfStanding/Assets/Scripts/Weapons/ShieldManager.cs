@@ -47,6 +47,7 @@ public class ShieldManager : MonoBehaviour
     void Update()
     {
         ShieldAction();
+        IsShieldBroken();
     }
 
     public void ShieldAction()
@@ -59,19 +60,30 @@ public class ShieldManager : MonoBehaviour
             shield.gameObject.SetActive(true);
             shieldActive = true;
             UpdateShieldBar();
-            Debug.Log("Right Mouse Pressed Shield UP");
+            //Debug.Log("Right Mouse Pressed Shield UP");
         }
         if (Input.GetButtonUp("Fire2") && UnityEngine.EventSystems.EventSystem.current != null &&
         !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             shield.gameObject.SetActive(false);
             shieldActive = false;
-            Debug.Log("Right Mouse let go Shield Down");
+            //Debug.Log("Right Mouse let go Shield Down");
         }
     }
+
+
     public void UpdateShieldBar()
     {
         shieldSlider.value = shield.currentShield;
+    }
+
+    public void IsShieldBroken()
+    {
+        if(shieldActive && shield.currentShield <= 0)
+        {
+            shield.gameObject.SetActive(false);
+            shieldActive = false;
+        }
     }
 }
 

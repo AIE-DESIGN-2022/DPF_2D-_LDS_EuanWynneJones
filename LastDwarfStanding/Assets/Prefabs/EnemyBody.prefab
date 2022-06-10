@@ -437,11 +437,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemyActive: 1
-  canEnemyAttack: 1
   attackRange: 1
-  weapon: {fileID: 0}
   enemySwingDelay: 0
+  weapon: {fileID: 0}
   enemyState: 0
+  _target: {fileID: 0}
+  _stepBack: {fileID: 0}
+  stoppingRange: 2
 --- !u!1 &3841559538268665315
 GameObject:
   m_ObjectHideFlags: 0

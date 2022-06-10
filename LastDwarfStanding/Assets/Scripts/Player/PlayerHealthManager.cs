@@ -12,32 +12,82 @@ public class PlayerHealthManager : MonoBehaviour
     public float currentHealth;
 
     private float _timeSinceDamage;
-    private float _timeToRecharge;
+    public float timeToRecharge; 
+    public float timeToStartRecharge; // how long befor it starts recharing
+    public float rechargeRate = 10; // how much is recharged per second
+    public float rechargeRateInerval = 1.0f;
+    public float rechargeTimer = 0f;
 
     private ShieldManager _shieldManager;
-    private Shield _Shield;
-    
+    private Shield _shield;
 
- 
+
+    private void Awake()
+    {
+        _shield = FindObjectOfType<Shield>();
+        _shieldManager = FindObjectOfType<ShieldManager>();
+    }
     void Start()
     {
-
+        _timeSinceDamage = 0f;
         currentHealth = maxHealth;
         healthSlider.maxValue = currentHealth;
         _UpdateHealthBar();
 
-        _Shield = FindObjectOfType<Shield>();   
-        _shieldManager = FindObjectOfType<ShieldManager>();
+
+
+        if (_shield == null) Debug.LogError("_shield is null");
+
+
+
     }
 
     void Update()
     {
         _timeSinceDamage += Time.deltaTime;
+
+        //Debug.Log("Shield Active =" + _shieldManager.shieldActive);
+     
+            ShieldRegen();
+        
+    }
+
+    private void ShieldRegen()
+    {
+        if (_shieldManager.shieldActive) return;
+
+        //float regenTime = 0f;
+        //float shieldValue = _shield.currentShield;
+
+        if (_timeSinceDamage > timeToStartRecharge && _shield.currentShield < _shield.maxShield)
+        {
+            rechargeTimer += Time.deltaTime;
+
+            if (rechargeTimer >= rechargeRateInerval)
+            {
+                rechargeTimer = 0;
+                if (_shield.currentShield + rechargeRate >= _shield.maxShield)
+                {
+                    _shield.currentShield = _shield.maxShield;
+                }
+                else
+                {
+                    _shield.currentShield += rechargeRate;
+                }
+                _shieldManager.UpdateShieldBar();
+            }
+            
+            //regenTime *= 1.005f;
+            //regenTime += Time.deltaTime;
+            //float lerpTime = regenTime / timeToRecharge;
+            //_shieldManager.shieldSlider.value = Mathf.Lerp(shieldValue, _shield.maxShield, regenTime);
+            //_shield.currentShield = _shieldManager.shieldSlider.value;
+        }
     }
 
     public void TakeDamage(float damageToTake)
     {
-        if (!_shieldManager.shieldActive)
+        if (!_shieldManager.shieldActive || _shield.currentShield <= 0)
         {
             currentHealth -= damageToTake;
             _UpdateHealthBar();
@@ -51,14 +101,9 @@ public class PlayerHealthManager : MonoBehaviour
         {
             _shieldManager.shield.ShieldDamage(damageToTake);
             _shieldManager.UpdateShieldBar();
-            if((_shieldManager.shieldActive) && _Shield.currentShield <= 0)
-            {
-            Debug.Log("Shield Broken making inactive");
-                _shieldManager.shieldActive = false;
-                _Shield.gameObject.SetActive(false);    
-            }
-        }
 
+        }
+        _timeSinceDamage = 0f;
     }
     public void RecieveHealth(float healthToRecieve)
     {
