@@ -42,14 +42,13 @@ public class EnemyNavigationManager : MonoBehaviour
 
     public float stoppingRange;
 
-
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
 
-        _stepBack = GameObject.Find("StepBack");
+        _stepBack = transform.GetChild(2).gameObject;
         _pauseGame = FindObjectOfType<PauseGame>();
     }
 
@@ -66,10 +65,12 @@ public class EnemyNavigationManager : MonoBehaviour
        
 
         if (!isEnemyActive) return;
-
+   
         MovementLogic();
 
         EnemyNavLogic();
+
+        EnemyOnPause();
     }
 
     private void MovementLogic()
@@ -212,6 +213,18 @@ public class EnemyNavigationManager : MonoBehaviour
         if (enemyState != eEnemyState.AttackTarget)
         {
             _agent.destination = _target.transform.position;
+        }
+    }
+
+    public void EnemyOnPause()
+    {
+        if (!isEnemyActive)
+        {
+            Debug.Log("Enemy Stopped");
+            _agent.destination = transform.position;
+
+
+
         }
     }
 }
