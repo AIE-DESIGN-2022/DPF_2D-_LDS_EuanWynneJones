@@ -26,7 +26,16 @@ public class EnemyWeapon : MonoBehaviour
                 enemySoundManager.PlayAudioClip("TakeDamage");
                     
                 }
+
+                if(other.gameObject.tag == "Base" && !didDamage)
+                {
+                didDamage = true;
+                other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
+                enemySoundManager.PlayAudioClip("TakeDamage");
             }
+            }
+
+           
     }
 
 

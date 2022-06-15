@@ -24,10 +24,10 @@ public class PlayerNavigationManager : MonoBehaviour
 		if (!isControllerActive) return;
 
 		float horiMove = moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-		rb.AddForce(new Vector3(horiMove, 0,0), ForceMode.VelocityChange);
+		rb.AddForce(new Vector3(horiMove, 0, 0), ForceMode.VelocityChange);
 		//transform.Translate(Vector3.right * horiMove);
-		
-       
+
+
 		if (horiMove != lastMove)
 		{
 			HoriMove(horiMove);
@@ -86,9 +86,6 @@ public class PlayerNavigationManager : MonoBehaviour
 
 	}
 
-
 }
-
-
 
 

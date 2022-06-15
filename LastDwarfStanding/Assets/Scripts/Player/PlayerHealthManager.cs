@@ -13,6 +13,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     private PlayerSoundManager _playerSoundManager;
 
+    public Transform respawnPosition;
     private float _timeSinceDamage;
     public float timeToRecharge; 
     public float timeToStartRecharge; // how long befor it starts recharing
@@ -21,12 +22,15 @@ public class PlayerHealthManager : MonoBehaviour
     public float rechargeTimer = 0f;
 
     private ShieldManager _shieldManager;
+    private CurrencyManager _currencyManager;
     private Shield _shield;
 
 
     private void Awake()
     {
+
         _shield = FindObjectOfType<Shield>();
+        _currencyManager = GetComponent<CurrencyManager>();
         _shieldManager = FindObjectOfType<ShieldManager>();
         _playerSoundManager = GetComponent<PlayerSoundManager>();
     }
@@ -97,7 +101,9 @@ public class PlayerHealthManager : MonoBehaviour
             _UpdateHealthBar();
             if (currentHealth <= 0)
             {
-                SceneManager.LoadScene("DeathScene");
+                
+                _Ondeath();
+                //SceneManager.LoadScene("DeathScene");
             }
 
         }
@@ -125,5 +131,23 @@ public class PlayerHealthManager : MonoBehaviour
     private void _UpdateHealthBar()
     {
         healthSlider.value = currentHealth;
+    }
+
+    private void _Ondeath()
+    {
+        if(_currencyManager.currentCurrencyAmount > 0)
+        {
+            _currencyManager.currentCurrencyAmount = _currencyManager.currentCurrencyAmount -= 5;
+            _currencyManager.UpdateCurrencyText();
+            if(_currencyManager.currentCurrencyAmount <= 0)
+            {
+                _currencyManager.currentCurrencyAmount = 0;
+                _currencyManager.UpdateCurrencyText();
+            }
+        }
+        transform.position = respawnPosition.transform.position;
+        currentHealth = maxHealth;
+        healthSlider.maxValue = currentHealth;
+        _UpdateHealthBar();
     }
 }

@@ -26,7 +26,7 @@ public class CurrencyManager : MonoBehaviour
     {
        
     }
-    private void UpdateCurrencyText()
+    public void UpdateCurrencyText()
     {
         currencyAmountText.text = currentCurrencyAmount.ToString();
     }
