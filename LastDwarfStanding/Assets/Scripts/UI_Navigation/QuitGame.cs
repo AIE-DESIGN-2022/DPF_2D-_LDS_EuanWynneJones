@@ -20,12 +20,12 @@ public class QuitGame : MonoBehaviour
     }
         public void QuitGameFunction()
         {
-            print("QUITTING");
+            //print("QUITTING");
             Application.Quit(); 
         }
     public void QuitToMenuFunction()
     {
-        print("QUITTING TO MENU");
+        //print("QUITTING TO MENU");
         SceneManager.LoadScene("TitleScene");
     }
 }

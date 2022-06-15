@@ -86,7 +86,7 @@ public class EnemyNavigationManager : MonoBehaviour
         
         else
         {
-            print(name + " path is not clear");
+            //print(name + " path is not clear");
             _agent.destination = transform.position;
             _agent.isStopped = true;
         }
@@ -149,7 +149,7 @@ public class EnemyNavigationManager : MonoBehaviour
         }
         else
         {
-            print(name + "not getting any hits");
+            //print(name + "not getting any hits");
         }
 
         return true;

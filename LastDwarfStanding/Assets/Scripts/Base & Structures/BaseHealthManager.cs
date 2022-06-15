@@ -13,6 +13,8 @@ public class BaseHealthManager : MonoBehaviour
     private float _timeSinceDamage;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,13 @@ public class BaseHealthManager : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            EnemyWaveManager enemyWaveManager =FindObjectOfType<EnemyWaveManager>();
+            SavingSystem savingSystem =FindObjectOfType<SavingSystem>();
+            Dictionary<string, object> waveStats = new Dictionary<string, object>();
+            //print("Wave count = "  + enemyWaveManager.waveCount);
+            waveStats.Add("waveCount", (object)enemyWaveManager.waveCount);
+            savingSystem.EndGameSave(waveStats);
+
             SceneManager.LoadScene("DeathScene");
             _timeSinceDamage = 0f;
         }
