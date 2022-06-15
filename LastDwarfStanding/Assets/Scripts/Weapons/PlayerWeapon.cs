@@ -9,6 +9,7 @@ public class PlayerWeapon : MonoBehaviour
 
 
 
+
     public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
