@@ -160,6 +160,7 @@ public class EnemyWaveManager : MonoBehaviour
 
             if (spawnTimer > spawnRate)
             {
+                //if (waveCount >= 10 && spawnedEnemies < )
                 currentWave.Add(enemySpawner.SpawnEmemy());
                 spawnedEnemies++;
                 spawnTimer = 0;

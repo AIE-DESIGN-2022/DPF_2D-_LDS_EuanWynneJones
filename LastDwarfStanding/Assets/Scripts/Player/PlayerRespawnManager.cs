@@ -23,7 +23,7 @@ public class PlayerRespawnManager : MonoBehaviour
     {
         if (_playerHealthManager.OndeathActive)
         {
-            Debug.Log("Playing respawn text");
+            //Debug.Log("Playing respawn text");
            _reviveAnimation.SetTrigger("TriggerRespawnAnimation");
 
         }

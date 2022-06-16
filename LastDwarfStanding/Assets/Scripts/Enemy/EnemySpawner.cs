@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(enemyPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation);
         newEnemy.transform.parent = transform;
-        Debug.Log("Spawning Enemy");
+        //Debug.Log("Spawning Enemy");
 
         return newEnemy;
     }
