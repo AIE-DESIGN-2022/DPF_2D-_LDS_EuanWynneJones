@@ -8,7 +8,7 @@ using System;
 public class EnemyWaveManager : MonoBehaviour
 {
 
-    public bool waveStarted = false;
+    private bool waveStarted = false;
     //public float waveTimer = 0f;
     //public float waveTimeLimit = 10f;
     //public float waveBreakTimer = 0f;
@@ -16,7 +16,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     [Header("New Way")]
     private Animator waveAnimation;
-    private DayNightManager dayNightManager;
+    public DayNightManager dayNightManager;
     public List<GameObject> currentWave = new List<GameObject>();
     private EnemySpawner enemySpawner;
     private int waveCount = 1;
@@ -26,16 +26,19 @@ public class EnemyWaveManager : MonoBehaviour
     private int spawnedEnemies = 0;
     private int enemiesToSpawn = 0;
     private bool nextDayHasHappened = true;
+    private bool waveTextSeen = false;
 
     // Start is called before the first frame update
     void Start()
     {
         waveAnimation = gameObject.GetComponent<Animator>();
-        dayNightManager = FindObjectOfType<DayNightManager>();
+        if (dayNightManager == null) dayNightManager = FindObjectOfType<DayNightManager>();
         enemySpawner = FindObjectOfType<EnemySpawner>();
         //waveBreakTimer += Time.deltaTime;
         //waveCount = 0;
         //WaveBreak();
+
+        if (dayNightManager == null) Debug.LogError(name + " cannot find DayNightManager");
     }
 
     // Update is called once per frame
@@ -50,10 +53,11 @@ public class EnemyWaveManager : MonoBehaviour
         {
             Wave();
         }*/
+        CreateWave(waveCount);
 
         if (!dayNightManager.isDayTime)
         {
-            CreateWave(waveCount);
+            UpdateWaveText();
             SpawnWave();
             
         }
@@ -66,7 +70,7 @@ public class EnemyWaveManager : MonoBehaviour
     {
         if (nextDayHasHappened) return;
 
-        if (waveStarted && dayNightManager.isDayTime)
+        if (dayNightManager.isDayTime)
         {
             nextDayHasHappened = true;
         }
@@ -93,7 +97,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void CheckIfWaveFinished()
     {
-        if (waveStarted && currentWave.Count == 0)
+        if (waveStarted && spawnedEnemies == enemiesToSpawn)
         {
             waveStarted = false;
             waveCount++;
@@ -118,38 +122,49 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void UpdateWaveText()
     {
-        waveAnimation.SetTrigger("TriggerWaveText");
-        waveTextNumber.text = waveCount.ToString();
+        if (!waveTextSeen)
+        {
+            waveAnimation.SetTrigger("TriggerWaveText");
+            waveTextNumber.text = waveCount.ToString();
+            waveTextSeen = true;
+        }
+        
     }
 
     private void CreateWave(int waveNumber)
     {
-        if (waveStarted || !nextDayHasHappened) return;
+        if(nextDayHasHappened)
+        {
+            enemiesToSpawn = NumberOfEnemies(waveNumber);
+            spawnedEnemies = 0;
+            spawnTimer = 0f;
+            //print("New Wave, enemeis to spawn = " + enemiesToSpawn);
+            waveTextSeen = false;
+            waveStarted = true;
+            nextDayHasHappened = false;
+        }
+    }
 
-        int numberOfEnemies = waveNumber * 3;
-
-        enemiesToSpawn = numberOfEnemies;
-        spawnedEnemies = 0;
-        spawnTimer = 0f;
-
-        waveStarted = true;
-        nextDayHasHappened = false;
-        UpdateWaveText();
-        
+    private int NumberOfEnemies(int waveNumber)
+    {
+        return 3 + (waveNumber - 1);
     }
 
     private void SpawnWave()
     {
-        if (waveStarted) return;
-
-        spawnTimer += Time.deltaTime;
-
-        if (spawnTimer > spawnRate && spawnedEnemies < enemiesToSpawn)
+        //print("Spawning wave. WaveStarted=" + waveStarted + " SpawnedEnemies=" + spawnedEnemies + " of " + enemiesToSpawn);
+        if (waveStarted && spawnedEnemies < enemiesToSpawn)
         {
-            currentWave.Add(enemySpawner.SpawnEmemy());
-            spawnedEnemies++;
-            spawnTimer = 0;
-        }    
+            spawnTimer += Time.deltaTime;
+            //Debug.Log("Spawn timer=" + spawnTimer);
+
+            if (spawnTimer > spawnRate)
+            {
+                currentWave.Add(enemySpawner.SpawnEmemy());
+                spawnedEnemies++;
+                spawnTimer = 0;
+            }
+        } 
     }
 
     public void EnemnyDied(GameObject enemy)
