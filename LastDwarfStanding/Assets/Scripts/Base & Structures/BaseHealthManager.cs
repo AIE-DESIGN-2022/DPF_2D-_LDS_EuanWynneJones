@@ -50,7 +50,7 @@ public class BaseHealthManager : MonoBehaviour
             SavingSystem savingSystem =FindObjectOfType<SavingSystem>();
             Dictionary<string, object> waveStats = new Dictionary<string, object>();
             //print("Wave count = "  + enemyWaveManager.waveCount);
-            waveStats.Add("waveCount", (object)enemyWaveManager.waveCount);
+            waveStats.Add("waveCount", (object)enemyWaveManager.WaveCount);
             savingSystem.EndGameSave(waveStats);
 
             SceneManager.LoadScene("DeathScene");

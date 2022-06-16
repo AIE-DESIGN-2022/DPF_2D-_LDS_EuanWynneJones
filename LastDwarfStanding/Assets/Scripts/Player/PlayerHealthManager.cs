@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Animations;
 
 
 public class PlayerHealthManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public Transform respawnPosition;
     private float _timeSinceDamage;
-    public float timeToRecharge; 
+    public float timeToRecharge;
     public float timeToStartRecharge; // how long befor it starts recharing
     public float rechargeRate = 10; // how much is recharged per second
     public float rechargeRateInerval = 1.0f;
@@ -24,6 +25,13 @@ public class PlayerHealthManager : MonoBehaviour
     private ShieldManager _shieldManager;
     private CurrencyManager _currencyManager;
     private Shield _shield;
+
+    private EnemyNavigationManager[] _enemyNavigationManager;
+    private PlayerNavigationManager _playerNavigationManager;
+    
+    public bool OndeathActive = false;
+
+
 
 
     private void Awake()
@@ -102,7 +110,7 @@ public class PlayerHealthManager : MonoBehaviour
             if (currentHealth <= 0)
             {
                 
-                _Ondeath();
+               StartCoroutine (Ondeath());
                 //SceneManager.LoadScene("DeathScene");
             }
 
@@ -133,8 +141,23 @@ public class PlayerHealthManager : MonoBehaviour
         healthSlider.value = currentHealth;
     }
 
-    private void _Ondeath()
+    IEnumerator Ondeath()
     {
+        OndeathActive = true;
+
+        Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+        _enemyNavigationManager = FindObjectsOfType<EnemyNavigationManager>();
+        _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>(); 
+        _playerNavigationManager.isControllerActive = false;
+        transform.position = respawnPosition.transform.position;
+        //foreach(EnemyNavigationManager enemy in _enemyNavigationManager)
+        //{
+        //    enemy.isEnemyActive = false;
+        //}
+
+
+        //_reviveAnimation.SetTrigger("TriggerRespawnAnimation");
+        yield return new WaitForSeconds(2f);
         if(_currencyManager.currentCurrencyAmount > 0)
         {
             _currencyManager.currentCurrencyAmount = _currencyManager.currentCurrencyAmount -= 5;
@@ -145,9 +168,16 @@ public class PlayerHealthManager : MonoBehaviour
                 _currencyManager.UpdateCurrencyText();
             }
         }
-        transform.position = respawnPosition.transform.position;
+
+        Camera.main.cullingMask = ~(0 << LayerMask.NameToLayer("Player"));
+        _playerNavigationManager.isControllerActive = true;
+        //foreach (EnemyNavigationManager enemy in _enemyNavigationManager)
+        //{
+          //  enemy.isEnemyActive = true;
+        //}
         currentHealth = maxHealth;
         healthSlider.maxValue = currentHealth;
         _UpdateHealthBar();
+        OndeathActive = false;
     }
 }

@@ -220,7 +220,7 @@ public class EnemyNavigationManager : MonoBehaviour
     {
         if (!isEnemyActive)
         {
-            Debug.Log("Enemy Stopped");
+            //Debug.Log("Enemy Stopped");
             _agent.destination = transform.position;
 
 

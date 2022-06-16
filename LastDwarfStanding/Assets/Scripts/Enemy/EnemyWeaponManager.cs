@@ -9,7 +9,6 @@ public class EnemyWeaponManager : MonoBehaviour
     public Transform weaponPosition;
     
 
-    public float damage;
 
     private GameObject _enemy;
     private EnemyNavigationManager _enemyNavigationManager;

@@ -45,7 +45,7 @@ public class EnemyHealthManager : MonoBehaviour
     }
     private void OnDeath()
     {
-
+        FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
         {
