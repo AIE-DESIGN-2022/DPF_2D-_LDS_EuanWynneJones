@@ -11,25 +11,41 @@ public class DayNightManager : MonoBehaviour
     public bool isDayTime;
     public float lengthOfDay = 20f;
     private float currentTime = 0f;
-    public GameObject dayNightmother;
-    public GameObject nightMaterial;
-    public Animator nightAnimator;
+    //public GameObject dayNightmother;
     public Image[] sceneImages;
     public GameObject player;
 
-   // public Image nightMaterialImage;
+    public Color dayColour = new Color(255, 255, 255, 255);
+    public Color nightColour = new Color(119, 122, 154, 255);
+    public Color targetColour;
+    public Color currentColor = Color.white;
+
+    //public bool lerpColour;
+
     
+    float t;
+    public float dayRate = 1;
+    public float nightRate = 1;
+    private float _targetRate = 1;
+    public float lerpVectorDistance = 1f;
+    // public Image nightMaterialImage;
+
+    public List<float> transitionDurations = new List<float>();
+    private float durationTimer = 0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-      //  nightMaterialImage = nightMaterial.GetComponent<Image>();
-        nightMaterial = GetComponent<GameObject>();
-        nightAnimator = GetComponent<Animator>();
+        targetColour = dayColour;
+        //  nightMaterialImage = nightMaterial.GetComponent<Image>();
+
         //sceneImages = FindObjectOfType<Image>();
         isDayTime = true;
-        ChangeNightTimeMaterial();
-        
+      //  ChangeNightTimeMaterial();
+
+
+
     }
 
     // Update is called once per frame
@@ -42,18 +58,24 @@ public class DayNightManager : MonoBehaviour
         {
             currentTime = 0f;
             ToggleDayNight();
+            //lerpColour = true;
             //Debug.Log("Day Night swiching");
         }
 
-        ChangePosition();
+      /*  if (isDayTime)
+        {
+            LinearColourTransitionToDay();
+        }
+        else
+        {
+            LinearColourTransitionToNight();
+        }*/
 
-    }
 
-    private void ChangePosition()
-    {
-        Vector3 newPosition = dayNightmother.transform.position;
-        newPosition.x = player.transform.position.x;
-        dayNightmother.transform.position = newPosition;
+        t += Time.deltaTime / lengthOfDay;
+
+
+        ColourLerp();
     }
 
     private void ToggleDayNight()
@@ -61,8 +83,9 @@ public class DayNightManager : MonoBehaviour
         if (isDayTime)
         {
             isDayTime = false;
-            ChangeNightTimeColours();
-            
+            //ChangeNightTimeColours();
+            targetColour = nightColour;
+            _targetRate = nightRate;
 
 
 
@@ -70,43 +93,67 @@ public class DayNightManager : MonoBehaviour
         else
         {
             isDayTime = true;
-            ChangeDayTimeColours();
+           // ChangeDayTimeColours();
+            targetColour = dayColour;
+            _targetRate = dayRate;   
         }
-        ChangeNightTimeMaterial();
+        //ChangeNightTimeMaterial();
     }
 
-    private void ChangeNightTimeMaterial()
-    {
-        if (isDayTime)
-        {
-           // nightMaterialImage.color = new Color(nightMaterialImage.color.r, nightMaterialImage.color.g, nightMaterialImage.color.b, 1f);
-            nightMaterial.gameObject.SetActive(false);
-            nightAnimator.SetTrigger("Fade Out");
-        }
-        else
-        {
-            //nightMaterialImage.color = new Color(nightMaterialImage.color.r, nightMaterialImage.color.g, nightMaterialImage.color.b, 0f);
-            nightMaterial.gameObject.SetActive(true);
-            nightAnimator.SetTrigger("Fade In");
-        }
-    }
     private void ChangeNightTimeColours()
     {
-        Debug.Log("Changing colour at night");
+        Debug.Log("Changing colour to night");
         foreach(Image image in sceneImages)
         {
-            image.GetComponent<Image>().color = new Color32(119, 122, 154, 255);
+            image.GetComponent<Image>().color = nightColour;
         }
         
     }
 
     private void ChangeDayTimeColours()
     {
-        Debug.Log("Changing colour at day");
+        Debug.Log("Changing colour to day");
         foreach (Image image in sceneImages)
         {
-            image.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            image.GetComponent<Image>().color = dayColour;
         }
 
+    }
+
+    public void ColourLerp()
+    {
+        currentColor = sceneImages[0].color;
+        foreach (Image image in sceneImages)
+        {
+          
+            if (image.color != targetColour)
+            {
+                //Debug.Log(image.name + " Lerping to target colour");
+                image.color = Color.LerpUnclamped(currentColor, targetColour, _targetRate *Time.deltaTime);
+
+                if (image == sceneImages[0]) durationTimer += Time.deltaTime;
+
+
+                    Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
+                if (Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)) < lerpVectorDistance)
+                {
+                    //currentColor = targetColour;
+                    image.color = targetColour;
+
+                    if (image == sceneImages[0])
+                    {
+                        transitionDurations.Add(durationTimer);
+                        durationTimer = 0;
+                    }
+                }
+            }
+        }
+    }
+
+  
+    
+    private Vector3 ColorToVector(Color color)
+    {
+        return new Vector3(color.r, color.g, color.b);
     }
 }

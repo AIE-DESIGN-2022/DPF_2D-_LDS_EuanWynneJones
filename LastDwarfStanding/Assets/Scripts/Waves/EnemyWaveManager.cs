@@ -28,6 +28,8 @@ public class EnemyWaveManager : MonoBehaviour
     private bool nextDayHasHappened = true;
     private bool waveTextSeen = false;
 
+    private WaveConfig[] waveConfigs;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class EnemyWaveManager : MonoBehaviour
         //WaveBreak();
 
         if (dayNightManager == null) Debug.LogError(name + " cannot find DayNightManager");
+        waveConfigs = (WaveConfig[])Resources.LoadAll<WaveConfig>("");
     }
 
     // Update is called once per frame
