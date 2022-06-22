@@ -12,14 +12,36 @@ public class PlayerWeapon : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Weapon" && !didDamage)
         {
-            if (other.gameObject.tag == "EnemyMelee" && !didDamage)
+            EnemyHealthManager enemyHealthManager = other.gameObject.GetComponent<EnemyHealthManager>();
+            if (enemyHealthManager != null)
             {
+                enemyHealthManager.TakeDamage(damage);
                 didDamage = true;
-                other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
-
             }
+
+
+
+            //else Debug.LogError(name + " cannot find EnemyHealthManager.");
+
+            //Debug.Log("Hit Something");
+            /*if (other.gameObject.tag.Contains ("Enemy") && !didDamage)
+            {
+                //Debug.Log("Hit Enemy");
+                didDamage = true;
+                EnemyHealthManager enemyHealthManager = other.gameObject.GetComponent<EnemyHealthManager>();
+                if (enemyHealthManager != null)
+                {
+                    enemyHealthManager.TakeDamage(damage);
+                }
+                else
+                {
+                    Debug.LogError(name + " cannot find EnemyHealthManager.");
+                }
+                
+
+            }*/
         }
     }
 }

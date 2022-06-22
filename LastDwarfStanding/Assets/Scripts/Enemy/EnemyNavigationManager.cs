@@ -25,7 +25,7 @@ public class EnemyNavigationManager : MonoBehaviour
     public float attackRange;
     
     public float enemySwingDelay;
-    private float _swingTimer;
+    public float _swingTimer;
 
     public GameObject weapon;
 
@@ -42,8 +42,15 @@ public class EnemyNavigationManager : MonoBehaviour
 
     public float stoppingRange;
 
+    public float stepBackDistance;
+
+    private EnemyRangedWeaponManager _enemyRangedWeaponManager;
+
+    public int laneNumber;
+
     private void Awake()
     {
+        _enemyRangedWeaponManager = GetComponent<EnemyRangedWeaponManager>();
         _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
@@ -96,14 +103,21 @@ public class EnemyNavigationManager : MonoBehaviour
     {
         if (!PathisClear()) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-        float distanceToBase = Vector3.Distance(transform.position, _base.transform.position); ;
-        float distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
-        float distanceToStepBack = Vector3.Distance(transform.position, _stepBack.transform.position);
+        float distanceToPlayer = transform.position.x - _player.transform.position.x;
+        float distanceToBase = transform.position.x - _base.transform.position.x ;
+        float distanceToTarget =transform.position.x - _target.transform.position.x;
+        float distanceToStepBack = transform.position.x - _stepBack.transform.position.x;
+
+        if(distanceToPlayer < 0 ) distanceToPlayer *= -1;
+        if(distanceToTarget < 0) distanceToTarget *= -1;
+        if(distanceToBase < 0) distanceToBase *= -1;
+        if(distanceToStepBack < 0) distanceToStepBack *= -1;
+
+
 
         if (distanceToTarget < attackRange && enemyState != eEnemyState.StepBack)
         {
-            if (distanceToTarget < attackRange - 0.5f)
+            if (distanceToTarget < attackRange - stepBackDistance)
             {
                 if (!isEnemyActive) return;
                 SetEnemyState(eEnemyState.StepBack);
@@ -134,15 +148,16 @@ public class EnemyNavigationManager : MonoBehaviour
     {
         Vector3 direction = new Vector3(-1, 0 ,0);
         Debug.DrawRay(this.transform.position, direction * stoppingRange, Color.yellow);
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, stoppingRange);
+        RaycastHit[] hits = Physics.RaycastAll(this.transform.position, direction, stoppingRange);
         if (hits.Length>0)
         {
             foreach (RaycastHit hit in hits)
             {
                 EnemyNavigationManager enemy = hit.transform.gameObject.GetComponent<EnemyNavigationManager>();
 
-                if (enemy != null && enemy != this)
+                if (enemy != null && enemy != this && laneNumber == enemy.laneNumber)
                 {
+
                     return false;
                 }
             }
@@ -157,16 +172,26 @@ public class EnemyNavigationManager : MonoBehaviour
 
     private void Attack()
     {
-        _swingTimer += Time.deltaTime;
-        if (_swingTimer >= enemySwingDelay)
-        {
-            GetComponentInChildren<EnemyWeapon>().didDamage = false;
-            weapon.GetComponent<Animator>().SetTrigger("Swing");
-            //Debug.Log("attacking");
-            _swingTimer = 0;
-        }
+       // if(gameObject.tag.Contains ("Enemy"))
+       // {
+            _swingTimer += Time.deltaTime;
+            if (_swingTimer >= enemySwingDelay)
+            {
+                GetComponentInChildren<EnemyWeapon>().didDamage = false;
+                weapon.GetComponent<Animator>().SetTrigger("Swing");
+                //Debug.Log("attacking");
+                _swingTimer = 0;
+            }
+       // }
+       // else
+       // {
+       //     return;
+       // }
 
     }
+
+
+
 
 
 
@@ -188,7 +213,11 @@ public class EnemyNavigationManager : MonoBehaviour
 
             case eEnemyState.AttackTarget:
                 _agent.isStopped = true;
+                if(gameObject.tag != ("EnemyRanger"))
+                {
+
                 Attack();
+                }
                 break;
 
             case eEnemyState.StepBack:

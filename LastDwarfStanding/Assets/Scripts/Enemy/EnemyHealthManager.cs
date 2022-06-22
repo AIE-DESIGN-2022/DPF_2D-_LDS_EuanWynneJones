@@ -12,7 +12,7 @@ public class EnemyHealthManager : MonoBehaviour
     private Transform _parent;
 
     public bool LootDropped = false;
-
+    private bool isAlive = true;
     public GameObject loot;
     public Transform spawnPosition;
 
@@ -31,20 +31,36 @@ public class EnemyHealthManager : MonoBehaviour
     void Update()
     {
         _parent = enemyHealthBar.transform.parent;
+        if (LootDropped)
+        {
+            SpawnLoot();
+        }
     }
     public void TakeDamage(float damageToTake)
     {
-        enemyHealth -= damageToTake;
-        enemyHealthBar.fillAmount = enemyHealth / enemyMaxHealth;
+        if (!isAlive) return;
 
-        if (enemyHealth <= 0)
+        if (enemyHealth - damageToTake <= 0)
         {
-            LootDropped = false;
+            enemyHealth = 0;
             OnDeath();
         }
+        else
+        {
+            enemyHealth -= damageToTake;
+        }
+        enemyHealthBar.fillAmount = enemyHealth / enemyMaxHealth;
+
+        //print(name + " taking damage.");
+
     }
+
+
     private void OnDeath()
     {
+        if (!isAlive) return;
+        isAlive = false;
+
         FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
@@ -59,7 +75,7 @@ public class EnemyHealthManager : MonoBehaviour
 
     private void SpawnLoot()
     {
-        //Debug.Log("Dropping Coin");
+        Debug.Log("Dropping Coin");
         GameObject LootClone = Instantiate(loot, spawnPosition.position, spawnPosition.rotation);
         LootDropped = true;
 

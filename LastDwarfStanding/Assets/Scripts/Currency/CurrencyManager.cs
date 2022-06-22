@@ -33,7 +33,7 @@ public class CurrencyManager : MonoBehaviour
     public void AddCurrency(int _currencyToAdd)
     {
         //add currency amount from pickup item to total currencycount
-
+        Debug.Log("Adding Currency");
         _playerSoundManager.PlayAudioClip("Coin");
         currentCurrencyAmount += _currencyToAdd;
         //call the function to update the text to match current currency amount

@@ -134,7 +134,7 @@ public class DayNightManager : MonoBehaviour
                 if (image == sceneImages[0]) durationTimer += Time.deltaTime;
 
 
-                    Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
+                    //Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
                 if (Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)) < lerpVectorDistance)
                 {
                     //currentColor = targetColour;
