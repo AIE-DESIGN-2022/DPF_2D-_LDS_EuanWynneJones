@@ -48,6 +48,7 @@ public class EnemyNavigationManager : MonoBehaviour
 
     public int laneNumber;
 
+
     private void Awake()
     {
         _enemyRangedWeaponManager = GetComponent<EnemyRangedWeaponManager>();
@@ -57,6 +58,8 @@ public class EnemyNavigationManager : MonoBehaviour
 
         _stepBack = transform.GetChild(2).gameObject;
         _pauseGame = FindObjectOfType<PauseGame>();
+
+       
     }
 
     // Start is called before the first frame update
@@ -177,16 +180,27 @@ public class EnemyNavigationManager : MonoBehaviour
             _swingTimer += Time.deltaTime;
             if (_swingTimer >= enemySwingDelay)
             {
+                if(gameObject.tag == "EnemyMelee")
+            {
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
+                Debug.Log(gameObject.name + "Tried to do damage");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
+
+            }
+                if(gameObject.tag == "EnemySiege")
+            {
+                Debug.Log(gameObject.name + "Tried to do damage");
+                GetComponentInChildren<EnemyWeapon>().didDamage = false;
+                weapon.GetComponent<Animator>().SetTrigger("Club");
+            }
                 //Debug.Log("attacking");
                 _swingTimer = 0;
+                
             }
-       // }
-       // else
-       // {
-       //     return;
-       // }
+             else
+             {
+                  return;
+             }
 
     }
 

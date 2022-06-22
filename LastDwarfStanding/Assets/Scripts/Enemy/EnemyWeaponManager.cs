@@ -10,7 +10,9 @@ public class EnemyWeaponManager : MonoBehaviour
     
 
 
-    private GameObject _enemy;
+    private GameObject _enemyMelee;
+    private GameObject _enemyRanger;
+    private GameObject _enemySiege;
     private EnemyNavigationManager _enemyNavigationManager;
     private PauseGame _pauseGame;
 
@@ -28,7 +30,9 @@ public class EnemyWeaponManager : MonoBehaviour
     void Start()
     {
 
-        _enemy = GameObject.FindGameObjectWithTag("EnemyMelee");
+        _enemyMelee = GameObject.FindGameObjectWithTag("EnemyMelee");
+        _enemyRanger = GameObject.FindGameObjectWithTag("EnemyRanger");
+        _enemySiege = GameObject.FindGameObjectWithTag("EnemySiege");
     }
 
     // Update is called once per frame

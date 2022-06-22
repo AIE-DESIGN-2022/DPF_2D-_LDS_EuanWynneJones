@@ -27,7 +27,7 @@ public class EnemyWeapon : MonoBehaviour
 
             }
 
-            if (other.gameObject.tag != "EnemySiege" && other.gameObject.tag != "EnemyWeapon")
+            if (other.gameObject.tag != "EnemySiege" && other.gameObject.tag != "EnemySiegeWeapon")
             {
                 if (other.gameObject.tag == "Player" && !didDamage)
                 {
