@@ -10,6 +10,7 @@ public class PauseGame : MonoBehaviour
     public GameObject transparentBackground;
     private PlayerNavigationManager _playerNavigationManager;
     private EnemyNavigationManager[] _enemyNavigationManager;
+    private Arrow[] _arrows;
     public AudioSource scrollUIAudio;
 
     private void Awake()
@@ -33,7 +34,9 @@ public class PauseGame : MonoBehaviour
         {
             PauseMenuToggle();
         }
-        
+
+        _enemyNavigationManager = FindObjectsOfType<EnemyNavigationManager>();
+
     }
 
     public void ResumeLevel()
@@ -58,13 +61,20 @@ public class PauseGame : MonoBehaviour
 
         transparentBackground.SetActive(true);
         _playerNavigationManager.isControllerActive = false;
+    
 
         foreach (EnemyNavigationManager enemy in _enemyNavigationManager)
         {
             enemy.isEnemyActive = false;
+            Debug.Log("Enemy is not active" + name);
             enemy.EnemyOnPause();
         
         }
+       /* foreach (Arrow arrow in _arrows)
+            arrow.CanFire = false;
+        Arrow.ArrowOnPause();
+
+        */
 
     }
 

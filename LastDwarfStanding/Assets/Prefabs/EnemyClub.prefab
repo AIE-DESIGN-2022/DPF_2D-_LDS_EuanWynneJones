@@ -105,7 +105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3783020897635079909}
   - component: {fileID: 2172962462765894162}
-  - component: {fileID: 8642797853063616648}
   m_Layer: 10
   m_Name: EnemyClub
   m_TagString: EnemySiegeWeapon
@@ -148,21 +147,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8642797853063616648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305290481017982111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12d4976fa22a38469c56dbb4416156c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  didDamage: 0
-  enemySoundManager: {fileID: 0}
 --- !u!1 &2061707984279163623
 GameObject:
   m_ObjectHideFlags: 0

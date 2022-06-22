@@ -75,7 +75,7 @@ public class EnemyHealthManager : MonoBehaviour
 
     private void SpawnLoot()
     {
-        Debug.Log("Dropping Coin");
+        //Debug.Log("Dropping Coin");
         GameObject LootClone = Instantiate(loot, spawnPosition.position, spawnPosition.rotation);
         LootDropped = true;
 

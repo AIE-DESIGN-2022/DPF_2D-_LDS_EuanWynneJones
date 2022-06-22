@@ -21,7 +21,9 @@ public class EnemyRangedWeaponManager : MonoBehaviour
     public float timeSinceLastArrow;
     public float reloadTime;
     private bool _arrowFired;
-    public  NavMeshAgent _agent;
+    public NavMeshAgent _agent;
+    public bool CanFire = true;
+
 
 
 
@@ -49,22 +51,22 @@ public class EnemyRangedWeaponManager : MonoBehaviour
 
         timeSinceLastArrow += Time.deltaTime;
 
-        if (timeSinceLastArrow >= reloadTime)
+        if (timeSinceLastArrow >= reloadTime && CanFire)
         {
             _arrowFired = false;
-       
-            RangedAttack();
-        }
 
+            RangedAttack();
+            //ArrowOnPause();
+        }
 
 
     }
 
-   public void RangedAttack()
+    public void RangedAttack()
     {
 
 
-        if (timeSinceLastArrow >= reloadTime && !_arrowFired)
+        if (timeSinceLastArrow >= reloadTime && !_arrowFired && CanFire)
         {
             _arrowFired = true;
             _agent.isStopped = true;
@@ -73,8 +75,22 @@ public class EnemyRangedWeaponManager : MonoBehaviour
 
 
         }
-        }
+
     }
+  /*  public void ArrowOnPause()
+    {
+        if (!CanFire)
+        {
+            //Debug.Log("Enemy Stopped");
+            arrow.transform.position = transform.position;
+
+
+
+        }
+    
+    }
+  */
+}
 
 
 

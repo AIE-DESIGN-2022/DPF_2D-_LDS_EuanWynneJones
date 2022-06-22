@@ -2359,7 +2359,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5904e-41, y: 0.000000051199606, z: 4.5904e-41, w: -12.192818}
+  m_BoundingSphereOverride: {x: 5.56e-43, y: 7.1e-44, z: 0, w: 4.3382047e+10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -6530,6 +6530,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1500678424}
     m_Modifications:
+    - target: {fileID: 1752440296947236926, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779075433976733561, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229043959213396010, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721421008535471483, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133732762755394314, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8147253492989086341, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
       propertyPath: m_Size.x
       value: 1.3640423
@@ -6545,6 +6565,10 @@ PrefabInstance:
     - target: {fileID: 8147253492989086341, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
       propertyPath: m_Center.y
       value: -0.10575867
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751855035213619152, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Name
+      value: PlayerButt
       objectReference: {fileID: 0}
     - target: {fileID: 8913896868678153316, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
       propertyPath: m_Name
@@ -6617,6 +6641,10 @@ PrefabInstance:
     - target: {fileID: 8913896868678153342, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
       propertyPath: m_Constraints
       value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186753571040458285, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797e3ecaebc978c488edbf2b6d5ce3ec, type: 3}

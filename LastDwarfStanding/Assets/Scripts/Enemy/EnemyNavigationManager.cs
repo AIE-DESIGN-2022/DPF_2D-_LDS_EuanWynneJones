@@ -45,6 +45,7 @@ public class EnemyNavigationManager : MonoBehaviour
     public float stepBackDistance;
 
     private EnemyRangedWeaponManager _enemyRangedWeaponManager;
+    private EnemyWeapon _enemyWeapon;
 
     public int laneNumber;
 
@@ -52,6 +53,7 @@ public class EnemyNavigationManager : MonoBehaviour
     private void Awake()
     {
         _enemyRangedWeaponManager = GetComponent<EnemyRangedWeaponManager>();
+        _enemyWeapon = GetComponent<EnemyWeapon>();
         _agent = GetComponent<NavMeshAgent>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
@@ -175,25 +177,24 @@ public class EnemyNavigationManager : MonoBehaviour
 
     private void Attack()
     {
-       // if(gameObject.tag.Contains ("Enemy"))
-       // {
+ 
             _swingTimer += Time.deltaTime;
             if (_swingTimer >= enemySwingDelay)
             {
                 if(gameObject.tag == "EnemyMelee")
             {
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
-                Debug.Log(gameObject.name + "Tried to do damage");
+               // Debug.Log(gameObject.name + "Tried to do damage");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
 
             }
                 if(gameObject.tag == "EnemySiege")
             {
-                Debug.Log(gameObject.name + "Tried to do damage");
+                //Debug.Log(gameObject.name + "Tried to do damage");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
                 weapon.GetComponent<Animator>().SetTrigger("Club");
             }
-                //Debug.Log("attacking");
+                //Debug.Log("Siege attacking animation");
                 _swingTimer = 0;
                 
             }
