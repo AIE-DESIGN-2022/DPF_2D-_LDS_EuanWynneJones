@@ -19,9 +19,16 @@ public class PassiveIncomeFarmManager : MonoBehaviour
     public Image UnbuiltFarm;
     public Image BuiltFarm;
 
+
+    public CurrencyManager currencyManager;
     void Start()
     {
+
+        farmColider.SetActive(true);
         farmIncomeTimer +=Time.deltaTime;
+        currencyManager = FindObjectOfType<CurrencyManager>();
+
+
     }
 
     // Update is called once per frame
@@ -30,8 +37,11 @@ public class PassiveIncomeFarmManager : MonoBehaviour
         
     }
 
-    public void PassiveIncomeFarm()
+    public void BuyPassiveIncomeFarm()
     {
-
+        if(currencyManager.currentCurrencyAmount >= costOfFarm)
+        {
+           farmColider.SetActive(false);
+        }
     }
 }
