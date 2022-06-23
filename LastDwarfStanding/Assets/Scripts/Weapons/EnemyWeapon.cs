@@ -19,7 +19,7 @@ public class EnemyWeapon : MonoBehaviour
     }
     public void OnCollisionEnter(Collision other)
     {
-        print(didDamage + other.gameObject.name);
+
         if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
         {
             if (other.gameObject.tag == "Player" && !didDamage)
