@@ -21,7 +21,7 @@ public class BaseHealthManager : MonoBehaviour
         _timeSinceDamage = 0f;
         currentHealth = maxHealth;
         baseHealthSlider.maxValue = currentHealth;
-        _UpdateBaseHealthBar();
+        UpdateBaseHealthBar();
     }
 
     // Update is called once per frame
@@ -32,8 +32,9 @@ public class BaseHealthManager : MonoBehaviour
 
 
 
-    private void _UpdateBaseHealthBar()
+    public void UpdateBaseHealthBar()
     {
+        baseHealthSlider.maxValue = maxHealth;
         baseHealthSlider.value = currentHealth;
     }
 
@@ -42,7 +43,7 @@ public class BaseHealthManager : MonoBehaviour
     {
 
         currentHealth -= damageToTake;
-        _UpdateBaseHealthBar();
+        UpdateBaseHealthBar();
 
         if (currentHealth <= 0)
         {
@@ -68,6 +69,6 @@ public class BaseHealthManager : MonoBehaviour
         }
         _timeSinceDamage = 0;
 
-        _UpdateBaseHealthBar();
+        UpdateBaseHealthBar();
     }
 }

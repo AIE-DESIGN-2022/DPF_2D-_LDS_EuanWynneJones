@@ -13,9 +13,13 @@ public class EnemyWeapon : MonoBehaviour
         enemySoundManager = GetComponentInParent<EnemySoundManager>();
     }
 
+    private void Update()
+    {
 
+    }
     public void OnCollisionEnter(Collision other)
     {
+        print(didDamage + other.gameObject.name);
         if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
         {
             if (other.gameObject.tag == "Player" && !didDamage)
@@ -34,7 +38,7 @@ public class EnemyWeapon : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag != "EnemySiege" && other.gameObject.tag != "EnemySiegeWeapon")
+        if (other.gameObject.tag != "EnemySiege" && other.gameObject.tag != "EnemySiegeWeapon" && other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
         {
 
             //Debug.Log("EnemySiege IS Damageing" + name);
@@ -43,14 +47,14 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("HammerCrush");
-                Debug.Log("Played Sound");
+                Debug.Log("Played Sound" + enemySoundManager.name);
 
             }
             if (other.gameObject.tag == "Base" && !didDamage)
             {
                 didDamage = true;
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
-                enemySoundManager.PlayAudioClip("TakeDamage");
+                enemySoundManager.PlayAudioClip("HammerCrush");
             }
 
         }
@@ -64,24 +68,26 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 //Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
-                enemySoundManager.PlayAudioClip("TakeDamage");
+                enemySoundManager.PlayAudioClip("ArrowHitFlesh");
 
             }
 
-            /* if (other.gameObject.tag == "Base" && !didDamage)
+            if (other.gameObject.tag == "Base" && !didDamage)
             {
                 didDamage = true;
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
-                enemySoundManager.PlayAudioClip("TakeDamage");
-            }*/
+                enemySoundManager.PlayAudioClip("ArrowHitShield");
+            }
+
+
+
+
 
 
         }
-
-
-            
     }
 }
+
 
 
 
