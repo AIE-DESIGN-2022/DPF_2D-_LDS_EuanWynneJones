@@ -13,13 +13,20 @@ public class UpgradeManager : MonoBehaviour
     public CurrencyManager currencyManager;
     public ShieldManager shieldManager;
     public Shield shield;
+    public ArrowFriendly arrowTurret;
 
     public GameObject upgrade_UI;
     public AudioSource upgrade_UIaudio;
 
+    public GameObject turretBuildButton;
+    public GameObject turretUpgradeButton;
+    public GameObject turret;
+
 
     public Text CostBaseHealthUpgradeText;
     public Text CostBaseRepairText;
+    public Text CostTurretUpgradeText;
+    public Text CostTurretInitialText;
 
 
     public int currencyCostBaseHealthUpgrade = 1;
@@ -28,14 +35,25 @@ public class UpgradeManager : MonoBehaviour
     public int currencyCostBaseRepair = 1;
     public int currenctCurrencyCostBaseRepair = 1;
 
+    public int currencyCostInitialTurret = 30;
+    public int currenctCurrencyCostInitialTurret = 30;
+
+    public int currencyCostUpgradeTurret = 1;
+    public int currenctCurrencyCostUpgradeTurret = 1;
+
+
     private void Awake()
     {
         UpdateUpgradeBaseHealthCost();
         UpdateBaseRepairCost();
+        UpdateTurretUpgradeCost();
+        UpdateTurretInitialCost();
     }
     void Start()
     {
 
+        turretUpgradeButton.SetActive(false);
+        turret.SetActive(false);
         upgrade_UI.SetActive(false);
         UpdateUpgradeBaseHealthCost();
         UpdateBaseRepairCost();
@@ -99,12 +117,32 @@ public class UpgradeManager : MonoBehaviour
 
     public void BaseTurretInnitial()
     {
+        if (currencyManager.currentCurrencyAmount >= currencyCostInitialTurret)
+            turret.SetActive(true);
+
+        turretBuildButton.SetActive(false);
+        turretUpgradeButton.SetActive(true);
 
     }
 
     public void BaseTurretUpgrade()
     {
+        currencyCostUpgradeTurret = 1 + currenctCurrencyCostUpgradeTurret;
 
+        if(currencyManager.currentCurrencyAmount >= currencyCostUpgradeTurret)
+        {
+
+        currencyManager.RemoveCurrency(currencyCostInitialTurret);
+        currencyManager.UpdateCurrencyText();
+
+
+
+        arrowTurret.damage += 10;
+        arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
+
+            currenctCurrencyCostUpgradeTurret += currenctCurrencyCostUpgradeTurret * (3* currenctCurrencyCostUpgradeTurret);
+            UpdateTurretUpgradeCost();
+        }
     }
 
 
@@ -157,5 +195,17 @@ public class UpgradeManager : MonoBehaviour
     {
 
         CostBaseRepairText.text = currenctCurrencyCostBaseRepair.ToString();
+    }
+
+    public void UpdateTurretUpgradeCost()
+    {
+
+        CostTurretUpgradeText.text = currenctCurrencyCostUpgradeTurret.ToString();
+    }
+
+    public void UpdateTurretInitialCost()
+    {
+
+        CostTurretInitialText.text = currencyCostInitialTurret.ToString();
     }
 }
