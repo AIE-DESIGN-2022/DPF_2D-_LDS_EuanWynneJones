@@ -121,6 +121,12 @@ public class UpgradeManager : MonoBehaviour
                 BaseTurretUpgrade();
                 UpdateTurretUpgradeCost();
             }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+
+            {
+                BaseTurretInnitialSecond();
+                UpdateTurretInitialCostSecond();
+            }
             if (Input.GetKeyDown(KeyCode.Alpha4) && isTurretSecondBought)
             {
                 BaseTurretUpgradeSecond();
@@ -155,13 +161,14 @@ public class UpgradeManager : MonoBehaviour
             {
                 if (isTurretBought && !isTurretSecondBought)
                 {
-                turretBuildButtonSecond.SetActive(true);
+                    turretBuildButtonSecond.SetActive(true);
 
                 }
                 WoodenWall.SetActive(true);
                 StonePillar.SetActive(true);
             }
-            if (baseHealthManager.maxHealth >= 500f) {
+            if (baseHealthManager.maxHealth >= 500f)
+            {
                 WoodenWall.SetActive(false);
                 Wall.SetActive(true);
             }
@@ -235,27 +242,27 @@ public class UpgradeManager : MonoBehaviour
     {
         currencyCostUpgradeTurret = 1 + currenctCurrencyCostUpgradeTurret;
 
-        if(currencyManager.currentCurrencyAmount >= currencyCostUpgradeTurret)
+        if (currencyManager.currentCurrencyAmount >= currencyCostUpgradeTurret)
         {
 
-        currencyManager.RemoveCurrency(currencyCostUpgradeTurret);
-        currencyManager.UpdateCurrencyText();
+            currencyManager.RemoveCurrency(currencyCostUpgradeTurret);
+            currencyManager.UpdateCurrencyText();
 
 
 
-        arrowTurret.damage += 10;
+            arrowTurret.damage += 10;
 
-    
-            if(arrowTurret.firingForce.z + arrowTurret.firingForce.z * 0.05f > arrowTurret.MaxFiringForce.z)
-                {
+
+            if (arrowTurret.firingForce.z + arrowTurret.firingForce.z * 0.05f > arrowTurret.MaxFiringForce.z)
+            {
                 arrowTurret.firingForce.z = arrowTurret.MaxFiringForce.z;
-                }
+            }
             else
             {
-             arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
+                arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
 
             }
-             currenctCurrencyCostUpgradeTurret +=  (7*6 / 3);
+            currenctCurrencyCostUpgradeTurret += (7 * 6 / 3);
 
             UpdateTurretUpgradeCost();
         }
@@ -310,7 +317,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeMenuToggle()
     {
-       
+
         if (upgrade_UI.activeInHierarchy)
         {
             ResumeLevelUpgrade();

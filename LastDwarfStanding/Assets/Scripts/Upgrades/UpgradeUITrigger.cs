@@ -13,21 +13,21 @@ public class UpgradeUITrigger : MonoBehaviour
     {
         upgradeManager = FindObjectOfType<UpgradeManager>();
         passiveIncomeFarmManager = GetComponent<PassiveIncomeFarmManager>();
- 
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "Player" )
+        if (other.gameObject.tag == "Player")
         {
 
             //upgradeManager.PauseLevelUpgrade();
@@ -49,17 +49,17 @@ public class UpgradeUITrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
 
-                if (passiveIncomeFarmManager != null)
-                {
-                
+            if (passiveIncomeFarmManager != null)
+            {
+
                 passiveIncomeFarmManager.farmUpgradeUI.ResumeLevelFarm();
 
             }
-                else if (upgradeManager != null)
-                {
-                    upgradeManager.ResumeLevelUpgrade();
-                }
-
+            else if (upgradeManager != null)
+            {
+                upgradeManager.ResumeLevelUpgrade();
             }
+
         }
+    }
 }

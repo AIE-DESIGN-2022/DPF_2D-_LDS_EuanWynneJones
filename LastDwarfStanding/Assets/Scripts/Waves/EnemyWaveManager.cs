@@ -62,7 +62,7 @@ public class EnemyWaveManager : MonoBehaviour
         {
             UpdateWaveText();
             SpawnWave();
-            
+
         }
 
         CheckIfWaveFinished();
@@ -79,24 +79,24 @@ public class EnemyWaveManager : MonoBehaviour
         }
     }
 
-/*    public void Wave()
-    {
-        waveStarted = true;
-        waveTimer += Time.deltaTime;
-        
-
-        if (waveTimer >= waveTimeLimit)
+    /*    public void Wave()
         {
-            waveStarted = false;
+            waveStarted = true;
+            waveTimer += Time.deltaTime;
 
-            waveBreakTimer = 0f;
-            WaveBreak();
 
-        }
-*/
-        
+            if (waveTimer >= waveTimeLimit)
+            {
+                waveStarted = false;
 
-    
+                waveBreakTimer = 0f;
+                WaveBreak();
+
+            }
+    */
+
+
+
 
     private void CheckIfWaveFinished()
     {
@@ -107,21 +107,21 @@ public class EnemyWaveManager : MonoBehaviour
         }
     }
 
-/*    public void WaveBreak()
-    {
-        waveBreakTimer += Time.deltaTime;
-
-        if (waveBreakTimer >= waveBreakTimeLimit)
+    /*    public void WaveBreak()
         {
-            waveTimer = 0f;
-            waveCount++;
-            UpdateWaveText();
-            waveAnimation.SetTrigger("TriggerWaveText");
-            Wave();
-            
+            waveBreakTimer += Time.deltaTime;
 
-        }
-    }*/
+            if (waveBreakTimer >= waveBreakTimeLimit)
+            {
+                waveTimer = 0f;
+                waveCount++;
+                UpdateWaveText();
+                waveAnimation.SetTrigger("TriggerWaveText");
+                Wave();
+
+
+            }
+        }*/
 
     public void UpdateWaveText()
     {
@@ -131,12 +131,12 @@ public class EnemyWaveManager : MonoBehaviour
             waveTextNumber.text = waveCount.ToString();
             waveTextSeen = true;
         }
-        
+
     }
 
     private void CreateWave(int waveNumber)
     {
-        if(nextDayHasHappened)
+        if (nextDayHasHappened)
         {
             enemiesToSpawn = NumberOfEnemies(waveNumber);
             spawnedEnemies = 0;
@@ -150,7 +150,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     private int NumberOfEnemies(int waveNumber)
     {
-        return 3 + (waveNumber - 1);
+        return 1 + (waveNumber - 1);
     }
 
     private void SpawnWave()
@@ -170,7 +170,7 @@ public class EnemyWaveManager : MonoBehaviour
                 spawnedEnemies++;
                 spawnTimer = 0;
             }
-        } 
+        }
     }
 
     public void EnemnyDied(GameObject enemy)
@@ -178,6 +178,6 @@ public class EnemyWaveManager : MonoBehaviour
         currentWave.Remove(enemy);
     }
 
-    public int WaveCount {  get { return waveCount; } }
+    public int WaveCount { get { return waveCount; } }
 
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 //Declaring this class PlayerController
 public class PlayerNavigationManager : MonoBehaviour
 {
+
+	//defining key characteristics for player navigation
 	public bool isControllerActive = true;
 	public float moveSpeed = 6.0F;
 	public bool _FacingRight = true;
@@ -21,11 +23,13 @@ public class PlayerNavigationManager : MonoBehaviour
 	void Update()
 
 	{
+		//checks if the player controler is not active
 		if (!isControllerActive) return;
 
+
+		//flips the character left and right depending on movement key pressed 
 		float horiMove = moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
 		rb.AddForce(new Vector3(horiMove, 0, 0), ForceMode.VelocityChange);
-		//transform.Translate(Vector3.right * horiMove);
 
 
 		if (horiMove != lastMove)
@@ -37,34 +41,22 @@ public class PlayerNavigationManager : MonoBehaviour
 
 	}
 
-
-	void OnCollisionStay(Collision collisionInfo)
-	{
-		//IsGrounded = true;
-	}
-
-	void OnCollisionExit(Collision collisionInfo)
-	{
-
-		//IsGrounded = false;
-	}
-
+	//Left right movement of the player
 	public void HoriMove(float horiMove)
 	{
 		if (horiMove > 0 && !_FacingRight)
 		{
-			// ... flip the player.
-			//Debug.Log("Flipped Left");
+
 			Flip();
 		}
 		// Otherwise if the input is moving the player left and the player is facing right...
 		else if (horiMove < 0 && _FacingRight)
 		{
-			// ... flip the player.
-			//Debug.Log("Flipped Right");
 			Flip();
 		}
 	}
+
+
 	private void Flip()
 	{
 		// Switch the way the player is labelled as facing.

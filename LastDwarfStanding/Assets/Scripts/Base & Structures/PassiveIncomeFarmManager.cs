@@ -18,12 +18,12 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
     public GameObject UnbuiltFarm;
     public GameObject BuiltFarm;
-    [SerializeField]private FarmUpgradeManagerUI farmUpgradeManagerUI;
+    [SerializeField] private FarmUpgradeManagerUI farmUpgradeManagerUI;
 
     public Text costOfFarmText;
     public Text CostOfFarmUpgradeText;
 
-    public int currencyCostFarm = 1; 
+    public int currencyCostFarm = 1;
     public int CurrentCurrencyCostFarm = 1;
 
     public int currencyCostFarmUpgrade = 1;
@@ -45,11 +45,11 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
         farmColider.SetActive(true);
         BuiltFarm.SetActive(false);
-        farmIncomeTimer +=Time.deltaTime;
+        farmIncomeTimer += Time.deltaTime;
         currencyManager = FindObjectOfType<CurrencyManager>();
-        if(farmUpgradeManagerUI == null)
+        if (farmUpgradeManagerUI == null)
         {
-        farmUpgradeManagerUI = FindObjectOfType<FarmUpgradeManagerUI>();
+            farmUpgradeManagerUI = FindObjectOfType<FarmUpgradeManagerUI>();
 
         }
 
@@ -62,7 +62,7 @@ public class PassiveIncomeFarmManager : MonoBehaviour
     {
         if (IsFarmBought)
         {
-        farmIncomeTimer += Time.deltaTime;
+            farmIncomeTimer += Time.deltaTime;
             PassiveIncomeOverTime();
 
         }
@@ -70,16 +70,24 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
     public void BuyPassiveIncomeFarm()
     {
-        if(currencyManager.currentCurrencyAmount >= currencyCostFarm)
+        if (currencyManager.currentCurrencyAmount >= currencyCostFarm)
         {
             IsFarmBought = true;
             currencyManager.RemoveCurrency(currencyCostFarm);
-           // currencyManager.UpdateCurrencyText();
+            currencyManager.UpdateCurrencyText();
+
+            // currencyManager.UpdateCurrencyText();
 
             //farmColider.SetActive(false);
             BuiltFarm.SetActive(true);
             currentIncome += 5;
 
+            farmUpgradeManagerUI.BuyFarmButton.SetActive(false);
+            farmUpgradeManagerUI.UpgradeFarmButton.SetActive(true);
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -89,7 +97,7 @@ public class PassiveIncomeFarmManager : MonoBehaviour
         {
             currencyManager.RemoveCurrency(currencyCostFarmUpgrade);
             //currencyManager.UpdateCurrencyText();
-            currencyCostFarmUpgrade += currencyCostFarmUpgrade +6;
+            currencyCostFarmUpgrade += currencyCostFarmUpgrade + 6;
             UpdateFarmUpgradeCost();
             currentIncome += (currentIncome + 5 / 3);
 
@@ -97,11 +105,11 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
     }
 
-  /*  public void UIToggle()
-    {
-        farmUpgradeManagerUI.FarmMenuToggle();
+    /*  public void UIToggle()
+      {
+          farmUpgradeManagerUI.FarmMenuToggle();
 
-    }*/
+      }*/
 
     public FarmUpgradeManagerUI farmUpgradeUI
     {
@@ -124,7 +132,7 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
     public void PassiveIncomeOverTime()
     {
-        if(farmIncomeTimer > IncomeInterval)
+        if (farmIncomeTimer > IncomeInterval)
         {
             farmIncomeTimer = 0;
             currencyManager.currentCurrencyAmount += currentIncome;

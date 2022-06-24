@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 0
-  enemyMaxHealth: 100
+  enemyMaxHealth: 90
   enemyHealthBar: {fileID: 3306763068146357332}
   LootDropped: 0
   loot: {fileID: 7155843684787612373, guid: b8223706a79b827459692c3439262ae3, type: 3}

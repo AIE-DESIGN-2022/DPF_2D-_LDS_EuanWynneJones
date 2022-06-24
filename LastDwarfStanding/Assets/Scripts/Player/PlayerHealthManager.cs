@@ -18,9 +18,13 @@ public class PlayerHealthManager : MonoBehaviour
     private float _timeSinceDamage;
     public float timeToRecharge;
     public float timeToStartRecharge; // how long befor it starts recharing
+    public float timeToStartRechargeHealth;
     public float rechargeRate = 10; // how much is recharged per second
+    public float rechargeRateHealth = 3; // how much is recharged per second
     public float rechargeRateInerval = 1.0f;
+    public float rechargeRateInervalHealth = 0.3f;
     public float rechargeTimer = 0f;
+    public float rechargeTimerHealth = 0f;
 
     private ShieldManager _shieldManager;
     private CurrencyManager _currencyManager;
@@ -28,7 +32,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     private EnemyNavigationManager[] _enemyNavigationManager;
     private PlayerNavigationManager _playerNavigationManager;
-    
+
     public bool OndeathActive = false;
 
 
@@ -62,11 +66,33 @@ public class PlayerHealthManager : MonoBehaviour
         _timeSinceDamage += Time.deltaTime;
 
         //Debug.Log("Shield Active =" + _shieldManager.shieldActive);
-     
-            ShieldRegen();
-        
-    }
 
+        ShieldRegen();
+        HealthRegen();
+
+
+    }
+    public void HealthRegen()
+    {
+        if (_timeSinceDamage > timeToStartRechargeHealth && currentHealth < maxHealth)
+        {
+            rechargeTimerHealth += Time.deltaTime;
+
+            if (rechargeTimerHealth >= rechargeRateInervalHealth)
+            {
+                rechargeTimerHealth = 0;
+                if (currentHealth + rechargeRateHealth >= maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+                else
+                {
+                    currentHealth += rechargeRateHealth;
+                }
+                _UpdateHealthBar();
+            }
+        }
+    }
     private void ShieldRegen()
     {
         if (_shieldManager.shieldActive) return;
@@ -91,7 +117,7 @@ public class PlayerHealthManager : MonoBehaviour
                 }
                 _shieldManager.UpdateShieldBar();
             }
-            
+
             //regenTime *= 1.005f;
             //regenTime += Time.deltaTime;
             //float lerpTime = regenTime / timeToRecharge;
@@ -105,12 +131,12 @@ public class PlayerHealthManager : MonoBehaviour
         if (!_shieldManager.shieldActive || _shield.currentShield <= 0)
         {
             currentHealth -= damageToTake;
-            
+
             _UpdateHealthBar();
             if (currentHealth <= 0)
             {
-                
-               StartCoroutine (Ondeath());
+
+                StartCoroutine(Ondeath());
                 //SceneManager.LoadScene("DeathScene");
             }
 
@@ -133,7 +159,7 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth = maxHealth;
         }
         _timeSinceDamage = 0;
-        
+
         _UpdateHealthBar();
     }
     private void _UpdateHealthBar()
@@ -147,7 +173,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
         _enemyNavigationManager = FindObjectsOfType<EnemyNavigationManager>();
-        _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>(); 
+        _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerNavigationManager.isControllerActive = false;
         transform.position = respawnPosition.transform.position;
         //foreach(EnemyNavigationManager enemy in _enemyNavigationManager)
@@ -158,11 +184,11 @@ public class PlayerHealthManager : MonoBehaviour
 
         //_reviveAnimation.SetTrigger("TriggerRespawnAnimation");
         yield return new WaitForSeconds(2f);
-        if(_currencyManager.currentCurrencyAmount > 0)
+        if (_currencyManager.currentCurrencyAmount > 0)
         {
             _currencyManager.currentCurrencyAmount = _currencyManager.currentCurrencyAmount -= 5;
             _currencyManager.UpdateCurrencyText();
-            if(_currencyManager.currentCurrencyAmount <= 0)
+            if (_currencyManager.currentCurrencyAmount <= 0)
             {
                 _currencyManager.currentCurrencyAmount = 0;
                 _currencyManager.UpdateCurrencyText();
@@ -173,7 +199,7 @@ public class PlayerHealthManager : MonoBehaviour
         _playerNavigationManager.isControllerActive = true;
         //foreach (EnemyNavigationManager enemy in _enemyNavigationManager)
         //{
-          //  enemy.isEnemyActive = true;
+        //  enemy.isEnemyActive = true;
         //}
         currentHealth = maxHealth;
         healthSlider.maxValue = currentHealth;

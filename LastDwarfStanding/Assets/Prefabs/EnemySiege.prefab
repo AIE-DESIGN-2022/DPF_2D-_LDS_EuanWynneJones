@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 0
-  enemyMaxHealth: 100
+  enemyMaxHealth: 150
   enemyHealthBar: {fileID: 3306763068146357332}
   LootDropped: 0
   loot: {fileID: 7155843684787612373, guid: b8223706a79b827459692c3439262ae3, type: 3}
@@ -1434,7 +1434,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148366800678604075, guid: d0e7f0913acedb94bb9e3f303f9710da, type: 3}
       propertyPath: damage
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 148366800678604075, guid: d0e7f0913acedb94bb9e3f303f9710da, type: 3}
       propertyPath: enemySoundManager

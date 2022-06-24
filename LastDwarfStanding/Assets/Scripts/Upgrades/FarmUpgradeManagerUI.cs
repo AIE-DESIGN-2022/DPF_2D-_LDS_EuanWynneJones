@@ -43,20 +43,20 @@ public class FarmUpgradeManagerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         if (farm_UI.activeInHierarchy)
-         {
-             if (Input.GetKeyDown(KeyCode.Alpha1))
-                 {
-                 BuyFarm();
-             }
-             if (Input.GetKeyDown(KeyCode.Alpha1)&& passiveIncomeFarmManager.IsFarmBought)
-             {
-                 UpgradeFarm();
-                 passiveIncomeFarmManager.UpdateFarmUpgradeCost();
-             }
-         }
+        if (farm_UI.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                BuyFarm();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1) && passiveIncomeFarmManager.IsFarmBought)
+            {
+                UpgradeFarm();
+                passiveIncomeFarmManager.UpdateFarmUpgradeCost();
+            }
+        }
 
-         
+
     }
 
     /* public void FarmMenuToggle()
@@ -89,8 +89,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
     {
         //Debug.Log("Buying Farm");
         passiveIncomeFarmManager.BuyPassiveIncomeFarm();
-        BuyFarmButton.SetActive(false);  
-        UpgradeFarmButton.SetActive(true);
+
 
     }
 
