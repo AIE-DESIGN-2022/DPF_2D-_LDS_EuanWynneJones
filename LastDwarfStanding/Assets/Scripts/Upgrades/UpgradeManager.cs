@@ -20,14 +20,26 @@ public class UpgradeManager : MonoBehaviour
 
     public GameObject turretBuildButton;
     public GameObject turretUpgradeButton;
-    public GameObject turret;
+    public GameObject turretBuildButtonSecond;
+    public GameObject turretUpgradeButtonSecond;
 
+    public GameObject turret;
+    public GameObject turretSecond;
+
+    public GameObject Wall;
+    public GameObject WoodenWall;
+    public GameObject StonePillar;
+    private bool isTurretBought;
+    private bool isTurretSecondBought;
 
     public Text CostBaseHealthUpgradeText;
     public Text CostBaseRepairText;
+
     public Text CostTurretUpgradeText;
     public Text CostTurretInitialText;
 
+    public Text CostTurretUpgradeSecondText;
+    public Text CostTurretInitialSecondText;
 
     public int currencyCostBaseHealthUpgrade = 1;
     public int currenctCurrencyCostBaseHealthUpgrade = 1;
@@ -41,6 +53,11 @@ public class UpgradeManager : MonoBehaviour
     public int currencyCostUpgradeTurret = 1;
     public int currenctCurrencyCostUpgradeTurret = 1;
 
+    public int currencyCostInitialTurretSecond = 30;
+    public int currenctCurrencyCostInitialTurretSecond = 30;
+
+    public int currencyCostUpgradeTurretSecond = 1;
+    public int currenctCurrencyCostUpgradeTurretSecond = 1;
 
     private void Awake()
     {
@@ -48,11 +65,23 @@ public class UpgradeManager : MonoBehaviour
         UpdateBaseRepairCost();
         UpdateTurretUpgradeCost();
         UpdateTurretInitialCost();
+
+        UpdateTurretInitialCostSecond();
+        UpdateTurretUpgradeCostSecond();
+
     }
     void Start()
     {
+        isTurretSecondBought = false;
+        isTurretBought = false;
+        Wall.SetActive(false);
+        StonePillar.SetActive(false);
+        WoodenWall.SetActive(false);
 
+        turretBuildButtonSecond.SetActive(false);
+        turretUpgradeButtonSecond.SetActive(false);
         turretUpgradeButton.SetActive(false);
+        turretSecond.SetActive(false);
         turret.SetActive(false);
         upgrade_UI.SetActive(false);
         UpdateUpgradeBaseHealthCost();
@@ -69,7 +98,37 @@ public class UpgradeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+        if (upgrade_UI.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                BaseHealthUpgrade();
+                UpdateUpgradeBaseHealthCost();
+
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                BaseHealthRepair();
+                UpdateBaseRepairCost();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                BaseTurretInnitial();
+                UpdateTurretInitialCost();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3) && isTurretBought)
+            {
+                BaseTurretUpgrade();
+                UpdateTurretUpgradeCost();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4) && isTurretSecondBought)
+            {
+                BaseTurretUpgradeSecond();
+                UpdateTurretUpgradeCostSecond();
+            }
+
+        }
+
     }
 
     public void BaseHealthUpgrade()
@@ -82,16 +141,30 @@ public class UpgradeManager : MonoBehaviour
             currencyManager.RemoveCurrency(currencyCostBaseHealthUpgrade);
             currencyManager.UpdateCurrencyText();
 
-            Debug.Log(baseHealthManager.maxHealth);
+            //Debug.Log(baseHealthManager.maxHealth);
 
-            baseHealthManager.maxHealth += 50f;
+            baseHealthManager.maxHealth += currencyCostBaseHealthUpgrade + 50f;
 
 
             baseHealthManager.UpdateBaseHealthBar();
 
-            currenctCurrencyCostBaseHealthUpgrade += 3;
+            currenctCurrencyCostBaseHealthUpgrade += (7 * 5 / 3);
             UpdateUpgradeBaseHealthCost();
-            Debug.Log(currencyCostBaseHealthUpgrade);
+            //Debug.Log(currencyCostBaseHealthUpgrade);
+            if (baseHealthManager.maxHealth >= 250)
+            {
+                if (isTurretBought && !isTurretSecondBought)
+                {
+                turretBuildButtonSecond.SetActive(true);
+
+                }
+                WoodenWall.SetActive(true);
+                StonePillar.SetActive(true);
+            }
+            if (baseHealthManager.maxHealth >= 500f) {
+                WoodenWall.SetActive(false);
+                Wall.SetActive(true);
+            }
         }
     }
 
@@ -107,7 +180,7 @@ public class UpgradeManager : MonoBehaviour
 
             baseHealthManager.currentHealth = baseHealthManager.maxHealth;
             baseHealthManager.UpdateBaseHealthBar();
-            currenctCurrencyCostBaseRepair += 2;
+            currenctCurrencyCostBaseRepair += (12 * 3 / 3);
 
             UpdateBaseRepairCost();
 
@@ -118,10 +191,43 @@ public class UpgradeManager : MonoBehaviour
     public void BaseTurretInnitial()
     {
         if (currencyManager.currentCurrencyAmount >= currencyCostInitialTurret)
+        {
+            isTurretBought = true;
             turret.SetActive(true);
 
-        turretBuildButton.SetActive(false);
-        turretUpgradeButton.SetActive(true);
+            currencyManager.RemoveCurrency(currencyCostInitialTurret);
+            currencyManager.UpdateCurrencyText();
+
+            UpdateTurretUpgradeCost();
+            turretBuildButton.SetActive(false);
+            turretUpgradeButton.SetActive(true);
+
+        }
+        else
+        {
+            return;
+        }
+    }
+    public void BaseTurretInnitialSecond()
+    {
+        if (currencyManager.currentCurrencyAmount >= currencyCostInitialTurretSecond && isTurretBought && baseHealthManager.maxHealth > 250)
+        {
+            isTurretSecondBought = true;
+            turretSecond.SetActive(true);
+
+            currencyManager.RemoveCurrency(currencyCostInitialTurretSecond);
+            currencyManager.UpdateCurrencyText();
+
+            UpdateTurretInitialCostSecond();
+            turretBuildButtonSecond.SetActive(false);
+            turretUpgradeButtonSecond.SetActive(true);
+
+        }
+        else
+        {
+            return;
+        }
+
 
     }
 
@@ -132,16 +238,58 @@ public class UpgradeManager : MonoBehaviour
         if(currencyManager.currentCurrencyAmount >= currencyCostUpgradeTurret)
         {
 
-        currencyManager.RemoveCurrency(currencyCostInitialTurret);
+        currencyManager.RemoveCurrency(currencyCostUpgradeTurret);
         currencyManager.UpdateCurrencyText();
 
 
 
         arrowTurret.damage += 10;
-        arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
 
-            currenctCurrencyCostUpgradeTurret += currenctCurrencyCostUpgradeTurret * (3* currenctCurrencyCostUpgradeTurret);
+    
+            if(arrowTurret.firingForce.z + arrowTurret.firingForce.z * 0.05f > arrowTurret.MaxFiringForce.z)
+                {
+                arrowTurret.firingForce.z = arrowTurret.MaxFiringForce.z;
+                }
+            else
+            {
+             arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
+
+            }
+             currenctCurrencyCostUpgradeTurret +=  (7*6 / 3);
+
             UpdateTurretUpgradeCost();
+        }
+    }
+
+
+    public void BaseTurretUpgradeSecond()
+    {
+        turretBuildButtonSecond.SetActive(false);
+        currencyCostUpgradeTurretSecond = 1 + currencyCostUpgradeTurretSecond;
+
+        if (currencyManager.currentCurrencyAmount >= currencyCostUpgradeTurretSecond)
+        {
+
+            currencyManager.RemoveCurrency(currencyCostUpgradeTurretSecond);
+            currencyManager.UpdateCurrencyText();
+
+
+
+            arrowTurret.damage += 10;
+
+
+            if (arrowTurret.firingForce.z + arrowTurret.firingForce.z * 0.05f > arrowTurret.MaxFiringForce.z)
+            {
+                arrowTurret.firingForce.z = arrowTurret.MaxFiringForce.z;
+            }
+            else
+            {
+                arrowTurret.firingForce += arrowTurret.firingForce * 0.05f;
+
+            }
+            currenctCurrencyCostUpgradeTurretSecond += (7 * 6 / 3);
+
+            UpdateTurretUpgradeCostSecond();
         }
     }
 
@@ -207,5 +355,19 @@ public class UpgradeManager : MonoBehaviour
     {
 
         CostTurretInitialText.text = currencyCostInitialTurret.ToString();
+    }
+
+
+
+    public void UpdateTurretUpgradeCostSecond()
+    {
+
+        CostTurretUpgradeSecondText.text = currenctCurrencyCostUpgradeTurretSecond.ToString();
+    }
+
+    public void UpdateTurretInitialCostSecond()
+    {
+
+        CostTurretInitialSecondText.text = currencyCostInitialTurretSecond.ToString();
     }
 }

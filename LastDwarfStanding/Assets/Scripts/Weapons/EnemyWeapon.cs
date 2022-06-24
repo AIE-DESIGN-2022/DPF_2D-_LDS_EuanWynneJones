@@ -47,7 +47,7 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("HammerCrush");
-                Debug.Log("Played Sound" + enemySoundManager.name);
+                //Debug.Log("Played Sound" + enemySoundManager.name);
 
             }
             if (other.gameObject.tag == "Base" && !didDamage)

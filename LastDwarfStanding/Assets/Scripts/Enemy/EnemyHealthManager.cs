@@ -15,6 +15,7 @@ public class EnemyHealthManager : MonoBehaviour
     private bool isAlive = true;
     public GameObject loot;
     public Transform spawnPosition;
+    private EnemyNavigationManager navigationManager;
 
     public EnemySoundManager enemySoundManager;
 
@@ -22,6 +23,7 @@ public class EnemyHealthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        navigationManager = GetComponent<EnemyNavigationManager>(); 
         enemySoundManager = GetComponent<EnemySoundManager>();
         enemyHealth = enemyMaxHealth;
         _parent = enemyHealthBar.transform.parent;
@@ -60,7 +62,7 @@ public class EnemyHealthManager : MonoBehaviour
     {
         if (!isAlive) return;
         isAlive = false;
-
+        navigationManager.navMeshAgent.isStopped = true;
         FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
@@ -80,4 +82,6 @@ public class EnemyHealthManager : MonoBehaviour
         LootDropped = true;
 
     }
+
+    public bool IsAlive { get { return isAlive; } }
 }

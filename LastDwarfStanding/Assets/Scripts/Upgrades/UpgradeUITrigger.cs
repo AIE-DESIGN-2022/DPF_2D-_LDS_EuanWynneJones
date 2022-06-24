@@ -5,12 +5,16 @@ using UnityEngine;
 public class UpgradeUITrigger : MonoBehaviour
 {
 
-    public UpgradeManager upgradeManager;
+    private UpgradeManager upgradeManager;
+    private PassiveIncomeFarmManager passiveIncomeFarmManager;
     public GameObject upgrade_UI;
     // Start is called before the first frame update
     void Start()
     {
         upgradeManager = FindObjectOfType<UpgradeManager>();
+        passiveIncomeFarmManager = GetComponent<PassiveIncomeFarmManager>();
+ 
+
     }
 
     // Update is called once per frame
@@ -20,12 +24,22 @@ public class UpgradeUITrigger : MonoBehaviour
     }
 
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || (Input.GetKeyDown(KeyCode.E)))
+
+        if (other.gameObject.tag == "Player" )
         {
-            //Debug.Log("Propt");
-            upgradeManager.PauseLevelUpgrade();
+
+            //upgradeManager.PauseLevelUpgrade();
+            if (passiveIncomeFarmManager != null)
+            {
+                passiveIncomeFarmManager.farmUpgradeUI.PauseLeveFarm();
+
+            }
+            else if (upgradeManager != null)
+            {
+                upgradeManager.PauseLevelUpgrade();
+            }
 
         }
     }
@@ -35,8 +49,17 @@ public class UpgradeUITrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
 
-           // Debug.Log("Hide Propt");
-            upgradeManager.ResumeLevelUpgrade();
+                if (passiveIncomeFarmManager != null)
+                {
+                
+                passiveIncomeFarmManager.farmUpgradeUI.ResumeLevelFarm();
+
+            }
+                else if (upgradeManager != null)
+                {
+                    upgradeManager.ResumeLevelUpgrade();
+                }
+
+            }
         }
-    }
 }

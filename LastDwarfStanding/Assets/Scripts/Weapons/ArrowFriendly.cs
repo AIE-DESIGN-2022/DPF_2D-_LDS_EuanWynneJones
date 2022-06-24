@@ -6,6 +6,7 @@ public class ArrowFriendly : MonoBehaviour
 
 {
     public Vector3 firingForce;
+    public Vector3 MaxFiringForce;
     public float damage;
     public float lifeTime;
     public float arrowSpread;
@@ -43,7 +44,7 @@ public class ArrowFriendly : MonoBehaviour
         {
             if (other.gameObject.tag == "EnemyMelee" || other.gameObject.tag == "EnemyRanger" || other.gameObject.tag == "EnemySiege")
             {
-                Debug.Log("Deals Damage ARROW " + other.gameObject.name);
+                //Debug.Log("Deals Damage ARROW " + other.gameObject.name);
                 other.gameObject.GetComponent<EnemyHealthManager>().TakeDamage(damage);
             }
             //Debug.Log(other.gameObject.name);

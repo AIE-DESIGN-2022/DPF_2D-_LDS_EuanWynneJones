@@ -44,6 +44,7 @@ public class EnemyNavigationManager : MonoBehaviour
 
     public float stepBackDistance;
 
+    private EnemyHealthManager _enemyHealthManager;
     private EnemyRangedWeaponManager _enemyRangedWeaponManager;
     private EnemyWeapon _enemyWeapon;
 
@@ -52,6 +53,7 @@ public class EnemyNavigationManager : MonoBehaviour
 
     private void Awake()
     {
+        _enemyHealthManager = GetComponent<EnemyHealthManager>();
         _enemyRangedWeaponManager = GetComponent<EnemyRangedWeaponManager>();
         _enemyWeapon = GetComponent<EnemyWeapon>();
         _agent = GetComponent<NavMeshAgent>();
@@ -76,7 +78,7 @@ public class EnemyNavigationManager : MonoBehaviour
     {
        
 
-        if (!isEnemyActive) return;
+        if (!isEnemyActive ||!_enemyHealthManager.IsAlive) return;
    
         MovementLogic();
 
@@ -183,16 +185,16 @@ public class EnemyNavigationManager : MonoBehaviour
             {
                 if(gameObject.tag == "EnemyMelee")
             {
+                weapon.GetComponent<Animator>().SetTrigger("Swing");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
                // Debug.Log(gameObject.name + "Tried to do damage");
-                weapon.GetComponent<Animator>().SetTrigger("Swing");
 
             }
                 if(gameObject.tag == "EnemySiege")
             {
+                weapon.GetComponent<Animator>().SetTrigger("Club");
                 //Debug.Log(gameObject.name + "Tried to do damage");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
-                weapon.GetComponent<Animator>().SetTrigger("Club");
             }
                 //Debug.Log("Siege attacking animation");
                 _swingTimer = 0;
@@ -271,4 +273,5 @@ public class EnemyNavigationManager : MonoBehaviour
 
         }
     }
+    public NavMeshAgent navMeshAgent { get { return _agent; } }
 }
