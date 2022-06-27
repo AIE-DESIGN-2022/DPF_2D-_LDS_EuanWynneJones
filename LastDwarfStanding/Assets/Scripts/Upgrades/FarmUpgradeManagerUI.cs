@@ -11,7 +11,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
     public GameObject farm_UI;
     public AudioSource Farm_UIaudio;
     public CurrencyManager currencyManager;
-    private PassiveIncomeFarmManager passiveIncomeFarmManager;
+    public PassiveIncomeFarmManager passiveIncomeFarmManager;
 
     public GameObject BuyFarmButton;
     public GameObject UpgradeFarmButton;
@@ -89,6 +89,22 @@ public class FarmUpgradeManagerUI : MonoBehaviour
     {
         //Debug.Log("Buying Farm");
         passiveIncomeFarmManager.BuyPassiveIncomeFarm();
+
+
+    }
+
+    public void BuyFarm2()
+    {
+        //Debug.Log("Buying Farm");
+        passiveIncomeFarmManager.BuyPassiveIncomeFarm2();
+
+
+    }
+
+    public void BuyFarm3()
+    {
+        //Debug.Log("Buying Farm");
+        passiveIncomeFarmManager.BuyPassiveIncomeFarm3();
 
 
     }
