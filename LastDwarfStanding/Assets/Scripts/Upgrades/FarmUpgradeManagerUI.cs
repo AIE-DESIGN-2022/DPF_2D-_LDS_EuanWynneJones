@@ -26,7 +26,8 @@ public class FarmUpgradeManagerUI : MonoBehaviour
 
     private void Awake()
     {
-
+        passiveIncomeFarmManager.UpdateFarmUpgradeCost();
+        passiveIncomeFarmManager.UpdateBuyFarmCost();
     }
     void Start()
     {
@@ -35,7 +36,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
         farm_UI.SetActive(false);
         UpgradeFarmButton.SetActive(false);
 
-        passiveIncomeFarmManager = FindObjectOfType<PassiveIncomeFarmManager>();
+        passiveIncomeFarmManager = GetComponentInParent<PassiveIncomeFarmManager>();
         currencyManager = FindObjectOfType<CurrencyManager>();
 
     }
@@ -48,6 +49,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 BuyFarm();
+                passiveIncomeFarmManager.UpdateBuyFarmCost();
             }
             if (Input.GetKeyDown(KeyCode.Alpha1) && passiveIncomeFarmManager.IsFarmBought)
             {
@@ -93,7 +95,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
 
     }
 
-    public void BuyFarm2()
+   /* public void BuyFarm2()
     {
         //Debug.Log("Buying Farm");
         passiveIncomeFarmManager.BuyPassiveIncomeFarm2();
@@ -107,7 +109,7 @@ public class FarmUpgradeManagerUI : MonoBehaviour
         passiveIncomeFarmManager.BuyPassiveIncomeFarm3();
 
 
-    }
+    }*/
 
     public void UpgradeFarm()
     {

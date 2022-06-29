@@ -18,6 +18,7 @@ TagManager:
   - Arrow
   - EnemySiege
   - EnemySiegeWeapon
+  - Farm
   layers:
   - Default
   - TransparentFX

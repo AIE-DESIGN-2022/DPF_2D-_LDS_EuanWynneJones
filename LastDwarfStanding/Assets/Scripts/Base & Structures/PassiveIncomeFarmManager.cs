@@ -18,9 +18,9 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
     public GameObject UnbuiltFarm;
     public GameObject BuiltFarm;
-    public GameObject BuiltFarm2;
-    public GameObject BuiltFarm3;
-    [SerializeField] public FarmUpgradeManagerUI farmUpgradeManagerUI;
+    //public GameObject BuiltFarm2;
+    //public GameObject BuiltFarm3;
+    [SerializeField] private FarmUpgradeManagerUI farmUpgradeManagerUI;
 
     public Text costOfFarmText;
     public Text CostOfFarmUpgradeText;
@@ -32,34 +32,39 @@ public class PassiveIncomeFarmManager : MonoBehaviour
     public int CurrentCurrencyCostFarmUpgrade = 1;
 
     public bool IsFarmBought;
-    public bool IsFarm2Bought;
-    public bool IsFarm3Bought;
+    //public bool IsFarm2Bought;
+    //public bool IsFarm3Bought;
 
     public int farmNumber;
     public List<GameObject> farms = new List<GameObject>();
 
     public CurrencyManager currencyManager;
 
+    private void Awake()
+    {
+        //UpdateFarmUpgradeCost();
+        //UpdateBuyFarmCost();
+    }
     void Start()
     {
 
         //  FarmNumberFinder();
-        UpdateFarmUpgradeCost();
-        UpdateBuyFarmCost();
+        //UpdateFarmUpgradeCost();
+        //UpdateBuyFarmCost();
 
         IsFarmBought = false;
-        IsFarm2Bought = false;
-        IsFarm3Bought = false;
+        //IsFarm2Bought = false;
+        //IsFarm3Bought = false;
 
         farmColider.SetActive(true);
         BuiltFarm.SetActive(false);
-        BuiltFarm2.SetActive(false);
-        BuiltFarm3.SetActive(false);
+        //BuiltFarm2.SetActive(false);
+        //BuiltFarm3.SetActive(false);
         farmIncomeTimer += Time.deltaTime;
         currencyManager = FindObjectOfType<CurrencyManager>();
         if (farmUpgradeManagerUI == null)
         {
-            farmUpgradeManagerUI = FindObjectOfType<FarmUpgradeManagerUI>();
+            farmUpgradeManagerUI = GetComponentInChildren<FarmUpgradeManagerUI>();
 
         }
 
@@ -75,14 +80,14 @@ public class PassiveIncomeFarmManager : MonoBehaviour
         {
             if (farms.Contains(farm))
             {
-                if (IsFarmBought && !IsFarm2Bought && IsFarm3Bought)
+                if (IsFarmBought)
                 {
                     farmIncomeTimer += Time.deltaTime;
                     PassiveIncomeOverTime();
                     Debug.Log("Farm 1 bought");
 
                 }
-                if (IsFarm2Bought && !IsFarmBought && IsFarm3Bought)
+               /* if (IsFarm2Bought && !IsFarmBought && IsFarm3Bought)
                 {
                     farmIncomeTimer += Time.deltaTime;
                     PassiveIncomeOverTime();
@@ -95,7 +100,7 @@ public class PassiveIncomeFarmManager : MonoBehaviour
                     PassiveIncomeOverTime();
                     Debug.Log("Farm 3 bought");
 
-                }
+                }*/
                 else
                 {
                 return;
@@ -137,52 +142,52 @@ public class PassiveIncomeFarmManager : MonoBehaviour
                 return;
             }
         }
-        public void BuyPassiveIncomeFarm2()
-        {
-            if (currencyManager.currentCurrencyAmount >= currencyCostFarm)
-            {
-                IsFarm2Bought = true;
-                currencyManager.RemoveCurrency(currencyCostFarm);
-                currencyManager.UpdateCurrencyText();
+    /* public void BuyPassiveIncomeFarm2()
+     {
+         if (currencyManager.currentCurrencyAmount >= currencyCostFarm)
+         {
+             IsFarm2Bought = true;
+             currencyManager.RemoveCurrency(currencyCostFarm);
+             currencyManager.UpdateCurrencyText();
 
-                // currencyManager.UpdateCurrencyText();
+             // currencyManager.UpdateCurrencyText();
 
-                //farmColider.SetActive(false);
-                BuiltFarm2.SetActive(true);
-                currentIncome += 5;
+             //farmColider.SetActive(false);
+             BuiltFarm2.SetActive(true);
+             currentIncome += 5;
 
-                farmUpgradeManagerUI.BuyFarmButton.SetActive(false);
-                farmUpgradeManagerUI.UpgradeFarmButton.SetActive(true);
-            }
-            else
-            {
-                return;
-            }
-        }
-        public void BuyPassiveIncomeFarm3()
-        {
-            if (currencyManager.currentCurrencyAmount >= currencyCostFarm)
-            {
-                IsFarm3Bought = true;
-                currencyManager.RemoveCurrency(currencyCostFarm);
-                currencyManager.UpdateCurrencyText();
+             farmUpgradeManagerUI.BuyFarmButton.SetActive(false);
+             farmUpgradeManagerUI.UpgradeFarmButton.SetActive(true);
+         }
+         else
+         {
+             return;
+         }
+     }
+     public void BuyPassiveIncomeFarm3()
+     {
+         if (currencyManager.currentCurrencyAmount >= currencyCostFarm)
+         {
+             IsFarm3Bought = true;
+             currencyManager.RemoveCurrency(currencyCostFarm);
+             currencyManager.UpdateCurrencyText();
 
-                // currencyManager.UpdateCurrencyText();
+             // currencyManager.UpdateCurrencyText();
 
-                //farmColider.SetActive(false);
-                BuiltFarm3.SetActive(true);
-                currentIncome += 5;
+             //farmColider.SetActive(false);
+             BuiltFarm3.SetActive(true);
+             currentIncome += 5;
 
-                farmUpgradeManagerUI.BuyFarmButton.SetActive(false);
-                farmUpgradeManagerUI.UpgradeFarmButton.SetActive(true);
-            }
-            else
-            {
-                return;
-            }
-        }
+             farmUpgradeManagerUI.BuyFarmButton.SetActive(false);
+             farmUpgradeManagerUI.UpgradeFarmButton.SetActive(true);
+         }
+         else
+         {
+             return;
+         }
+     }*/
 
-        public void UpgradePassiveIncomeFarm()
+    public void UpgradePassiveIncomeFarm()
         {
             if (currencyManager.currentCurrencyAmount >= currencyCostFarmUpgrade)
             {
