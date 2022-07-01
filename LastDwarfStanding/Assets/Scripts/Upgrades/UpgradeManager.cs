@@ -26,9 +26,10 @@ public class UpgradeManager : MonoBehaviour
     public GameObject turret;
     public GameObject turretSecond;
 
-    public GameObject Wall;
-    public GameObject WoodenWall;
-    public GameObject StonePillar;
+    public GameObject stoneWall;
+    public GameObject woodenWall;
+    public GameObject woodenPillar;
+    public GameObject stonePillar;
     private bool isTurretBought;
     private bool isTurretSecondBought;
 
@@ -74,9 +75,10 @@ public class UpgradeManager : MonoBehaviour
     {
         isTurretSecondBought = false;
         isTurretBought = false;
-        Wall.SetActive(false);
-        StonePillar.SetActive(false);
-        WoodenWall.SetActive(false);
+        stoneWall.SetActive(false);
+        stonePillar.SetActive(false);
+        woodenWall.SetActive(false);
+        woodenPillar.SetActive(false);
 
         turretBuildButtonSecond.SetActive(false);
         turretUpgradeButtonSecond.SetActive(false);
@@ -164,13 +166,14 @@ public class UpgradeManager : MonoBehaviour
                     turretBuildButtonSecond.SetActive(true);
 
                 }
-                WoodenWall.SetActive(true);
-                StonePillar.SetActive(true);
+                woodenWall.SetActive(true);
+                woodenPillar.SetActive(true);
             }
             if (baseHealthManager.maxHealth >= 500f)
             {
-                WoodenWall.SetActive(false);
-                Wall.SetActive(true);
+                woodenWall.SetActive(false);
+                stoneWall.SetActive(true);
+                stonePillar.SetActive(true);
             }
         }
     }
@@ -191,7 +194,7 @@ public class UpgradeManager : MonoBehaviour
 
             UpdateBaseRepairCost();
 
-            Debug.Log(currencyCostBaseRepair);
+            //Debug.Log(currencyCostBaseRepair);
         }
     }
 

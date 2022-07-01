@@ -113,7 +113,7 @@ public class PassiveIncomeFarmManager : MonoBehaviour
 
             }
             farmNumber += 1;
-            Debug.Log("farms" + farms);
+            //Debug.Log("farms" + farms);
 
 
         }

@@ -8,7 +8,7 @@ public class BaseHealthManager : MonoBehaviour
 {
 
     public Slider baseHealthSlider;
-    public float maxHealth;
+    public float maxHealth = 100;
     public float currentHealth;
     private float _timeSinceDamage;
 
@@ -27,6 +27,7 @@ public class BaseHealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //UpdateBaseHealthBar();
         _timeSinceDamage += Time.deltaTime;
     }
 
@@ -43,6 +44,9 @@ public class BaseHealthManager : MonoBehaviour
     {
 
         currentHealth -= damageToTake;
+        Debug.Log("Dealing" + damageToTake + "Damage to base");
+        Debug.Log("currentHealth is" + currentHealth);
+
         UpdateBaseHealthBar();
 
         if (currentHealth <= 0)

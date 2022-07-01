@@ -12,6 +12,8 @@ public class PlayerWeaponManager : MonoBehaviour
     public float swingDelay;
     private PlayerNavigationManager _playerNavigationManager;
     private PauseGame _pauseGame;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     private PlayerSoundManager _playerSoundManager;
 
@@ -22,6 +24,8 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerSoundManager = GetComponent<PlayerSoundManager>();
         _pauseGame = FindObjectOfType<PauseGame>();
@@ -48,6 +52,8 @@ public class PlayerWeaponManager : MonoBehaviour
             {
 
                 GetComponentInChildren<PlayerWeapon>().didDamage = false;
+                animator.SetTrigger("Attack");
+                Debug.Log("Attacking");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 //Debug.Log("Left Mouse Pressed weapon Swing");
                 _swingTimer = 0;

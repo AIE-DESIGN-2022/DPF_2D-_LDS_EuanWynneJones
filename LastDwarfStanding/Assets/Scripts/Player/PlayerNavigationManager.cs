@@ -13,10 +13,14 @@ public class PlayerNavigationManager : MonoBehaviour
 	public Transform playerObject;
 	public float lastMove;
 	Rigidbody rb;
+	public Animator animator;
+	public SpriteRenderer spriteRenderer;
 
 	//private bool IsGrounded = true;
 	void Start()
 	{
+		animator = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -30,11 +34,24 @@ public class PlayerNavigationManager : MonoBehaviour
 		//flips the character left and right depending on movement key pressed 
 		float horiMove = moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
 		rb.AddForce(new Vector3(horiMove, 0, 0), ForceMode.VelocityChange);
-
+		animator.SetTrigger("Running");
+		if(lastMove == 0)
+        {
+			Debug.Log("idling");
+			animator.SetTrigger("Idle");
+		}
+		if (lastMove < 0 || lastMove > 0 && lastMove != 0)
+        {
+			Debug.Log("Running");
+			animator.SetTrigger("Running");
+		
+			
+		}
 
 		if (horiMove != lastMove)
 		{
 			HoriMove(horiMove);
+			
 
 		}
 		lastMove = horiMove;
@@ -46,12 +63,13 @@ public class PlayerNavigationManager : MonoBehaviour
 	{
 		if (horiMove > 0 && !_FacingRight)
 		{
-
+			spriteRenderer.flipX = false;
 			Flip();
 		}
 		// Otherwise if the input is moving the player left and the player is facing right...
 		else if (horiMove < 0 && _FacingRight)
 		{
+			spriteRenderer.flipX = true;
 			Flip();
 		}
 	}
