@@ -19,7 +19,7 @@ public class EnemyWeapon : MonoBehaviour
     {
 
     }
-    public void OnCollisionEnter(Collision other)
+    public void OnCollisionStay(Collision other)
     {
 
         if (other.gameObject.tag != "EnemyMelee" && other.gameObject.tag != "EnemyWeapon")
@@ -27,7 +27,7 @@ public class EnemyWeapon : MonoBehaviour
             if (other.gameObject.tag == "Player" && !didDamage)
             {
                 didDamage = true;
-                //Debug.Log("Damageing Player");
+                Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                 //animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<PlayerNavigationManager>().animator.SetTrigger("Hit");

@@ -18,11 +18,12 @@ public class EnemyHealthManager : MonoBehaviour
     private EnemyNavigationManager navigationManager;
 
     public EnemySoundManager enemySoundManager;
-
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
         navigationManager = GetComponent<EnemyNavigationManager>(); 
         enemySoundManager = GetComponent<EnemySoundManager>();
         enemyHealth = enemyMaxHealth;
@@ -45,11 +46,13 @@ public class EnemyHealthManager : MonoBehaviour
         if (enemyHealth - damageToTake <= 0)
         {
             enemyHealth = 0;
+
             OnDeath();
         }
         else
         {
             enemyHealth -= damageToTake;
+            _animator.SetTrigger("SkeletonHit");
         }
         enemyHealthBar.fillAmount = enemyHealth / enemyMaxHealth;
 
@@ -63,6 +66,7 @@ public class EnemyHealthManager : MonoBehaviour
         if (!isAlive) return;
         isAlive = false;
         navigationManager.navMeshAgent.isStopped = true;
+        _animator.SetTrigger("SkeletonDeath");
         FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
