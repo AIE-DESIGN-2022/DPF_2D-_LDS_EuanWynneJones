@@ -8,11 +8,13 @@ public class EnemyWeapon : MonoBehaviour
     public bool didDamage;
     public EnemySoundManager enemySoundManager;
     public Animator animator;
+    public Animator animatorEnemySprite;
 
     private void Start()
     {
+        didDamage = false;
         enemySoundManager = GetComponentInParent<EnemySoundManager>();
-        animator = GetComponentInParent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -26,20 +28,20 @@ public class EnemyWeapon : MonoBehaviour
         {
             if (other.gameObject.tag == "Player" && !didDamage)
             {
+                animatorEnemySprite.SetTrigger("SkeletonAttack");
                 didDamage = true;
-                Debug.Log("Damageing Player");
+               // Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
-                //animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<PlayerNavigationManager>().animator.SetTrigger("Hit");
-                Debug.Log("hitting"+ name);
+                //Debug.Log("hitting"+ name);
                 
                 enemySoundManager.PlayAudioClip("TakeDamage");
 
             }
             if (other.gameObject.tag == "Base" && !didDamage)
             {
+                animatorEnemySprite.SetTrigger("SkeletonAttack");
                 didDamage = true;
-               // animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("TakeDamage");
             }

@@ -192,7 +192,7 @@ public class EnemyNavigationManager : MonoBehaviour
             {
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
-                _animator.SetTrigger("SkeletonAttack");
+                //_animator.SetTrigger("SkeletonAttack");
                // Debug.Log(gameObject.name + "Tried to do damage");
 
             }
@@ -201,7 +201,7 @@ public class EnemyNavigationManager : MonoBehaviour
                 weapon.GetComponent<Animator>().SetTrigger("Club");
                 //Debug.Log(gameObject.name + "Tried to do damage");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
-                _animator.SetTrigger("SkeletonAttack");
+               // _animator.SetTrigger("SkeletonAttack");
             }
                 //Debug.Log("Siege attacking animation");
                 _swingTimer = 0;
@@ -237,7 +237,8 @@ public class EnemyNavigationManager : MonoBehaviour
 
             case eEnemyState.AttackTarget:
                 _agent.isStopped = true;
-                if(gameObject.tag != ("EnemyRanger"))
+                _animator.SetTrigger("SkeletonIdle");
+                if (gameObject.tag != ("EnemyRanger"))
                 {
 
                 Attack();
@@ -274,6 +275,7 @@ public class EnemyNavigationManager : MonoBehaviour
         if (!isEnemyActive)
         {
             //Debug.Log("Enemy Stopped");
+            _animator.SetTrigger("SkeletonIdle");
             _agent.destination = transform.position;
 
 
