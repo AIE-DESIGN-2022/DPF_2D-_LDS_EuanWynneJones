@@ -27,6 +27,9 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 //Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                other.gameObject.GetComponent<PlayerNavigationManager>().animator.SetTrigger("Hit");
+                Debug.Log("hitting"+ name);
+                
                 enemySoundManager.PlayAudioClip("TakeDamage");
 
             }

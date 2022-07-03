@@ -50,13 +50,14 @@ public class PlayerWeaponManager : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && !_shieldManager.shieldActive && UnityEngine.EventSystems.EventSystem.current != null &&
             !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-
+                _playerNavigationManager.isControllerActive = false;
                 GetComponentInChildren<PlayerWeapon>().didDamage = false;
                 animator.SetTrigger("Attack");
                 Debug.Log("Attacking");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 //Debug.Log("Left Mouse Pressed weapon Swing");
                 _swingTimer = 0;
+                _playerNavigationManager.isControllerActive = true;
                 _playerSoundManager.PlayAudioClip("Swoosh");
 
 

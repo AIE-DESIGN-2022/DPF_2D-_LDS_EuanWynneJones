@@ -29,6 +29,8 @@ public class PlayerHealthManager : MonoBehaviour
     private ShieldManager _shieldManager;
     private CurrencyManager _currencyManager;
     private Shield _shield;
+    private Animator _animator;
+
 
     private EnemyNavigationManager[] _enemyNavigationManager;
     private PlayerNavigationManager _playerNavigationManager;
@@ -40,7 +42,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void Awake()
     {
-
+        _animator = GetComponent<Animator>();
         _shield = FindObjectOfType<Shield>();
         _currencyManager = GetComponent<CurrencyManager>();
         _shieldManager = FindObjectOfType<ShieldManager>();
@@ -135,7 +137,7 @@ public class PlayerHealthManager : MonoBehaviour
             _UpdateHealthBar();
             if (currentHealth <= 0)
             {
-
+                _animator.SetTrigger("Death");
                 StartCoroutine(Ondeath());
                 //SceneManager.LoadScene("DeathScene");
             }
@@ -171,7 +173,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         OndeathActive = true;
 
-        Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+        
+       // Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
         _enemyNavigationManager = FindObjectsOfType<EnemyNavigationManager>();
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerNavigationManager.isControllerActive = false;
