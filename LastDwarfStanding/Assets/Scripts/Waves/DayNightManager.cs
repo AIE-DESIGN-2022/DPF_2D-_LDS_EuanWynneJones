@@ -15,10 +15,13 @@ public class DayNightManager : MonoBehaviour
     public Image[] sceneImages;
     public GameObject player;
 
+    public SpriteRenderer[] sceneSprites;
+
     public Color dayColour = new Color(255, 255, 255, 255);
     public Color nightColour = new Color(119, 122, 154, 255);
     public Color targetColour;
     public Color currentColor = Color.white;
+    public Color currentSpriteColor = Color.white;
 
     //public bool lerpColour;
 
@@ -100,6 +103,8 @@ public class DayNightManager : MonoBehaviour
         //ChangeNightTimeMaterial();
     }
 
+
+
     private void ChangeNightTimeColours()
     {
         Debug.Log("Changing colour to night");
@@ -141,6 +146,32 @@ public class DayNightManager : MonoBehaviour
                     image.color = targetColour;
 
                     if (image == sceneImages[0])
+                    {
+                        transitionDurations.Add(durationTimer);
+                        durationTimer = 0;
+                    }
+                }
+            }
+        }
+        currentSpriteColor = sceneSprites[0].color;
+        foreach (SpriteRenderer sprite in sceneSprites)
+        {
+
+            if (sprite.color != targetColour)
+            {
+                //Debug.Log(image.name + " Lerping to target colour");
+                sprite.color = Color.LerpUnclamped(currentColor, targetColour, _targetRate * Time.deltaTime);
+
+                if (sprite == sceneSprites[0]) durationTimer += Time.deltaTime;
+
+
+                //Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
+                if (Vector3.Distance(ColorToVector(sprite.color), ColorToVector(targetColour)) < lerpVectorDistance)
+                {
+                    //currentColor = targetColour;
+                    sprite.color = targetColour;
+
+                    if (sprite == sceneSprites[0])
                     {
                         transitionDurations.Add(durationTimer);
                         durationTimer = 0;
