@@ -29,7 +29,7 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 //Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
-                animator.SetTrigger("SkeletonAttack");
+                //animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<PlayerNavigationManager>().animator.SetTrigger("Hit");
                 Debug.Log("hitting"+ name);
                 
@@ -39,6 +39,7 @@ public class EnemyWeapon : MonoBehaviour
             if (other.gameObject.tag == "Base" && !didDamage)
             {
                 didDamage = true;
+               // animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("TakeDamage");
             }

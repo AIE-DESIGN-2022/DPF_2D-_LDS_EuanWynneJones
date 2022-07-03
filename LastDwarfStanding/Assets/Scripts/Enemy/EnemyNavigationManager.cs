@@ -62,7 +62,7 @@ public class EnemyNavigationManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _base = GameObject.FindGameObjectWithTag("Base");
 
-        _stepBack = transform.GetChild(2).gameObject;
+        _stepBack = transform.GetChild(7).gameObject;
         _pauseGame = FindObjectOfType<PauseGame>();
 
        
@@ -136,6 +136,7 @@ public class EnemyNavigationManager : MonoBehaviour
             else
             {
                 if (!isEnemyActive) return;
+                
                 SetEnemyState(eEnemyState.AttackTarget);
             }
         }
@@ -189,6 +190,7 @@ public class EnemyNavigationManager : MonoBehaviour
             {
                 if(gameObject.tag == "EnemyMelee")
             {
+                _animator.SetTrigger("SkeletonAttack");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
                // Debug.Log(gameObject.name + "Tried to do damage");
@@ -196,6 +198,7 @@ public class EnemyNavigationManager : MonoBehaviour
             }
                 if(gameObject.tag == "EnemySiege")
             {
+                _animator.SetTrigger("SkeletonAttack");
                 weapon.GetComponent<Animator>().SetTrigger("Club");
                 //Debug.Log(gameObject.name + "Tried to do damage");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
