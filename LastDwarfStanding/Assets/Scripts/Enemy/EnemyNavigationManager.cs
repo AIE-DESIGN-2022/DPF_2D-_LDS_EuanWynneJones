@@ -47,12 +47,14 @@ public class EnemyNavigationManager : MonoBehaviour
     private EnemyHealthManager _enemyHealthManager;
     private EnemyRangedWeaponManager _enemyRangedWeaponManager;
     private EnemyWeapon _enemyWeapon;
+    private Animator _animator;
 
     public int laneNumber;
 
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _enemyHealthManager = GetComponent<EnemyHealthManager>();
         _enemyRangedWeaponManager = GetComponent<EnemyRangedWeaponManager>();
         _enemyWeapon = GetComponent<EnemyWeapon>();
@@ -95,12 +97,14 @@ public class EnemyNavigationManager : MonoBehaviour
         {
             //print(name + " path is clear");
             _agent.isStopped = false;
+            _animator.SetTrigger("SkeletonWalk");
             _agent.destination = _target.transform.position;
         }
         
         else
         {
             //print(name + " path is not clear");
+            _animator.SetTrigger("SkeletonIdle");
             _agent.destination = transform.position;
             _agent.isStopped = true;
         }

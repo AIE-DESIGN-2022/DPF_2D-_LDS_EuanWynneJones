@@ -7,10 +7,12 @@ public class EnemyWeapon : MonoBehaviour
     public float damage;
     public bool didDamage;
     public EnemySoundManager enemySoundManager;
+    public Animator animator;
 
     private void Start()
     {
         enemySoundManager = GetComponentInParent<EnemySoundManager>();
+        animator = GetComponentInParent<Animator>();
     }
 
     private void Update()
@@ -27,6 +29,7 @@ public class EnemyWeapon : MonoBehaviour
                 didDamage = true;
                 //Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
+                animator.SetTrigger("SkeletonAttack");
                 other.gameObject.GetComponent<PlayerNavigationManager>().animator.SetTrigger("Hit");
                 Debug.Log("hitting"+ name);
                 
