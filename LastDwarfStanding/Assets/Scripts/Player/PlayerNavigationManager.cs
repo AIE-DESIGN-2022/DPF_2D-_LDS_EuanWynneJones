@@ -34,7 +34,7 @@ public class PlayerNavigationManager : MonoBehaviour
 		//flips the character left and right depending on movement key pressed 
 		float horiMove = moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
 		rb.AddForce(new Vector3(horiMove, 0, 0), ForceMode.VelocityChange);
-		animator.SetTrigger("Running");
+		//animator.SetTrigger("Running");
 		if(lastMove == 0)
         {
 			Debug.Log("idling");

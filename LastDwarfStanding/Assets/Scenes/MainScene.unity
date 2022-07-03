@@ -964,8 +964,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.34, y: 0.88, z: 0.38}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.34, y: 0.76035005, z: 0.38}
+  m_Center: {x: 0, y: 0.05982505, z: 0}
 --- !u!95 &56812433
 Animator:
   serializedVersion: 3
@@ -13619,10 +13619,13 @@ MonoBehaviour:
   - {fileID: 2080235412}
   - {fileID: 279150965}
   player: {fileID: 1635049071}
+  sceneSprites:
+  - {fileID: 56812430}
   dayColour: {r: 255, g: 255, b: 255, a: 255}
   nightColour: {r: 0.31572625, g: 0.3202229, b: 0.4056604, a: 255}
   targetColour: {r: 0, g: 0, b: 0, a: 0}
   currentColor: {r: 1, g: 1, b: 1, a: 1}
+  currentSpriteColor: {r: 1, g: 1, b: 1, a: 1}
   dayRate: 0.00025
   nightRate: 0.7
   lerpVectorDistance: 0.025
