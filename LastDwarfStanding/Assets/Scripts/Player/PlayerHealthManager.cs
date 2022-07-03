@@ -137,7 +137,8 @@ public class PlayerHealthManager : MonoBehaviour
             _UpdateHealthBar();
             if (currentHealth <= 0)
             {
-                _animator.SetTrigger("Death");
+                
+
                 StartCoroutine(Ondeath());
                 //SceneManager.LoadScene("DeathScene");
             }
@@ -171,22 +172,16 @@ public class PlayerHealthManager : MonoBehaviour
 
     IEnumerator Ondeath()
     {
-        OndeathActive = true;
-
-        
-       // Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+        _animator.SetTrigger("Death");
         _enemyNavigationManager = FindObjectsOfType<EnemyNavigationManager>();
         _playerNavigationManager = FindObjectOfType<PlayerNavigationManager>();
         _playerNavigationManager.isControllerActive = false;
+        yield return new WaitForSeconds(1.5f);
+        Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+
         transform.position = respawnPosition.transform.position;
-        //foreach(EnemyNavigationManager enemy in _enemyNavigationManager)
-        //{
-        //    enemy.isEnemyActive = false;
-        //}
-
-
-        //_reviveAnimation.SetTrigger("TriggerRespawnAnimation");
-        yield return new WaitForSeconds(2f);
+        OndeathActive = true;
+        
         if (_currencyManager.currentCurrencyAmount > 0)
         {
             _currencyManager.currentCurrencyAmount = _currencyManager.currentCurrencyAmount -= 5;
@@ -198,6 +193,8 @@ public class PlayerHealthManager : MonoBehaviour
             }
         }
 
+        _animator.SetTrigger("Idle");
+        yield return new WaitForSeconds(2f);
         Camera.main.cullingMask = ~(0 << LayerMask.NameToLayer("Player"));
         _playerNavigationManager.isControllerActive = true;
         //foreach (EnemyNavigationManager enemy in _enemyNavigationManager)
