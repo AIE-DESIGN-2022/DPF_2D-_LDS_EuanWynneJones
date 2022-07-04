@@ -97,14 +97,25 @@ public class EnemyNavigationManager : MonoBehaviour
         {
             //print(name + " path is clear");
             _agent.isStopped = false;
+            if(gameObject.tag == "EnemyMelee")
+            {
             _animator.SetTrigger("SkeletonWalk");
+
+            }
+            if(gameObject.tag == "EnemyRanger")
+            {
+                _animator.SetTrigger("RangedFly");
+            }
             _agent.destination = _target.transform.position;
         }
         
         else
         {
             //print(name + " path is not clear");
-            _animator.SetTrigger("SkeletonIdle");
+            if (gameObject.tag == "EnemyMelee")
+            {
+                _animator.SetTrigger("SkeletonIdle");
+            }
             _agent.destination = transform.position;
             _agent.isStopped = true;
         }
@@ -237,7 +248,10 @@ public class EnemyNavigationManager : MonoBehaviour
 
             case eEnemyState.AttackTarget:
                 _agent.isStopped = true;
-                _animator.SetTrigger("SkeletonIdle");
+                if (gameObject.tag == "EnemyMelee")
+                {
+                    _animator.SetTrigger("SkeletonIdle");
+                }
                 if (gameObject.tag != ("EnemyRanger"))
                 {
 

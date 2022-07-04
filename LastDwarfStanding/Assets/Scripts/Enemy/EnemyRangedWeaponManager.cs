@@ -23,12 +23,14 @@ public class EnemyRangedWeaponManager : MonoBehaviour
     private bool _arrowFired;
     public NavMeshAgent _agent;
     public bool CanFire = true;
+    private Animator _animator;
 
 
 
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _enemyNavigationManager = FindObjectOfType<EnemyNavigationManager>();
 
@@ -70,6 +72,8 @@ public class EnemyRangedWeaponManager : MonoBehaviour
         {
             _arrowFired = true;
             _agent.isStopped = true;
+            _animator.SetTrigger("RangedAttack");
+            _animator.SetTrigger("RangedAttack2");
             GameObject projectileClone = Instantiate(arrow, arrowSpawnPosition.position, arrowSpawnPosition.rotation);
             timeSinceLastArrow = 0;
 

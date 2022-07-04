@@ -52,7 +52,15 @@ public class EnemyHealthManager : MonoBehaviour
         else
         {
             enemyHealth -= damageToTake;
+            if(gameObject.tag == "EnemyMelee")
+            {
             _animator.SetTrigger("SkeletonHit");
+
+            }
+            if(gameObject.tag == "EnemyRanged")
+            {
+            _animator.SetTrigger("RangedHit");
+            }
         }
         enemyHealthBar.fillAmount = enemyHealth / enemyMaxHealth;
 
@@ -66,8 +74,15 @@ public class EnemyHealthManager : MonoBehaviour
         if (!isAlive) return;
         isAlive = false;
         navigationManager.navMeshAgent.isStopped = true;
-        _animator.SetTrigger("SkeletonDeath");
-        FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
+        if (gameObject.tag == "EnemyMelee")
+        {
+            _animator.SetTrigger("SkeletonDeath");
+        }
+        if (gameObject.tag == "EnemyRanged")
+        {
+            _animator.SetTrigger("RangedDeath");
+        }
+            FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
         {
