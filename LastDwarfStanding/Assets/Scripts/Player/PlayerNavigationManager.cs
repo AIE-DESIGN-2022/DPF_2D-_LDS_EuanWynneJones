@@ -37,12 +37,12 @@ public class PlayerNavigationManager : MonoBehaviour
 		//animator.SetTrigger("Running");
 		if(lastMove == 0)
         {
-			Debug.Log("idling");
+			//Debug.Log("idling");
 			animator.SetTrigger("Idle");
 		}
 		if (lastMove < 0 || lastMove > 0 && lastMove != 0)
         {
-			Debug.Log("Running");
+			//Debug.Log("Running");
 			animator.SetTrigger("Running");
 		
 			

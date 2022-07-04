@@ -12,7 +12,7 @@ public class EnemyWeapon : MonoBehaviour
 
     private void Start()
     {
-        didDamage = false;
+        didDamage = true;
         enemySoundManager = GetComponentInParent<EnemySoundManager>();
         animator = GetComponent<Animator>();
     }
@@ -28,7 +28,10 @@ public class EnemyWeapon : MonoBehaviour
         {
             if (other.gameObject.tag == "Player" && !didDamage)
             {
+                if(gameObject.tag == "EnemyMelee")
+                {
                 animatorEnemySprite.SetTrigger("SkeletonAttack");
+                }
                 didDamage = true;
                // Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
@@ -40,7 +43,10 @@ public class EnemyWeapon : MonoBehaviour
             }
             if (other.gameObject.tag == "Base" && !didDamage)
             {
-                animatorEnemySprite.SetTrigger("SkeletonAttack");
+                if (gameObject.tag == "EnemyMelee")
+                {
+                    animatorEnemySprite.SetTrigger("SkeletonAttack");
+                }
                 didDamage = true;
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("TakeDamage");
@@ -53,7 +59,10 @@ public class EnemyWeapon : MonoBehaviour
             //Debug.Log("EnemySiege IS Damageing" + name);
             if (other.gameObject.tag == "Player" && !didDamage)
             {
-                didDamage = true;
+                Debug.Log("Siege Attacking Player"); 
+                animatorEnemySprite.SetTrigger("SiegeAttack");
+               
+                    didDamage = true;
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("HammerCrush");
                 //Debug.Log("Played Sound" + enemySoundManager.name);
@@ -61,6 +70,10 @@ public class EnemyWeapon : MonoBehaviour
             }
             if (other.gameObject.tag == "Base" && !didDamage)
             {
+                Debug.Log("Siege Attacking Base");
+
+                animatorEnemySprite.SetTrigger("SiegeAttack");
+                
                 didDamage = true;
                 other.gameObject.GetComponent<BaseHealthManager>().TakeDamage(damage);
                 enemySoundManager.PlayAudioClip("HammerCrush");

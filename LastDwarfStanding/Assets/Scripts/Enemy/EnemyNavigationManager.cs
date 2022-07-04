@@ -106,6 +106,10 @@ public class EnemyNavigationManager : MonoBehaviour
             {
                 _animator.SetTrigger("RangedFly");
             }
+            if (gameObject.tag == "EnemySiege")
+            {
+                _animator.SetTrigger("SiegeWalk");
+            }
             _agent.destination = _target.transform.position;
         }
         
@@ -115,6 +119,10 @@ public class EnemyNavigationManager : MonoBehaviour
             if (gameObject.tag == "EnemyMelee")
             {
                 _animator.SetTrigger("SkeletonIdle");
+            }
+            if (gameObject.tag == "EnemySiege")
+            {
+                _animator.SetTrigger("SiegeIdle");
             }
             _agent.destination = transform.position;
             _agent.isStopped = true;
@@ -209,10 +217,11 @@ public class EnemyNavigationManager : MonoBehaviour
             }
                 if(gameObject.tag == "EnemySiege")
             {
+
                 weapon.GetComponent<Animator>().SetTrigger("Club");
                 //Debug.Log(gameObject.name + "Tried to do damage");
                 GetComponentInChildren<EnemyWeapon>().didDamage = false;
-               // _animator.SetTrigger("SkeletonAttack");
+                _animator.SetTrigger("SiegeAttack");
             }
                 //Debug.Log("Siege attacking animation");
                 _swingTimer = 0;
@@ -252,6 +261,10 @@ public class EnemyNavigationManager : MonoBehaviour
                 {
                     _animator.SetTrigger("SkeletonIdle");
                 }
+                if (gameObject.tag == "EnemySiege")
+                {
+                    _animator.SetTrigger("SiegeIdle");
+                }
                 if (gameObject.tag != ("EnemyRanger"))
                 {
 
@@ -289,6 +302,18 @@ public class EnemyNavigationManager : MonoBehaviour
         if (!isEnemyActive)
         {
             //Debug.Log("Enemy Stopped");
+            if (gameObject.tag == "EnemyMelee")
+            {
+                _animator.SetTrigger("SkeletonIdle");
+            }
+            if (gameObject.tag == "EnemyRanged")
+            {
+                _animator.SetTrigger("RangedFly");
+            }
+            if (gameObject.tag == "EnemySiege")
+            {
+                _animator.SetTrigger("SiegeIdle");
+            }
             _animator.SetTrigger("SkeletonIdle");
             _agent.destination = transform.position;
 

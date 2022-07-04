@@ -53,7 +53,7 @@ public class PlayerWeaponManager : MonoBehaviour
                 _playerNavigationManager.isControllerActive = false;
                 GetComponentInChildren<PlayerWeapon>().didDamage = false;
                 animator.SetTrigger("Attack");
-                Debug.Log("Attacking");
+                //Debug.Log("Attacking");
                 weapon.GetComponent<Animator>().SetTrigger("Swing");
                 //Debug.Log("Left Mouse Pressed weapon Swing");
                 _swingTimer = 0;

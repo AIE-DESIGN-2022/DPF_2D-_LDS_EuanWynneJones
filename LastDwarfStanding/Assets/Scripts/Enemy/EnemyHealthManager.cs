@@ -61,6 +61,10 @@ public class EnemyHealthManager : MonoBehaviour
             {
             _animator.SetTrigger("RangedHit");
             }
+            if (gameObject.tag == "EnemySiege")
+            {
+                _animator.SetTrigger("SiegeHit");
+            }
         }
         enemyHealthBar.fillAmount = enemyHealth / enemyMaxHealth;
 
@@ -77,6 +81,10 @@ public class EnemyHealthManager : MonoBehaviour
         if (gameObject.tag == "EnemyMelee")
         {
             _animator.SetTrigger("SkeletonDeath");
+        }
+        if (gameObject.tag == "EnemySiege")
+        {
+            _animator.SetTrigger("SiegeDeath");
         }
         if (gameObject.tag == "EnemyRanged")
         {
