@@ -16,6 +16,7 @@ public class DayNightManager : MonoBehaviour
     public GameObject player;
 
     public SpriteRenderer[] sceneSprites;
+    public List<SpriteRenderer> SpritesInScene;
 
     public Color dayColour = new Color(255, 255, 255, 255);
     public Color nightColour = new Color(119, 122, 154, 255);
@@ -25,7 +26,7 @@ public class DayNightManager : MonoBehaviour
 
     //public bool lerpColour;
 
-    
+
     float t;
     public float dayRate = 1;
     public float nightRate = 1;
@@ -45,7 +46,7 @@ public class DayNightManager : MonoBehaviour
 
         //sceneImages = FindObjectOfType<Image>();
         isDayTime = true;
-      //  ChangeNightTimeMaterial();
+        //  ChangeNightTimeMaterial();
 
 
 
@@ -65,14 +66,14 @@ public class DayNightManager : MonoBehaviour
             //Debug.Log("Day Night swiching");
         }
 
-      /*  if (isDayTime)
-        {
-            LinearColourTransitionToDay();
-        }
-        else
-        {
-            LinearColourTransitionToNight();
-        }*/
+        /*  if (isDayTime)
+          {
+              LinearColourTransitionToDay();
+          }
+          else
+          {
+              LinearColourTransitionToNight();
+          }*/
 
 
         t += Time.deltaTime / lengthOfDay;
@@ -96,9 +97,9 @@ public class DayNightManager : MonoBehaviour
         else
         {
             isDayTime = true;
-           // ChangeDayTimeColours();
+            // ChangeDayTimeColours();
             targetColour = dayColour;
-            _targetRate = dayRate;   
+            _targetRate = dayRate;
         }
         //ChangeNightTimeMaterial();
     }
@@ -108,11 +109,11 @@ public class DayNightManager : MonoBehaviour
     private void ChangeNightTimeColours()
     {
         Debug.Log("Changing colour to night");
-        foreach(Image image in sceneImages)
+        foreach (Image image in sceneImages)
         {
             image.GetComponent<Image>().color = nightColour;
         }
-        
+
     }
 
     private void ChangeDayTimeColours()
@@ -130,16 +131,16 @@ public class DayNightManager : MonoBehaviour
         currentColor = sceneImages[0].color;
         foreach (Image image in sceneImages)
         {
-          
+
             if (image.color != targetColour)
             {
                 //Debug.Log(image.name + " Lerping to target colour");
-                image.color = Color.LerpUnclamped(currentColor, targetColour, _targetRate *Time.deltaTime);
+                image.color = Color.LerpUnclamped(currentColor, targetColour, _targetRate * Time.deltaTime);
 
                 if (image == sceneImages[0]) durationTimer += Time.deltaTime;
 
 
-                    //Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
+                //Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
                 if (Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)) < lerpVectorDistance)
                 {
                     //currentColor = targetColour;
@@ -154,7 +155,9 @@ public class DayNightManager : MonoBehaviour
             }
         }
         currentSpriteColor = sceneSprites[0].color;
-        foreach (SpriteRenderer sprite in sceneSprites)
+
+
+        foreach (SpriteRenderer sprite in SpritesInScene)
         {
 
             if (sprite.color != targetColour)
@@ -179,10 +182,11 @@ public class DayNightManager : MonoBehaviour
                 }
             }
         }
+
     }
 
-  
-    
+
+
     private Vector3 ColorToVector(Color color)
     {
         return new Vector3(color.r, color.g, color.b);

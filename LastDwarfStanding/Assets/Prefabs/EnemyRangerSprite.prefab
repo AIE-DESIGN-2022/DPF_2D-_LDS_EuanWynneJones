@@ -879,6 +879,7 @@ MonoBehaviour:
   loot: {fileID: 7155843684787612373, guid: b8223706a79b827459692c3439262ae3, type: 3}
   spawnPosition: {fileID: 3961682528504418899}
   enemySoundManager: {fileID: 2093673380251646299}
+  dayNightManager: {fileID: 1055392321910168175, guid: 4ef52f245d53cc147b9f7b702ff0abb1, type: 3}
 --- !u!1 &8834029322607514832
 GameObject:
   m_ObjectHideFlags: 0

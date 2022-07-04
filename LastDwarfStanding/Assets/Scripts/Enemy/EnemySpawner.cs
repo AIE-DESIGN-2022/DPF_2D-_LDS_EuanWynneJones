@@ -13,31 +13,45 @@ public class EnemySpawner : MonoBehaviour
     public GameObject siegeSpawnLocation;
     public GameObject siegeEnemyPrefab;
 
+    //public SpriteRenderer[] spriteRenderersInScene;
+    public DayNightManager dayNightManager;
+
+    private void Start()
+    {
+       
+    }
+     
 
     public GameObject SpawnEmemyMelee()
     {
+        
         GameObject newEnemy = Instantiate(meleeEnemyPrefab, meleeSpawnLocation.transform.position, meleeSpawnLocation.transform.rotation);
+        newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
         //Debug.Log("Spawning Enemy");
-
+        dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
         return newEnemy;
     }
 
     public GameObject SpawnEmemyRanged()
     {
         GameObject newEnemy = Instantiate(rangedEnemyPrefab, rangedSpawnLocation.transform.position, rangedSpawnLocation.transform.rotation);
+        newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
         //Debug.Log("Spawning Enemy");
-
+        dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
         return newEnemy;
     }
 
     public GameObject SpawnEmemySiege()
     {
         GameObject newEnemy = Instantiate(siegeEnemyPrefab, siegeSpawnLocation.transform.position, siegeSpawnLocation.transform.rotation);
+        newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
+        dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
         //Debug.Log("Spawning Enemy");
 
         return newEnemy;
     }
+
 }

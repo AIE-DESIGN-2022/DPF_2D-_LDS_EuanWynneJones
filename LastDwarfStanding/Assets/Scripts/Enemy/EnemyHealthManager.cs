@@ -20,11 +20,14 @@ public class EnemyHealthManager : MonoBehaviour
     public EnemySoundManager enemySoundManager;
     private Animator _animator;
 
+    //public DayNightManager dayNightManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        //dayNightManager = GetComponent<DayNightManager>();
         _animator = GetComponent<Animator>();
-        navigationManager = GetComponent<EnemyNavigationManager>(); 
+        navigationManager = GetComponent<EnemyNavigationManager>();
         enemySoundManager = GetComponent<EnemySoundManager>();
         enemyHealth = enemyMaxHealth;
         _parent = enemyHealthBar.transform.parent;
@@ -52,14 +55,14 @@ public class EnemyHealthManager : MonoBehaviour
         else
         {
             enemyHealth -= damageToTake;
-            if(gameObject.tag == "EnemyMelee")
+            if (gameObject.tag == "EnemyMelee")
             {
-            _animator.SetTrigger("SkeletonHit");
+                _animator.SetTrigger("SkeletonHit");
 
             }
-            if(gameObject.tag == "EnemyRanged")
+            if (gameObject.tag == "EnemyRanged")
             {
-            _animator.SetTrigger("RangedHit");
+                _animator.SetTrigger("RangedHit");
             }
             if (gameObject.tag == "EnemySiege")
             {
@@ -90,15 +93,15 @@ public class EnemyHealthManager : MonoBehaviour
         {
             _animator.SetTrigger("RangedDeath");
         }
-            FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
+        FindObjectOfType<EnemyWaveManager>().EnemnyDied(this.gameObject);
         gameObject.tag = "DeadEnemy";
         if (!LootDropped)
         {
-        SpawnLoot();
-        enemySoundManager.PlayAudioClip("EnemyDeath");
-
+            SpawnLoot();
+            enemySoundManager.PlayAudioClip("EnemyDeath");
         }
-        Destroy(gameObject,0.7f);
+
+        Destroy(gameObject, 0.7f);
         LootDropped = false;
     }
 

@@ -176,6 +176,7 @@ public class EnemyWaveManager : MonoBehaviour
     public void EnemnyDied(GameObject enemy)
     {
         currentWave.Remove(enemy);
+        dayNightManager.SpritesInScene.Remove(enemy.GetComponent<SpriteRenderer>());
     }
 
     public int WaveCount { get { return waveCount; } }
