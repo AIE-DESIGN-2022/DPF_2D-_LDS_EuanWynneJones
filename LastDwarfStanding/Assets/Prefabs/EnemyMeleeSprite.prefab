@@ -249,7 +249,7 @@ MonoBehaviour:
   enemyState: 0
   _target: {fileID: 0}
   _stepBack: {fileID: 3197920049514371078}
-  stoppingRange: 2.8
+  stoppingRange: 1.2
   stepBackDistance: 2
   laneNumber: 1
 --- !u!114 &1429059443416751917
@@ -385,7 +385,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1429059443416751916}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.44
+  m_Radius: 0.19
   m_Speed: 3.5
   m_Acceleration: 500000
   avoidancePriority: 50

@@ -199,7 +199,7 @@ public class EnemyNavigationManager : MonoBehaviour
         }
         else
         {
-            print(name + "not getting any hits");
+            //print(name + "not getting any hits");
         }
 
         return true;
