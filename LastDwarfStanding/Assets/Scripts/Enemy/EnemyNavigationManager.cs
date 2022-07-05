@@ -119,13 +119,17 @@ public class EnemyNavigationManager : MonoBehaviour
             if (gameObject.tag == "EnemyMelee")
             {
                 _animator.SetTrigger("SkeletonIdle");
+                _agent.destination = transform.position;
+                _agent.isStopped = true;
             }
             if (gameObject.tag == "EnemySiege")
             {
                 _animator.SetTrigger("SiegeIdle");
+                _agent.destination = transform.position;
+                _agent.isStopped = true;
             }
-            _agent.destination = transform.position;
-            _agent.isStopped = true;
+            //_agent.destination = transform.position;
+            //_agent.isStopped = true;
         }
     }
 
@@ -195,7 +199,7 @@ public class EnemyNavigationManager : MonoBehaviour
         }
         else
         {
-            //print(name + "not getting any hits");
+            print(name + "not getting any hits");
         }
 
         return true;
