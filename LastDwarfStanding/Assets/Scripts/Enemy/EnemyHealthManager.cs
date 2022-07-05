@@ -101,6 +101,8 @@ public class EnemyHealthManager : MonoBehaviour
             enemySoundManager.PlayAudioClip("EnemyDeath");
         }
 
+
+
         Destroy(gameObject, 0.7f);
         LootDropped = false;
     }

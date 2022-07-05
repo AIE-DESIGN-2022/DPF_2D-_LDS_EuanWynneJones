@@ -15,7 +15,7 @@ public class DayNightManager : MonoBehaviour
     public Image[] sceneImages;
     public GameObject player;
 
-    public SpriteRenderer[] sceneSprites;
+    //public SpriteRenderer[] sceneSprites;
     public List<SpriteRenderer> SpritesInScene;
 
     public Color dayColour = new Color(255, 255, 255, 255);
@@ -54,7 +54,11 @@ public class DayNightManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+
+
     {
+
+        //print(SpritesInScene);
         currentTime += Time.deltaTime;
         //print("CurrentTime = " + currentTime);
 
@@ -154,7 +158,7 @@ public class DayNightManager : MonoBehaviour
                 }
             }
         }
-        currentSpriteColor = sceneSprites[0].color;
+        currentSpriteColor = SpritesInScene[0].color;
 
 
         foreach (SpriteRenderer sprite in SpritesInScene)
@@ -165,7 +169,7 @@ public class DayNightManager : MonoBehaviour
                 //Debug.Log(image.name + " Lerping to target colour");
                 sprite.color = Color.LerpUnclamped(currentColor, targetColour, _targetRate * Time.deltaTime);
 
-                if (sprite == sceneSprites[0]) durationTimer += Time.deltaTime;
+                if (sprite == SpritesInScene[0]) durationTimer += Time.deltaTime;
 
 
                 //Debug.Log("Colour Vector Distance is " + Vector3.Distance(ColorToVector(image.color), ColorToVector(targetColour)));
@@ -174,7 +178,7 @@ public class DayNightManager : MonoBehaviour
                     //currentColor = targetColour;
                     sprite.color = targetColour;
 
-                    if (sprite == sceneSprites[0])
+                    if (sprite == SpritesInScene[0])
                     {
                         transitionDurations.Add(durationTimer);
                         durationTimer = 0;

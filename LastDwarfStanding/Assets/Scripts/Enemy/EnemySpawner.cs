@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-       
+        //dayNightManager = GetComponent<DayNightManager>();
     }
      
 
@@ -26,29 +26,34 @@ public class EnemySpawner : MonoBehaviour
     {
         
         GameObject newEnemy = Instantiate(meleeEnemyPrefab, meleeSpawnLocation.transform.position, meleeSpawnLocation.transform.rotation);
-        newEnemy.GetComponent<SpriteRenderer>();
+        //newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
         //Debug.Log("Spawning Enemy");
         dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
+
+        //Debug.Log("Adding Enemy to list" + newEnemy);
+
         return newEnemy;
     }
 
     public GameObject SpawnEmemyRanged()
     {
         GameObject newEnemy = Instantiate(rangedEnemyPrefab, rangedSpawnLocation.transform.position, rangedSpawnLocation.transform.rotation);
-        newEnemy.GetComponent<SpriteRenderer>();
+        //newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
         //Debug.Log("Spawning Enemy");
         dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
+       // Debug.Log("Adding Enemy to list" + newEnemy);
         return newEnemy;
     }
 
     public GameObject SpawnEmemySiege()
     {
         GameObject newEnemy = Instantiate(siegeEnemyPrefab, siegeSpawnLocation.transform.position, siegeSpawnLocation.transform.rotation);
-        newEnemy.GetComponent<SpriteRenderer>();
+        //newEnemy.GetComponent<SpriteRenderer>();
         newEnemy.transform.parent = transform;
         dayNightManager.SpritesInScene.Add(newEnemy.GetComponent<SpriteRenderer>());
+        //Debug.Log("Adding Enemy to list" + newEnemy);
         //Debug.Log("Spawning Enemy");
 
         return newEnemy;
