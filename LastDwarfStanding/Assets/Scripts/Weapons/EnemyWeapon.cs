@@ -10,6 +10,7 @@ public class EnemyWeapon : MonoBehaviour
     public Animator animator;
     public Animator animatorEnemySprite;
 
+    
     private void Start()
     {
         didDamage = true;
@@ -28,10 +29,9 @@ public class EnemyWeapon : MonoBehaviour
         {
             if (other.gameObject.tag == "Player" && !didDamage)
             {
-                if(gameObject.tag == "EnemyMelee")
-                {
+                
                 animatorEnemySprite.SetTrigger("SkeletonAttack");
-                }
+                
                 didDamage = true;
                // Debug.Log("Damageing Player");
                 other.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(damage);
